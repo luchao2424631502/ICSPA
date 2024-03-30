@@ -134,12 +134,12 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sbb(src, dest, data_size);
 #else
-	// alu 运算规则: x - y - CF = x + ~y + 1 + CF;
+	// alu 运算规则: x - y - CF = x + ~y + 1 + ~CF + 1 = x + ~y;
 	if (cpu.eflags.CF == 0)
 		return alu_sub(src, dest, data_size);
 
-	uint32_t ans = alu_add(0xFFFFFFFF, dest, data_size);
-	return alu_sub(src, dest, data_size);
+	uint32_t ans = alu_add(0xFFFFFFFF, src, data_size);
+	return alu_sub(ans, dest, data_size);
 #endif
 }
 
