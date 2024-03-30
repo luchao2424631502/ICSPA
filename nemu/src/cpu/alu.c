@@ -329,8 +329,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shl(src, dest, data_size);
 #else
-	uint8_t CF, PF = 0;
-	uint32_t ans;
+	uint8_t CF = 0, PF = 0;
 
 	if (src == 1) {
 		cpu.eflags.OF = ((0x1 & (dest >> (data_size - 1))) == 
@@ -348,7 +347,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 	PF = (PF & 0x1) ? 0 : 1;
 
 	// 取对齐值
-	ans = dest & ((1 << data_size) - 1);
+	uint32_t ans = dest & ((1 << data_size) - 1);
 	
 	cpu.eflags.CF = CF;
 	cpu.eflags.SF = (ans >> (data_size - 1)) & 0x1;
