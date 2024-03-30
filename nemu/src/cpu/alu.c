@@ -138,8 +138,36 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 	if (cpu.eflags.CF == 0)
 		return alu_sub(src, dest, data_size);
 
-	uint32_t ans = alu_add(0xFFFFFFFF, src, data_size);
-	return alu_sub(ans, dest, data_size);
+	uint8_t PF = 0;
+	uint8_t fn, cout = 0, cout_1 = 0;
+	uint8_t sub = 1;
+        uint8_t	cin = 0;
+	uint32_t ans = 0;
+
+	src = ~src;
+
+	for (int i = 0; i < data_size; i++) {
+		fn = (get_bit(i, src) + get_bit(i, dest) + cin) & 0x1;
+		cout = (get_bit(i, src) + get_bit(i, dest) + cin) >> 1;
+		cin = cout;
+
+		(fn == 0) ? set_bit0(i, &ans) : set_bit1(i, &ans);
+		if ((data_size - 2) == i)
+			cout_1 = cout;
+	}
+
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, ans) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
+	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
+	cpu.eflags.SF = get_bit((data_size - 1), ans) ? 1 : 0;
+	cpu.eflags.OF = cout ^ cout_1;
+	cpu.eflags.CF = sub ^ cout;
+	cpu.eflags.PF = PF;
+
+	return ans;
 #endif
 }
 
