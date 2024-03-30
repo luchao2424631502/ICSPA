@@ -280,6 +280,8 @@ int32_t alu_idiv(int64_t src, int64_t dest, size_t data_size)
 #endif
 }
 
+/* llc FINISHED this file in 24.3.30 */
+
 uint32_t alu_mod(uint64_t src, uint64_t dest)
 {
 #ifdef NEMU_REF_ALU
