@@ -195,7 +195,7 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 		cpu.eflags.OF = 0;
 	}
 
-	return ans & ~tmp;
+	return ans; 
 
 	if (data_size == 32) { // ans = edx:eax
 		// 因为是32bit, 只能靠溢出来设置标志位
