@@ -47,7 +47,8 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	cpu.eflags.CF = 0 ^ cout;
 	cpu.eflags.PF = PF;
 
-	return ans & ((0x1UL << data_size)-1);
+	
+	return data_size == 32 ? ans : ans & ((0x1UL << data_size)-1);
 #endif
 }
 
