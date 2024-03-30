@@ -209,7 +209,29 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_imul(src, dest, data_size);
 #else
-	return 0;
+	uint8_t sign_d = (dest >> (data_size - 1)) & 0x1;
+	uint8_t sign_s = (src >> (data_size - 1)) & 0x1;
+	uint8_t sign = sign_d ^ sign_s; // 判断结果的符号
+	uint64_t tmp;
+	if (data_size == 32)
+		tmp = 0xFFFFFFFF00000000;  
+	else if (data_size == 16)
+		tmp = 0xFFFF0000;
+	else
+		tmp = 0x0000FF00;
+
+	uint64_t ans = 0;
+	ans = (uint64_t)src * (uint64_t)dest; 
+
+	if ((ans & tmp) == (((sign << data_size) - 1) << data_size)) {
+		cpu.eflags.CF = 1;
+		cpu.eflags.OF = 1;
+	} else {
+		cpu.eflags.CF = 0;
+		cpu.eflags.OF = 0;
+	}
+
+	return ans;
 #endif
 }
 
