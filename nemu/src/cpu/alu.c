@@ -22,7 +22,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 #else
 	// uint8_t ZF, SF, OF, CF;
 	uint8_t PF = 0;
-	uint8_t fn, cout, cout_1 = 0;
+	uint8_t fn, cout = 0, cout_1 = 0;
         uint8_t	cin = 0;
 	uint32_t ans = 0;
 
