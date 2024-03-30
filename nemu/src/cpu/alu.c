@@ -389,7 +389,7 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
 	cpu.eflags.PF = PF;
 
-	return 0;
+	return ans;
 #endif
 }
 
