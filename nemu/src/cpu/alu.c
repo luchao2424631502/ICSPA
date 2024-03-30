@@ -329,10 +329,33 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shl(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint8_t CF, PF = 0;
+	uint32_t ans;
+
+	if (src == 1) {
+		cpu.eflags.OF = ((0x1 & (dest >> (data_size - 1))) == 
+				 (0x1 & (dest >> (data_size - 2)))) ? 0 : 1;
+	}
+	
+	for (int i = 0; i < src; i++) {
+		CF = (dest >> (data_size - 1)) & 0x1;
+		dest = dest << 1;
+	}
+
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, ans) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
+	// 取对齐值
+	ans = dest & ((1 << data_size) - 1);
+	
+	cpu.eflags.CF = CF;
+	cpu.eflags.SF = (ans >> (data_size - 1)) & 0x1;
+	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
+	cpu.eflags.PF = PF;
+
+	return ans;
 #endif
 }
 
