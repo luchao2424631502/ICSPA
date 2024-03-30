@@ -398,13 +398,38 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sar(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint8_t CF = 0, PF = 0, sign;
+	uint32_t ans;
+
+	// For the SAR instruction, the OF flag is cleared for all 1-bit shifts
+	if (src == 1)
+		cpu.eflags.OF = 0;
+
+	sign = (dest >> (data_size - 1)) & 0x1; // 拿到original value的符号位
+	for (int i = 0; i < src; i++) {
+		CF = dest & 0x1;
+		dest = dest >> 1;
+		// sets or clears the most significant bit depends on sign
+		sign ? set_bit1(data_size - 1, &dest) : set_bit0(data_size - 1, &dest); 
+	}
+
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, dest) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
+	ans = (data_size == 32) ? dest : dest & ((1 << data_size) - 1); // 保留有效位
+
+	cpu.eflags.CF = CF;
+	cpu.eflags.SF = sign;
+	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
+	cpu.eflags.PF = PF;
+
+	return ans;
 #endif
 }
 
+// sal 和 shl 实现是一样的
 uint32_t alu_sal(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
