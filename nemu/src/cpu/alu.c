@@ -347,8 +347,6 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 	}
 	PF = (PF & 0x1) ? 0 : 1;
 
-	if (data_size == 32)
-		ans = 
 	ans = (data_size == 32) ? dest : dest & ((1 << data_size) - 1);
 
 	cpu.eflags.CF = CF;
