@@ -26,13 +26,13 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
         uint8_t	cin = 0;
 	uint32_t ans = 0;
 
-	for (int i = 0; i < 32; i++) {
+	for (int i = 0; i < data_size; i++) {
 		fn = (get_bit(i, src) + get_bit(i, dest) + cin) & 0x1;
 		cout = (get_bit(i, src) + get_bit(i, dest) + cin) >> 1;
 		cin = cout;
 
 		(fn == 0) ? set_bit0(i, &ans) : set_bit1(i, &ans);
-		if (30 == i)
+		if ((data_size - 2) == i)
 			cout_1 = cout;
 	}
 
@@ -47,8 +47,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	cpu.eflags.CF = 0 ^ cout;
 	cpu.eflags.PF = PF;
 
-	
-	return data_size == 32 ? ans : ans & ((0x1UL << data_size)-1);
+	return ans;
 #endif
 }
 
