@@ -198,39 +198,8 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 		cpu.eflags.OF = 0;
 	}
 
-	return ans; 
-
-	if (data_size == 32) { // ans = edx:eax
-		// 因为是32bit, 只能靠溢出来设置标志位
-		if (ans & tmp) {
-			cpu.eflags.CF = 1;
-			cpu.eflags.OF = 1;
-		} else {
-			cpu.eflags.CF = 0;
-			cpu.eflags.OF = 0;
-		}
-	} else if(data_size == 16) { // ans = DX:AX
-		// 判断DX是否全0
-		if (ans & (((1 << data_size) - 1) << data_size)) {// 不全为0 说明溢出
-			cpu.eflags.CF = 1;
-			cpu.eflags.OF = 1;
-		} else {
-			cpu.eflags.CF = 0;
-			cpu.eflags.OF = 0;
-		}
-	} else { // ans = ah:al
-		// 判断AH是否全0
-		if (ans & (((1 << data_size) - 1) << data_size)) {
-			cpu.eflags.CF = 1;
-			cpu.eflags.OF = 1;
-		} else {
-			cpu.eflags.CF = 0;
-			cpu.eflags.OF = 0;
-		}
-	}
-
 	// SF, ZF, AF, PF are undefined
-	return ans;
+	return ans; 
 #endif
 }
 
@@ -252,10 +221,17 @@ uint32_t alu_div(uint64_t src, uint64_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_div(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	// 看起来像是只需要返回商, 那么为什么需要实现余数?
+	if (src == 0)
+		return dest / src; // Exception Floating
+	// 减法实现触发
+	uint32_t ans = 0;
+	while (dest >= src) {
+		ans += 1;
+		dest -= src;
+	}
+	
+	return ans;
 #endif
 }
 
@@ -277,10 +253,11 @@ uint32_t alu_mod(uint64_t src, uint64_t dest)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_mod(src, dest);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	if (dest < src)
+		return dest & 0xFFFFFFFF;
+	while (dest >= src)
+		dest -= src;
+	return dest & 0xFFFFFFFF;
 #endif
 }
 
