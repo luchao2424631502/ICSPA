@@ -1,6 +1,6 @@
 #include "cpu/cpu.h"
 
-/* 24.3.30 位运算 */
+/* llc add 24.3.30 bit operation */
 static inline uint8_t get_bit(uint8_t index, uint32_t num)
 {
 	return (num >> index) & 0x1U;
@@ -15,6 +15,7 @@ static inline void set_bit1(uint8_t index, uint32_t *num)
 {
 	*num = *num | (0x1 << index);
 }
+/* llc end */
 
 /* 注意这里的data_size实际上指的是进行8/16/32 bit运算
  * 但是README上说 截取低位其实有一点描述不准确 */
@@ -177,10 +178,20 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_mul(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	// 根据README, 这里仅仅实现2个32 bit整数乘法
+	uint32_t ans = dest * src;
+
+	// 判断是否溢出来设置OF CF标志位
+	if ((ans / dest) == src) {
+		cpu.eflags.CF = 0;
+		cpu.eflags.OF = 0;
+	} else {
+		cpu.eflags.CF = 1;
+		cpu.eflags.OF = 1;
+	}
+	//
+	// SF, ZF, AF, PF are undefined
+	return ans;
 #endif
 }
 
