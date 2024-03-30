@@ -187,8 +187,9 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 		tmp = 0xFFFF0000;
 	else
 		tmp = 0x0000FF00;
-	for (int i = 0; i < src; i++)
-		ans += dest;
+	// for (int i = 0; i < src; i++)
+	// 	ans += dest;
+	ans = dest * src;
 
 	if (ans & tmp) {
 		cpu.eflags.CF = 1;
@@ -208,10 +209,6 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_imul(src, dest, data_size);
 #else
-	int64_t ans = src * dest;
-
-	
-	return ans;
 
 #endif
 }
