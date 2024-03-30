@@ -266,7 +266,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 
 	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
 	cpu.eflags.PF = PF;
-	cpu.eflags.SF = ans & ((1 << data_size) - 1);
+	cpu.eflags.SF = ans & (1 << (data_size - 1));
 
 	return ans;
 #endif
