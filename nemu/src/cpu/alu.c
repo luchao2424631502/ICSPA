@@ -1,5 +1,6 @@
 #include "cpu/cpu.h"
 
+/* 24.3.30 位运算 */
 static inline uint8_t get_bit(uint8_t index, uint32_t num)
 {
 	return (num >> index) & 0x1U;
@@ -129,7 +130,7 @@ uint32_t alu_sub(uint32_t src, uint32_t dest, size_t data_size)
 #endif
 }
 
-/* 已知x-y=x+~y+1, 那么x-y-CF(带进位)在数值上是缺少1的, 所以1可以根据CF的值减掉 */
+/* 已知x-y=x+~y+1, 那么x-y-CF(带进位)在数值上是缺少1的, 所以cin的1可以根据CF的值减掉 */
 uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
@@ -250,10 +251,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_and(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	return (dest & src) & ((1 << data_size) - 1);
 #endif
 }
 
