@@ -178,18 +178,37 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_mul(src, dest, data_size);
 #else
-	// 根据README, 这里仅仅实现2个32 bit整数乘法
 	uint32_t ans = dest * src;
 
-	// 判断是否溢出来设置OF CF标志位
-	if ((ans / dest) == src) {
-		cpu.eflags.CF = 0;
-		cpu.eflags.OF = 0;
-	} else {
-		cpu.eflags.CF = 1;
-		cpu.eflags.OF = 1;
+	if (data_size == 32) { // ans = edx:eax
+		// 因为是32bit, 只能靠溢出来设置标志位
+		if ((ans / dest) == src) {
+			cpu.eflags.CF = 0;
+			cpu.eflags.OF = 0;
+		} else {
+			cpu.eflags.CF = 1;
+			cpu.eflags.OF = 1;
+		}
+	} else if(data_size == 16) { // ans = DX:AX
+		// 判断DX是否全0
+		if (ans & (((1 << data_size) - 1) << data_size)) {// 不全为0 说明溢出
+			cpu.eflags.CF = 1;
+			cpu.eflags.OF = 1;
+		} else {
+			cpu.eflags.CF = 0;
+			cpu.eflags.OF = 0;
+		}
+	} else { // ans = ah:al
+		// 判断AH是否全0
+		if (ans & (((1 << data_size) - 1) << data_size)) {
+			cpu.eflags.CF = 1;
+			cpu.eflags.OF = 1;
+		} else {
+			cpu.eflags.CF = 0;
+			cpu.eflags.OF = 0;
+		}
 	}
-	//
+
 	// SF, ZF, AF, PF are undefined
 	return ans;
 #endif
