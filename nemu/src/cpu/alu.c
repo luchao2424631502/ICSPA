@@ -134,10 +134,55 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sbb(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	// x - y - CF = (x + ~y + 1) + ~CF + 1;
+	// uint8_t ZF, SF, OF, CF;
+	// 如果调用alu_sub会影响一次eflags标志位, 那么还是带着CF进行运算
+	uint8_t PF = 0;
+	uint8_t fn, cout = 0, cout_1 = 0;
+	uint8_t sub = 1;
+	uint8_t	cin = sub;
+	uint32_t ans = 0;
+
+	src = ~src;
+
+	// x - y = x + ~y + 1
+	for (int i = 0; i < data_size; i++) {
+		fn = (get_bit(i, src) + get_bit(i, dest) + cin) & 0x1;
+		cout = (get_bit(i, src) + get_bit(i, dest) + cin) >> 1;
+		cin = cout;
+
+		(fn == 0) ? set_bit0(i, &ans) : set_bit1(i, &ans);
+		if ((data_size - 2) == i)
+			cout_1 = cout;
+	}
+
+	// - Cf = + ~CF + 1
+	cin = 1;
+	dest = ans, src = ~(cpu.eflags.CF);
+	ans = 0;
+	for (int i = 0; i < data_size; i++) {
+		fn = (get_bit(i, src) + get_bit(i, dest) + cin) & 0x1;
+		cout = (get_bit(i, src) + get_bit(i, dest) + cin) >> 1;
+		cin = cout;
+
+		(fn == 0) ? set_bit0(i, &ans) : set_bit1(i, &ans);
+		if ((data_size - 2) == i)
+			cout_1 = cout;
+	}
+
+	// 统计最低字节的1的奇偶个数
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, ans) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
+	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
+	cpu.eflags.SF = get_bit((data_size - 1), ans) ? 1 : 0;
+	cpu.eflags.OF = cout ^ cout_1;
+	cpu.eflags.CF = sub ^ cout;
+	cpu.eflags.PF = PF;
+
+	return ans;
 #endif
 }
 
