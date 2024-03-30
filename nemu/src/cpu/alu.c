@@ -1,14 +1,60 @@
 #include "cpu/cpu.h"
 
+struct bit_add_ans {
+	uint8_t cn;
+	uint8_t cout;
+};
+
+static inline struct bit_add_ans bit_add(uint8_t a, uint8_t b, uint8_t cf)
+{
+	struct bit_add_ans ans;
+	ans.cout = (a + b + cf) >> 0x1U;
+	ans.cn = (a + b + cf) & 0x1U;
+	return ans;
+}
+
+static inline uint8_t get_bit(uint8_t index, uint32_t num)
+{
+	
+	return (num & (0x1U << index));
+}
+
+static inline void set_bit(uint8_t index, uint32_t *num, uint8_t value)
+{
+	*num = *num | (value << index);
+}
+
 uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
 	return __ref_alu_add(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint8_t OF, CF, ZF, SF;
+	uint8_t Cn, Cn_1 = 0;
+	uint8_t cin = 0; 
+	uint32_t res = 0;
+
+	for (size_t i = 0; i < 32; i++) {
+		struct bit_add_ans ans = bit_add(get_bit(i, src), get_bit(i, dest), cin);
+
+		set_bit(i, &res, ans.cn); // 保存运算结果
+		cin = ans.cout; // 保存进位值
+		if (i == 30)
+			Cn_1 = cin;
+	}
+	Cn = cin;
+	
+	OF = Cn ^ Cn_1;
+	SF = get_bit(31, res);
+	ZF = (res == 0) ? 1 : 0;
+	CF = 0 ^ Cn;
+
+	cpu.eflags.OF = OF;
+	cpu.eflags.SF = SF;
+	cpu.eflags.ZF = ZF;
+	cpu.eflags.CF = CF;	
+
+	return res;
 #endif
 }
 
