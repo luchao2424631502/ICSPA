@@ -190,7 +190,6 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 	// for (int i = 0; i < src; i++)
 	// 	ans += dest;
 	ans = (uint64_t)dest * (uint64_t)src;
-	return ans;
 
 	if (ans & tmp) {
 		cpu.eflags.CF = 1;
