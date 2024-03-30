@@ -135,8 +135,10 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_sbb(src, dest, data_size);
 #else
 	// alu 运算规则: x - y - CF = x + ~y + 1 + CF;
-	uint32_t ans = alu_sub(cpu.eflags.CF, src, data_size);
-	return alu_sub(ans, dest, data_size);
+	if (cpu.eflags.CF == 0)
+		return alu_sub(src, dest, data_size);
+
+	return alu_sub(src-1, dest, data_size);
 #endif
 }
 
