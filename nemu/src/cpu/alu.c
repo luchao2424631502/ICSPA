@@ -410,9 +410,32 @@ uint32_t alu_sal(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sal(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint8_t CF = 0, PF = 0;
+	uint32_t ans;
+
+	// For left shifts, 置OF规则一样
+	if (src == 1)
+		cpu.eflags.OF = ((0x1 & (dest >> (data_size - 1))) == 
+				 (0x1 & (dest >> (data_size - 2)))) ? 0 : 1;
+
+	for (int i = 0; i < src; i++) {
+		CF = (dest >> (data_size - 1)) & 0x1;
+		dest = dest << 1; // 最低位默认置0
+	}
+
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, dest) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
+	// 1 << 32 会溢出
+	ans = (data_size == 32) ? dest : dest & ((1 << data_size) - 1);
+
+	cpu.eflags.CF = CF;
+	cpu.eflags.SF = (dest >> (data_size - 1)) & 0x1;
+	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
+	cpu.eflags.PF = PF;
+
+	return ans;
 #endif
 }
