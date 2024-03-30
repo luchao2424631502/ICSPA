@@ -255,7 +255,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 	uint8_t fn;
 	for (int i = 0; i < data_size; i++) {
 		fn = get_bit(i, src) & get_bit(i, dest);
-		(fn == 1) ? set_bit1(i, ans) : set_bit0(i, ans);
+		(fn == 1) ? set_bit1(i, &ans) : set_bit0(i, &ans);
 	}
 	return ans;
 #endif
