@@ -212,6 +212,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	uint8_t sign_d = (dest >> (data_size - 1)) & 0x1;
 	uint8_t sign_s = (src >> (data_size - 1)) & 0x1;
 	uint8_t sign = sign_d ^ sign_s; // 判断结果的符号
+	uint64_t tmp;
 	if (data_size == 32)
 		tmp = 0xFFFFFFFF00000000;  
 	else if (data_size == 16)
