@@ -208,10 +208,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_imul(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	return dest * src;
 #endif
 }
 
@@ -221,12 +218,13 @@ uint32_t alu_div(uint64_t src, uint64_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_div(src, dest, data_size);
 #else
+	// 方案1
 	return dest / src;
 
+	// 方案2: 减法实现无符号除法
 	if (src == 0)
 		return dest / src; // Exception Floating
 
-	// 减法实现无符号除法
 	uint32_t ans = 0;
 	while (dest >= src) {
 		ans += 1;
