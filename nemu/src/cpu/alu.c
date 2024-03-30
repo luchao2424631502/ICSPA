@@ -86,7 +86,6 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 	cpu.eflags.PF = PF;
 
 	return ans;
-
 #endif
 }
 
@@ -95,10 +94,38 @@ uint32_t alu_sub(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sub(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	// x - y = x + ~y + 1;
+	// uint8_t ZF, SF, OF, CF;
+	uint8_t PF = 0;
+	uint8_t fn, cout = 0, cout_1 = 0;
+	uint8_t sub = 1;
+        uint8_t	cin = sub;
+	uint32_t ans = 0;
+
+	src = ~src;
+
+	for (int i = 0; i < data_size; i++) {
+		fn = (get_bit(i, src) + get_bit(i, dest) + cin) & 0x1;
+		cout = (get_bit(i, src) + get_bit(i, dest) + cin) >> 1;
+		cin = cout;
+
+		(fn == 0) ? set_bit0(i, &ans) : set_bit1(i, &ans);
+		if ((data_size - 2) == i)
+			cout_1 = cout;
+	}
+
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, ans) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
+	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
+	cpu.eflags.SF = get_bit((data_size - 1), ans) ? 1 : 0;
+	cpu.eflags.OF = cout ^ cout_1;
+	cpu.eflags.CF = sub ^ cout;
+	cpu.eflags.PF = PF;
+
+	return ans;
 #endif
 }
 
