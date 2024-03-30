@@ -21,6 +21,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_add(src, dest, data_size);
 #else
 	// uint8_t ZF, SF, OF, CF;
+	uint8_t PF = 0;
 	uint8_t fn, cout, cout_1 = 0;
         uint8_t	cin = 0;
 	uint32_t ans = 0;
@@ -35,10 +36,16 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 			cout_1 = cout;
 	}
 
+	for (int i = 0; i < 8; i++) {
+		PF += get_bit(i, ans) ? 1 : 0;
+	}
+	PF = (PF & 0x1) ? 0 : 1;
+
 	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
 	cpu.eflags.SF = get_bit(31, ans) ? 1 : 0;
 	cpu.eflags.OF = cout ^ cout_1;
 	cpu.eflags.CF = 0 ^ cout;
+	cpu.eflags.PF = PF;
 
 	return ans;
 #endif
