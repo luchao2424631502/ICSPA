@@ -342,7 +342,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 	}
 
 	for (int i = 0; i < 8; i++) {
-		PF += get_bit(i, ans) ? 1 : 0;
+		PF += get_bit(i, dest) ? 1 : 0;
 	}
 	PF = (PF & 0x1) ? 0 : 1;
 
