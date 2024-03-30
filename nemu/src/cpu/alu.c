@@ -209,9 +209,9 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_imul(src, dest, data_size);
 #else
-	// uint8_t sign_d = (dest >> (data_size - 1)) & 0x1;
-	// uint8_t sign_s = (src >> (data_size - 1)) & 0x1;
-	// uint8_t sign = sign_d ^ sign_s; // 判断结果的符号
+	uint8_t sign_d = (dest >> (data_size - 1)) & 0x1;
+	uint8_t sign_s = (src >> (data_size - 1)) & 0x1;
+	uint8_t sign = sign_d ^ sign_s; // 判断结果的符号
 	if (data_size == 32)
 		tmp = 0xFFFFFFFF00000000;  
 	else if (data_size == 16)
@@ -222,14 +222,22 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	uint64_t ans = 0;
 	ans = (uint64_t)src * (uint64_t)dest; 
 
-	return ans;
-	{
-		cpu.eflags.CF = 1;
-		cpu.eflags.OF = 1;
-	} 
-	{
-		cpu.eflags.CF = 0;
-		cpu.eflags.OF = 0;
+	if (sign) { // 结果为负
+		if ((ans & tmp) == tmp) {
+			cpu.eflags.CF = 0;
+			cpu.eflags.OF = 0;
+		} else {
+			cpu.eflags.CF = 1;
+			cpu.eflags.OF = 1;
+		}
+	} else { // 结果是正
+		if ((ans & tmp) == 0x0) {
+			cpu.eflags.CF = 0;
+			cpu.eflags.OF = 0;
+		} else {
+			cpu.eflags.CF = 1;
+			cpu.eflags.OF = 1;
+		}
 	}
 
 	return ans;
