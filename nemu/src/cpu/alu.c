@@ -223,10 +223,12 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	uint64_t ans = 0;
 	ans = (uint64_t)src * (uint64_t)dest; 
 
-	if ((ans & tmp) == (((sign << data_size) - 1) << data_size)) {
+	return ans;
+	{
 		cpu.eflags.CF = 1;
 		cpu.eflags.OF = 1;
-	} else {
+	} 
+	{
 		cpu.eflags.CF = 0;
 		cpu.eflags.OF = 0;
 	}
