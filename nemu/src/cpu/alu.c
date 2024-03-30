@@ -42,7 +42,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	PF = (PF & 0x1) ? 0 : 1;
 
 	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
-	cpu.eflags.SF = get_bit(31, ans) ? 1 : 0;
+	cpu.eflags.SF = get_bit((data_size - 1), ans) ? 1 : 0;
 	cpu.eflags.OF = cout ^ cout_1;
 	cpu.eflags.CF = 0 ^ cout;
 	cpu.eflags.PF = PF;
