@@ -253,6 +253,7 @@ uint32_t alu_mod(uint64_t src, uint64_t dest)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_mod(src, dest);
 #else
+	return 0;
 	if (dest < src)
 		return dest & 0xFFFFFFFF;
 	while (dest >= src)
