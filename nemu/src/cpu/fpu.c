@@ -98,13 +98,23 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		exp++;
 	}
 
-	if (!overflow) // 没有发生溢出
+	if (!overflow) // 没有发生溢出, 进行就近舍入
 	{
 		/* TODO: round up and remove the GRS bits */
 
 		// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 		// fflush(stdout);
 		// assert(0);
+		uint32_t grs = sig_grs & 0x7;
+		if (grs < 0x4) { // 丢掉最低3bit
+			sig_grs = sig_grs >> 3;
+		} else if (grs > 0x4) { // 执行入操作, 第4bit 开始+1
+			uint8_t cin = 1;
+			for (int i = 3; i < 26+3; i++) {
+				fn = ge
+			}
+		} else {
+		}
 	}
 
 	FLOAT f;
