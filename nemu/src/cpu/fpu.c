@@ -41,7 +41,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			   ||					   // or
 			   (sig_grs > 0x04 && exp < 0))		   // condition 2
 		{
-
 			/* TODO: shift right, pay attention to sticky bit*/
 			sticky = sticky | (sig_grs & 0x1);
 			sig_grs = sig_grs >> 1;
@@ -59,6 +58,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			
 			// sig_grs = sig_grs & 0x7; // 保留3bit的 grs
 			sig_grs = 0x0;
+			exp = 0xFF;
 
 			overflow = true;
 		}
@@ -93,7 +93,11 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		{
 			// denormal
 			/* TODO: shift right, pay attention to sticky bit*/
+			uint8_t sticky = 0;
+			sticky = sticky | (sig_grs & 0x1);
 			sig_grs = sig_grs >> 1;
+			sig_grs |= sticky; // 保留sticky bit
+
 		}
 	}
 	else if (exp == 0 && sig_grs >> (23 + 3) == 1)
@@ -102,17 +106,17 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		exp++;
 	}
 
-	if (!overflow) // 没有发生溢出, 进行就近舍入
+	if (!overflow) // 规格化没有发生溢出, 进行就近舍入
 	{
 		/* TODO: round up and remove the GRS bits */
 
-		/*
 		uint32_t grs = sig_grs & 0x7;
 		if (grs < 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x0))) {
-			// 舍 0
+			// 舍 0, 并且丢弃最高隐藏位
 			sig_grs = sig_grs >> 3;
+			sig_grs = (~(0x1 << 23)) & sig_grs;
 		} else if (grs > 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x1))) {
-			// 入 1
+			// 入 1, 判断是否破坏规格化(继续右规)，并且丢弃最高隐藏位
 			uint8_t cin = 1, fn;
 			for (int i = 3; i < 25+3; i++) {
 				fn = (cin + get_bit(i, sig_grs)) & 0x1;
@@ -120,10 +124,34 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 				(fn == 1) ? set_bit1(i, &sig_grs) : set_bit0(i, &sig_grs);
 			}
-			sig_grs = sig_grs >> 3;
+			
+			// 判断是否破坏规格化
+			if ((sig_grs >> (23 + 3)) > 1) {
+				uint32_t sticky = 0;
+				// normalize toward right
+				while ((((sig_grs >> (23 + 3)) > 1) && exp < 0xff) // condition 1
+						||					   // or
+						(sig_grs > 0x04 && exp < 0))		   // condition 2
+				{
+					/* TODO: shift right, pay attention to sticky bit*/
+					sticky = sticky | (sig_grs & 0x1);
+					sig_grs = sig_grs >> 1;
+					sig_grs |= sticky; // 保留sticky bit
+
+					exp += 1; // 右移, 尾数变小,阶码变大
+				}
+
+				if (exp == 0xff) { // 溢出了, 赋值为无穷格式
+					sig_grs = 0x0;
+					exp = 0xFF;
+					// overflow = true;
+					goto END;
+				}
+			}
+
 		}
-		*/
 	}
+END:
 
 	FLOAT f;
 	f.sign = sign;
@@ -179,7 +207,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 		return b;
 	}
 
-	if (fa.exponent > fb.exponent) // 保证fa是阶数小的浮点数
+	if (fa.exponent > fb.exponent) // 保证fa是阶数小的浮点数, fa向fb进行对阶
 	{
 		fa.val = b;
 		fb.val = a;
@@ -213,7 +241,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 	sig_b = (sig_b << 3);
 
 	uint32_t sticky = 0;
-	while (shift > 0)
+	while (shift > 0) // 对阶的时候保留sticky bit
 	{
 		sticky = sticky | (sig_a & 0x1);
 		sig_a = sig_a >> 1;
@@ -231,19 +259,19 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 		sig_b *= -1;
 	}
 
-	sig_res = sig_a + sig_b;
+	sig_res = sig_a + sig_b; // 尾数M以补码形式相加
 
 	if (sign(sig_res))
 	{
 		f.sign = 1;
-		sig_res *= -1;
+		sig_res *= -1; // 因为是负数,将补码还原成原码表示尾数
 	}
 	else
 	{
 		f.sign = 0;
 	}
 
-	uint32_t exp_res = fb.exponent;
+	uint32_t exp_res = fb.exponent; 
 	return internal_normalize(f.sign, exp_res, sig_res);
 }
 
