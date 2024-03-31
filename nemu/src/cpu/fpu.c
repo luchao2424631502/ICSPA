@@ -7,6 +7,21 @@ FPU fpu;
 // special values
 FLOAT p_zero, n_zero, p_inf, n_inf, p_nan, n_nan;
 
+static inline uint8_t get_bit(uint8_t index, uint32_t num)
+{
+	return (num >> index) & 0x1U;
+}
+
+static inline void set_bit0(uint8_t index, uint32_t *num)
+{
+	*num = *num & (~(0x1 << index));
+}
+
+static inline void set_bit1(uint8_t index, uint32_t *num)
+{
+	*num = *num | (0x1 << index);
+}
+
 // the last three bits of the significand are reserved for the GRS bits
 inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 {

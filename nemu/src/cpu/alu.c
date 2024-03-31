@@ -1,17 +1,17 @@
 #include "cpu/cpu.h"
 
 /* llc add 24.3.30 bit operation */
-uint8_t get_bit(uint8_t index, uint32_t num)
+static inline uint8_t get_bit(uint8_t index, uint32_t num)
 {
 	return (num >> index) & 0x1U;
 }
 
-void set_bit0(uint8_t index, uint32_t *num)
+static inline void set_bit0(uint8_t index, uint32_t *num)
 {
 	*num = *num & (~(0x1 << index));
 }
 
-void set_bit1(uint8_t index, uint32_t *num)
+static inline void set_bit1(uint8_t index, uint32_t *num)
 {
 	*num = *num | (0x1 << index);
 }
