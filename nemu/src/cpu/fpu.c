@@ -12,19 +12,22 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 	// normalization
 	bool overflow = false; // true if the result is INFINITY or 0 during normalize
 
+	/* sig_grs>>(23+3)>1说明尾数运算超过规格化表示,需要向右移动来规格化,所以需要右规
+	 * exp传入的时候已经用int_t值来接收, 但是对于add/sub运算, 这里exp一样是移码0~254
+	 * exp < 0可能是表示的是mul/div运算情况下
+	 */
 	if ((sig_grs >> (23 + 3)) > 1 || exp < 0)
 	{
 		// normalize toward right
 		while ((((sig_grs >> (23 + 3)) > 1) && exp < 0xff) // condition 1
-			   ||										   // or
-			   (sig_grs > 0x04 && exp < 0)				   // condition 2
-			   )
+			   ||					   // or
+			   (sig_grs > 0x04 && exp < 0))		   // condition 2
 		{
 
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			// fflush(stdout);
+			// assert(0);
 		}
 
 		if (exp >= 0xff)
