@@ -75,6 +75,10 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		if (exp < 0) // 经过右规后, 尾数的值没了, 并且阶数还是<0, 说明乘法的结果等于0
 		{
 			/* TODO: assign the number to zero */
+			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			fflush(stdout);
+			assert(0);
+
 			sig_grs = 0x0;
 			exp = 0x0;
 
