@@ -125,6 +125,9 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 				(fn == 1) ? set_bit1(i, &sig_grs) : set_bit0(i, &sig_grs);
 			}
 			
+			// 移除最后3bit保留的GRS bits
+			sig_grs = sig_grs & ~0x7;
+
 			// 判断是否破坏规格化
 			if ((sig_grs >> (23 + 3)) > 1) {
 				uint32_t sticky = 0;
@@ -144,14 +147,16 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 				if (exp == 0xff) { // 溢出了, 赋值为无穷格式
 					sig_grs = 0x0;
 					exp = 0xFF;
-					// overflow = true;
-					goto END;
+					overflow = true;
 				}
 			}
 
+			if (!overflow) {
+				sig_grs = sig_grs >> 3;
+				sig_grs = (~(0x1 << 23)) & sig_grs;
+			}
 		}
 	}
-END:
 
 	FLOAT f;
 	f.sign = sign;
