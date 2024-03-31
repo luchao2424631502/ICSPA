@@ -18,6 +18,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 	 */
 	if ((sig_grs >> (23 + 3)) > 1 || exp < 0)
 	{
+		uint32_t sticky = 0;
 		// normalize toward right
 		while ((((sig_grs >> (23 + 3)) > 1) && exp < 0xff) // condition 1
 			   ||					   // or
@@ -28,14 +29,24 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			// fflush(stdout);
 			// assert(0);
+			sticky = sticky | (sig_grs & 0x1);
+			sig_grs = sig_grs >> 1;
+			sig_grs |= sticky; // 保留sticky bit
+			
+			exp += 1; // 右移, 尾数变小,阶码变大
 		}
 
 		if (exp >= 0xff)
 		{
 			/* TODO: assign the number to infinity */
+
+			// exp == 0xff 说明上溢出了, 当前exp最大,并且尾数也>1
+			// 赋值为infinity, 那么尾数全部都赋值为0
+			
 			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			fflush(stdout);
 			assert(0);
+
 			overflow = true;
 		}
 		if (exp == 0)
