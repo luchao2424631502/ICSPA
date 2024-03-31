@@ -135,11 +135,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 				(fn == 1) ? set_bit1(i, &sig_grs) : set_bit0(i, &sig_grs);
 			}
-			
-			if (fn) { // fn肯定为1
-				// 需要判断是否还要进行规格化
-				printf("NEED normalize\n");
-			}
+			sig_grs = sig_grs >> 3;
 		}
 	}
 
