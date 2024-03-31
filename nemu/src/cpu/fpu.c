@@ -43,9 +43,12 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			// exp == 0xff 说明上溢出了, 当前exp最大,并且尾数也>1
 			// 赋值为infinity, 那么尾数全部都赋值为0
 			
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			// sig_grs = sig_grs & 0x7; // 保留3bit的 grs
+			sig_grs = 0x0;
+
+			// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			// fflush(stdout);
+			// assert(0);
 
 			overflow = true;
 		}
@@ -73,17 +76,20 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		while (((sig_grs >> (23 + 3)) == 0) && exp > 0)
 		{
 			/* TODO: shift left */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			// fflush(stdout);
+			// assert(0);
+			sig_grs = sig_grs << 1;
+			exp -= 1;
 		}
-		if (exp == 0)
+		if (exp == 0) // 左规到, 出现阶码等于0, 但是最高位还是为0, 所以处理成非规格化数
 		{
 			// denormal
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			// fflush(stdout);
+			// assert(0);
+			sig_grs = sig_grs >> 1;
 		}
 	}
 	else if (exp == 0 && sig_grs >> (23 + 3) == 1)
@@ -92,12 +98,13 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		exp++;
 	}
 
-	if (!overflow)
+	if (!overflow) // 没有发生溢出
 	{
 		/* TODO: round up and remove the GRS bits */
-		printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-		fflush(stdout);
-		assert(0);
+
+		// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+		// fflush(stdout);
+		// assert(0);
 	}
 
 	FLOAT f;
