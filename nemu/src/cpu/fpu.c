@@ -122,6 +122,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		// printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 		// fflush(stdout);
 		// assert(0);
+		goto end;
 		uint32_t grs = sig_grs & 0x7;
 		if (grs < 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x0))) {
 			// 舍 0
@@ -138,7 +139,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sig_grs = sig_grs >> 3;
 		}
 	}
-
+end:
 	FLOAT f;
 	f.sign = sign;
 	f.exponent = (uint32_t)(exp & 0xff);
