@@ -69,7 +69,4 @@ inline uint64_t sign_ext_64(uint32_t x, size_t data_size)
         }
 }
 
-uint8_t get_bit(uint8_t index, uint32_t num);
-uint8_t set_bit0(uint8_t index, uint32_t *num);
-uint8_t set_bit1(uint8_t index, uint32_t *num);
 #endif

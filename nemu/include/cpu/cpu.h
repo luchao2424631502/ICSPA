@@ -24,4 +24,7 @@ int exec_inst();
 // do interrupt
 void do_intr();
 
+uint8_t get_bit(uint8_t index, uint32_t num);
+uint8_t set_bit0(uint8_t index, uint32_t *num);
+uint8_t set_bit1(uint8_t index, uint32_t *num);
 #endif
