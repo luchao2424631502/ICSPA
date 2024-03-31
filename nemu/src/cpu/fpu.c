@@ -108,10 +108,10 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		// fflush(stdout);
 		// assert(0);
 		uint32_t grs = sig_grs & 0x7;
-		if (grs < 0x4 || (grs == 0x4 && (sig_grs&0x1 == 0x0))) {
+		if (grs < 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x0))) {
 			// 舍 0
 			sig_grs = sig_grs >> 3;
-		} else if (grs > 0x4 || (grs == 0x4 && (sig_grs&0x1 == 0x1))) {
+		} else if (grs > 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x1))) {
 			// 入 1
 			uint8_t cin = 1, fn;
 			for (int i = 3; i < 25+3; i++) {
