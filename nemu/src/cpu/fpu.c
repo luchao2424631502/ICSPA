@@ -63,7 +63,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 			overflow = true;
 		}
-		if (exp == 0)
+		if (exp == 0) // 尾数!=0,但是阶码已经等于0,所以,转化为非规格化数. (右移阶码才能变大)
 		{
 			// we have a denormal here, the exponent is 0, but means 2^-126,
 			// as a result, the significand should shift right once more
