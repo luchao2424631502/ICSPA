@@ -108,12 +108,23 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		// fflush(stdout);
 		// assert(0);
 		uint32_t grs = sig_grs & 0x7;
-		if (grs < 0x4) { // 丢掉最低3bit
+		if (grs < 0x4 || (grs == 0x4 && (sig_grs&0x1 == 0x0))) {
+			// 舍 0
 			sig_grs = sig_grs >> 3;
-		} else if (grs > 0x4) { // 执行入操作, 第4bit 开始+1
-			// for (int i = 3; i < 26+3; i++) {
-			// }
-		} else {
+		} else if (grs > 0x4 || (grs == 0x4 && (sig_grs&0x1 == 0x1))) {
+			// 入 1
+			uint8_t cin = 1, fn;
+			for (int i = 3; i < 25+3; i++) {
+				fn = (cin + get_bit(i, sig_grs)) & 0x1;
+				cin = (cin + get_bit(i, sig_grs)) >> 1;
+
+				(fn == 1) ? set_bit1(i, &sig_grs) : set_bit0(i, &sig_grs);
+			}
+			
+			if (fn) { // fn肯定为1
+				// 需要判断是否还要进行规格化
+				printf("NEED normalize\n");
+			}
 		}
 	}
 
