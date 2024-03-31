@@ -149,7 +149,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 				}
 			}
 
-			if (!overflow) {
+			if (!overflow) { // 没有溢出一样来
 				sig_grs = sig_grs >> 3;
 				sig_grs = (~(0x1 << 23)) & sig_grs;
 			}
