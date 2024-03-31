@@ -1,6 +1,8 @@
 #include "nemu.h"
 #include "cpu/fpu.h"
 
+#include "cpu/alu.h"
+
 FPU fpu;
 // special values
 FLOAT p_zero, n_zero, p_inf, n_inf, p_nan, n_nan;
@@ -109,10 +111,8 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		if (grs < 0x4) { // 丢掉最低3bit
 			sig_grs = sig_grs >> 3;
 		} else if (grs > 0x4) { // 执行入操作, 第4bit 开始+1
-			uint8_t cin = 1;
-			for (int i = 3; i < 26+3; i++) {
-				fn = ge
-			}
+			// for (int i = 3; i < 26+3; i++) {
+			// }
 		} else {
 		}
 	}
