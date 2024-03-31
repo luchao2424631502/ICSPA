@@ -109,7 +109,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 	if (!overflow) // 规格化没有发生溢出, 进行就近舍入
 	{
 		/* TODO: round up and remove the GRS bits */
-
 		uint32_t grs = sig_grs & 0x7;
 		if (grs < 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x0))) {
 			// 舍 0, 并且丢弃最高隐藏位
@@ -117,6 +116,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sig_grs = (~(0x1 << 23)) & sig_grs;
 		} else if (grs > 0x4 || (grs == 0x4 && ((sig_grs&0x1) == 0x1))) {
 			// 入 1, 判断是否破坏规格化(继续右规)，并且丢弃最高隐藏位
+			/*
 			uint8_t cin = 1, fn;
 			for (int i = 3; i < 25+3; i++) {
 				fn = (cin + get_bit(i, sig_grs)) & 0x1;
@@ -136,7 +136,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 						||					   // or
 						(sig_grs > 0x04 && exp < 0))		   // condition 2
 				{
-					/* TODO: shift right, pay attention to sticky bit*/
 					sticky = sticky | (sig_grs & 0x1);
 					sig_grs = sig_grs >> 1;
 					sig_grs |= sticky; // 保留sticky bit
@@ -155,6 +154,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 				sig_grs = sig_grs >> 3;
 				sig_grs = (~(0x1 << 23)) & sig_grs;
 			}
+			*/
 		}
 	}
 
