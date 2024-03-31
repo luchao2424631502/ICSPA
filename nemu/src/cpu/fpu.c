@@ -140,7 +140,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 		return b;
 	}
 
-	if (fa.exponent > fb.exponent)
+	if (fa.exponent > fb.exponent) // 保证fa是阶数小的浮点数
 	{
 		fa.val = b;
 		fb.val = a;
@@ -148,7 +148,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 
 	uint32_t sig_a, sig_b, sig_res;
 	sig_a = fa.fraction;
-	if (fa.exponent != 0)
+	if (fa.exponent != 0) // 阶码全0表示非规格化小数
 		sig_a |= 0x800000; // the implied 1
 	sig_b = fb.fraction;
 	if (fb.exponent != 0)

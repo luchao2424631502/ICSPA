@@ -55,7 +55,7 @@ typedef union {
 
 typedef struct
 {
-	FLOAT regStack[8];
+	FLOAT regStack[8]; // st0~st7 x86 FPU 浮点寄存器
 	FPU_STATUS_WORD status;
 	FPU_CTRL_WORD control;
 } FPU;
