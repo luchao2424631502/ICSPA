@@ -158,11 +158,18 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 	uint32_t shift = 0;
 
 	/* TODO: shift = ? */
-	printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	assert(shift >= 0);
-
+// 	printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+// 	fflush(stdout);
+// 	assert(0);
+// 	assert(shift >= 0);
+	/* 小阶向大阶对齐: 小阶的尾数还要变小(所以小阶尾数右移)
+	 * 注意到阶码(移码)=1时,实际的exp=-126,
+	 * 当阶码全0时,实际的exp并不等于=-127, 因为规格化浮点数的原因,仍为-126,
+	 * 所以exp=0时,实际exp值需要+1
+	 */
+	shift = (fb.exponent == 0 ? fb.exponent + 1 : fb.exponent) - 
+		(fa.exponent == 0 ? fa.exponent + 1 : fa.exponent);
+	
 	sig_a = (sig_a << 3); // guard, round, sticky
 	sig_b = (sig_b << 3);
 
