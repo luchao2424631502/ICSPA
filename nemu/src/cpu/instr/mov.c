@@ -79,5 +79,5 @@ make_instr_func(mov_srm162r_l) {
 
 // int mov_i2rm_v(uint32_t eip, uint8_t opcode)
 make_instr_func(mov_i2rm_v) {
-	
+	return 0;	
 }
