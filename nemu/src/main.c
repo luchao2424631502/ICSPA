@@ -67,7 +67,7 @@ static void single_run(const char *img_file_path, const char *elf_file_path)
 #ifdef HAS_DEVICE_IDE
 	init_ide(elf_file_path); // Initialize hard drive
 #else
-	load_exec(elf_file_path, 0);
+	load_exec(elf_file_path, 0); // 装载ELF格式文件到0x0起始的连续内存空间 
 #endif
 	load_elf_tables(elf_file_path);
 	nemu_state = NEMU_READY;   // Set the state of the machine to NEMU_READY
