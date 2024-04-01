@@ -86,6 +86,7 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 #define decode_operand_rm \
 	len += modrm_rm(eip + 1, &opr_src);
 
+// 寄存器的index藏在opcode中
 #define decode_operand_r    \
 	opr_src.type = OPR_REG; \
 	opr_src.addr = opcode & 0x7;
