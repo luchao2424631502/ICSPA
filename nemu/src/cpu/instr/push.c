@@ -14,7 +14,7 @@ make_instr_impl_1op(push, r, l) // push_r_l
  * return len;
  * */
 
-// 字符串接在 make_instr_impl_1op 中
+// 每一个宏生成来说, 都给了一个static 用户自己实现的 执行函数
 static void instr_execute_1op()
 {
 	operand_read(&opr_src); // push xxx = mov reg -> [$esp]
