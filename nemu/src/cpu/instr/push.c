@@ -3,6 +3,8 @@
 Put the implementations of `push' instructions here.
 */
 
+static void instr_execute_1op;
+
 make_instr_impl_1op(push, r, l)
 /* 
  * int len = 1;
