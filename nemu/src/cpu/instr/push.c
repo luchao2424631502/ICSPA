@@ -5,7 +5,7 @@ Put the implementations of `push' instructions here.
 
 static void instr_execute_1op();
 
-make_instr_impl_1op(push, r, l)
+make_instr_impl_1op(push, r, l) // push_r_l
 /* 
  * int len = 1;
  * decode_data_size_l
