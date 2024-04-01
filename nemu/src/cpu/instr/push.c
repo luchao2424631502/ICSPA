@@ -20,5 +20,4 @@ static void instr_execute_1op()
 	operand_read(&opr_src); // push xxx = mov reg -> [$esp]
 	vaddr_write(cpu.esp, SREG_CS, 4, opr_src.val); 
 	cpu.esp -= 4; // esp -= 4
-	len = 1;
 }
