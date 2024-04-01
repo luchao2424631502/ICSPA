@@ -45,7 +45,7 @@ void init_cpu(const uint32_t init_eip)
 #endif
 }
 
-
+// 默认晶振发送信号, 执行n条指令
 void exec(uint32_t n)
 {
 	static BP *bp = NULL;
@@ -122,6 +122,7 @@ void exec(uint32_t n)
 	}
 }
 
+// 执行单条指令
 int exec_inst()
 {
 	uint8_t opcode = 0;
