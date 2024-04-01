@@ -84,7 +84,7 @@ int case_mod_10(uint32_t eip, MODRM modrm, OPERAND *opr)
 	default: // disp32[EXX]
 		opr->type = OPR_MEM;
 		opr->addr = cpu.gpr[modrm.rm]._32;
-		opr->mem_addr.base = modrm.rm;
+		opr->mem_addr.base = modrm.rm; // 基址寄存器
 		disp32 = (int32_t)instr_fetch(eip + 1, 4);
 		len += 4; // disp32
 		if (modrm.rm == 5)
@@ -132,6 +132,7 @@ int parse_rm_32(uint32_t eip, MODRM modrm, OPERAND *opr)
 	return len;
 }
 
+/* 此类指令用到的reg不由opcode指示 */
 int modrm_r_rm(uint32_t eip, OPERAND *r, OPERAND *rm)
 {
 	MODRM modrm;

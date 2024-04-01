@@ -19,6 +19,7 @@ enum
 
 //enum {MEM_ADDR_OFF, MEM_ADDR_SIB};
 
+/* 假设指令存在SIB部分, MEM_ADDR来描述此SIB */
 typedef struct
 {
 	//	uint32_t type;

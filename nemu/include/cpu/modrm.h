@@ -6,8 +6,8 @@
 typedef union {
 	struct
 	{
-		uint32_t rm : 3;
-		uint32_t reg_opcode : 3;
+		uint32_t rm : 3; // 地址: 立即数地址/基址(所以rm也确定使用的基址寄存器)寻址/变址寻址/寄存器地址
+		uint32_t reg_opcode : 3; // 中间reg对应相应的寄存器(前提是指令使用到register了)
 		uint32_t mod : 2;
 	};
 	uint8_t val;
