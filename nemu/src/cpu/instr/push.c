@@ -25,5 +25,5 @@ static void instr_execute_1op()
 	cpu.esp = cpu.esp - (data_size / 8);
 
 	// 因为暂时不能单步调试, 所以printf打印出来试一下
-	printf("before info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
+	printf("before info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp + 4, SREG_CS, 4));
 }
