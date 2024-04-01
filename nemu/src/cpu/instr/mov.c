@@ -76,3 +76,8 @@ make_instr_func(mov_srm162r_l) {
 	print_asm_2("mov", "", len, &rm, &r);
         return len;
 }
+
+// int mov_i2rm_v(uint32_t eip, uint8_t opcode)
+make_instr_func(mov_i2rm_v) {
+	
+}
