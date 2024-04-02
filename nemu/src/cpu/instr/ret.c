@@ -16,6 +16,7 @@ make_instr_func(ret) { // ret 直接将栈顶值加载到eip中, 但是我这里
 	cpu.eip += offset;
 
 	{printf("\n[RET] offset=%d old_cpu_eip=0x%X new_cpu_eip=0x%X\n", offset, cpu.eip - offset, cpu.eip);}
+	printf("\t curr_stack_top_value=0x%X", vaddr_read(cpu.esp , SREG_CS, 4));
 
 	return 1;
 }
