@@ -14,6 +14,7 @@ make_instr_func(jmp_near)
         int offset = sign_ext(rel.val, data_size); // 跳转地址本来就是signed编码,
         // thank Ting Xu from CS'17 for finding this bug
         print_asm_1("jmp", "", 1 + data_size / 8, &rel);
+	{printf("\n[jmp_near] now_eip=0x%X new_eip=0x%X\n", eip, eip + 1 + data_size / 8 + offset);}
 
         cpu.eip += offset; // 跳转目标地址是相当于当前指令的地址计算的
 
