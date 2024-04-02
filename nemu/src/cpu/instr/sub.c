@@ -18,9 +18,9 @@ static void instr_execute_2op()
 	printf("opr_src.val = 0x%X opr_dest.val = 0x%X opr_dest.data_size=%d\n", opr_src.val, opr_dest.val, opr_dest.data_size);
 
 	// 3. 执行sub运算
-	opr_dest.val = alu_sub(opr_src.val, opr_dest.val, opr_dest.data_size);
+	opr_dest.val = alu_sub(opr_src.val, opr_dest.val, 32);
 	// 4. 写回到目标寄存器
 	operand_write(&opr_dest);
 	
-	printf("opr_dest.val = 0x%X\n", opr_dest.val);
+	printf("opr_src.val = 0x%X opr_dest.val = 0x%X opr_dest.data_size=%d\n", opr_src.val, opr_dest.val, opr_dest.data_size);
 }
