@@ -22,5 +22,5 @@ static void instr_execute_2op()
 	// 2. 值写回到目标寄存器
 	operand_write(&opr_dest);
 
-	{printf("\timm=0x%X -> new_reg=0x%X edx=0x%X\n", opr_src.val, opr_dest.val, cpu.edx);}
+	{printf("\timm=0x%X -> new_reg=0x%X \n", opr_src.val, opr_dest.val);}
 }
