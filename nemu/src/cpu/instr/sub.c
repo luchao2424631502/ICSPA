@@ -15,12 +15,12 @@ static void instr_execute_2op()
 	// 2. 读取$rm 寄存器的值
 	operand_read(&opr_dest);
 
-	printf("opr_src.val = 0x%X opr_dest.val = 0x%X opr_dest.data_size=%d\n", opr_src.val, opr_dest.val, opr_dest.data_size);
+	printf("opr_src.val=0x%X opr_dest.val=0x%X opr_src.data_size=%d opr_dest.data_size=%d\n", opr_src.val, opr_dest.val, opr_src.data_size, opr_dest.data_size);
 
 	// 3. 执行sub运算
-	opr_dest.val = alu_sub(opr_src.val, opr_dest.val, 32);
+	opr_dest.val = alu_sub(opr_src.val, opr_dest.val, opr_dest.data_size);
 	// 4. 写回到目标寄存器
 	operand_write(&opr_dest);
 	
-	printf("opr_src.val = 0x%X opr_dest.val = 0x%X opr_dest.data_size=%d\n", opr_src.val, opr_dest.val, opr_dest.data_size);
+	printf("opr_src.val=0x%X opr_dest.val=0x%X opr_src.data_size=%d opr_dest.data_size=%d\n", opr_src.val, opr_dest.val, opr_src.data_size, opr_dest.data_size);
 }
