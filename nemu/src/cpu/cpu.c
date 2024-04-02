@@ -52,7 +52,7 @@ void exec(uint32_t n)
 	verbose = (n <= 100000);
 
 	printf("verbose=%d\n", verbose);
-	verbose = 1;
+	// verbose = 1;
 
 	int instr_len = 0;
 	bool hit_break_rerun = false;
