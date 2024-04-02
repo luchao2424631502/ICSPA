@@ -17,7 +17,7 @@ make_instr_impl_1op(push, r, l) // 生成的push_r_l适用于0x50~0x57, 所以�
 /* 实现统一的instr_execute_1op */
 static void instr_execute_1op()
 {
-	printf("[PUSH]_before info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
+	printf("\n[PUSH]_before info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
 
 	cpu.esp = cpu.esp - (data_size / 8);
 	operand_read(&opr_src); // opr_src.val = $ebp的值
