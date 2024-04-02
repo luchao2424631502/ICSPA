@@ -22,7 +22,7 @@ void instr_execute_2op() // cmp逻辑
 	// 2. 执行cmp (实际通过sub指令来影响eflags标志位, 并且执行32bit减法)
 	alu_sub(sign_ext(opr_src.val, 8), opr_dest.val, data_size);
 
-	{printf("\teflags after [%s %s %s %s]", cpu.eflags.ZF?"ZF":"",
+	{printf("\teflags after [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
 			cpu.eflags.SF?"SF":"",
 			cpu.eflags.CF?"CF":"",
 			cpu.eflags.OF?"OF":"");}
