@@ -74,7 +74,7 @@ instr_func group_1_b_entry[8] =
 /* 0x81 */
 instr_func group_1_v_entry[8] =
 {
-	inv, 
+	add_i2rm_v, // opcode 0x0 24.4.2 添加add指令
 	inv, 
 	inv, 
 	inv, 
