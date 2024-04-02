@@ -11,8 +11,7 @@ CPU_STATE cpu;
 extern FPU fpu;
 int nemu_state;
 uint8_t data_size = 32;
-// bool verbose = false;
-bool verbose = true;
+bool verbose = false;
 bool is_nemu_hlt = false;
 bool has_prefix = false;
 
@@ -51,6 +50,7 @@ void exec(uint32_t n)
 {
 	static BP *bp = NULL;
 	verbose = (n <= 100000);
+	printf("verbose=%d\n", verbose);
 	int instr_len = 0;
 	bool hit_break_rerun = false;
 
