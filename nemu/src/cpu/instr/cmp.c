@@ -14,7 +14,7 @@ void instr_execute_2op() // cmp逻辑
 	// 1. 读入目标reg中的值
 	operand_read(&opr_dest);
 
-	{printf("\n[CMP_BV] eip=0x%X imm_val=0x%X reg_val=0x%X\n", eip, opr_src.val, opr_dest.val);}
+	{printf("\n[CMP_BV] eip=0x%X imm_val=0x%X reg_val=0x%X\n", cpu.eip, opr_src.val, opr_dest.val);}
 	{printf("\teflags before [%s %s %s %s]", cpu.eflags.ZF?"ZF":"",
 			cpu.eflags.SF?"SF":"",
 			cpu.eflags.CF?"CF":"",
