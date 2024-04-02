@@ -156,7 +156,7 @@ int modrm_opcode(uint32_t eip, uint8_t *opcode)
 {
 	MODRM modrm;
 	modrm.val = instr_fetch(eip, 1);
-	*opcode = modrm.reg_opcode;
+	*opcode = modrm.reg_opcode; // 得到ModR/M中的reg 3bit
 	return 1;
 }
 
