@@ -76,8 +76,17 @@ instr_func group_1_v_entry[8] =
     {inv, inv, inv, inv, inv, inv, inv, inv};
 
 /* 0x83 */
-instr_func group_1_bv_entry[8] =
-    {inv, inv, inv, inv, inv, inv, inv, inv};
+instr_func group_1_bv_entry[8] = // group 1指令组包含多个指令. 取决于ModR/M的reg(opcode)
+{	
+	inv, // 0x0 
+	inv, // 0x1
+	inv, // 0x2
+	inv, // 0x3
+	inv, // 0x4
+	sub_i2rm_b, // 0x5 Sub 指令
+	inv, 
+	inv
+}; 
 
 /* 0xc0 */
 instr_func group_2_b_entry[8] =
