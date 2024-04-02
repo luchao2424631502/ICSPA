@@ -23,5 +23,5 @@ static void instr_execute_1op()
 	vaddr_write(cpu.esp, SREG_CS, (data_size / 8), opr_src.val);
 	cpu.esp = cpu.esp - (data_size / 8);
 
-	printf("before info reg $esp=0x%X [$old_esp]=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp + 4, SREG_CS, 4), vaddr_read(cpu.esp, SREG_CS, 4));
+	printf("before info reg $ebp=0x%X $esp=0x%X [$old_esp]=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp + 4, SREG_CS, 4), vaddr_read(cpu.esp, SREG_CS, 4));
 }
