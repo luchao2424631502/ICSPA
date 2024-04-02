@@ -11,7 +11,8 @@ CPU_STATE cpu;
 extern FPU fpu;
 int nemu_state;
 uint8_t data_size = 32;
-bool verbose = false;
+// bool verbose = false;
+bool verbose = true;
 bool is_nemu_hlt = false;
 bool has_prefix = false;
 
