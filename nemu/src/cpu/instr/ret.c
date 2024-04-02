@@ -9,8 +9,7 @@ make_instr_func(ret) { // ret 直接将栈顶值加载到eip中, 但是我这里
 	uint32_t dest_addr = vaddr_read(cpu.esp, SREG_CS, 4);
 	cpu.esp += data_size / 8;
 	
-	// 偏移值 = 目标地址 - 下一条指令地址
-	dest_addr = dest_addr - (eip + 1);
+	dest_addr = dest_addr - (eip + 1); // 还是计算偏移地址加到eip上, 因为exec_instr()执行完后会+len, 所以不好直接
 	int offset = sign_ext(dest_addr, data_size);
 
 	// 1. 修改
