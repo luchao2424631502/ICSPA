@@ -3,5 +3,6 @@
 /*
 Put the declarations of `ret' instructions here.
 */
+make_instr_func(ret);
 
 #endif
