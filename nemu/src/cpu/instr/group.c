@@ -22,8 +22,8 @@
 #endif
 
 make_group_impl_cond(group_1_b)
-make_group_impl_cond(group_1_v)
-make_group_impl_cond(group_1_bv) // 24.4.2 实现Grpl
+make_group_impl_cond(group_1_v)		// 24.4.2 
+make_group_impl_cond(group_1_bv)	// 24.4.2 
 make_group_impl_cond(group_2_b)
 make_group_impl_cond(group_2_v)
 make_group_impl_cond(group_2_1b)
