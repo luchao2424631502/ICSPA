@@ -132,7 +132,7 @@ instr_func group_3_v_entry[8] =
 /* 0xff */
 instr_func group_5_indirect_entry[8] =
 {
-	inv, // opcode 0x0 inc disp8[ebp]
+	inc_rm_v, // opcode 0x0 inc disp8[ebp]
 	inv, 
 	inv, 
 	inv, 
