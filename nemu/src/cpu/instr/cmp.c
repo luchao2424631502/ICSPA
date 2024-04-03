@@ -16,10 +16,17 @@ void instr_execute_2op() // cmp逻辑
 	operand_read(&opr_dest);
 
 	{printf("\n[CMP_BV] eip=0x%X imm_val=0x%X reg_val=0x%X\n", cpu.eip, opr_src.val, opr_dest.val);}
-	{printf("\teflags before [%s %s %s %s]", cpu.eflags.ZF?"ZF":"",
+	{printf("\teflags before [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
 			cpu.eflags.SF?"SF":"",
 			cpu.eflags.CF?"CF":"",
 			cpu.eflags.OF?"OF":"");}
+	{printf("\t[LEA] eax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
+			cpu.eax,
+			cpu.ecx,
+			cpu.edx,
+			cpu.ebx,
+			cpu.esp,
+			cpu.ebp);}
 	// 2. 执行cmp (实际通过sub指令来影响eflags标志位, 并且执行32bit减法)
 	alu_sub(sign_ext(opr_src.val, 8), opr_dest.val, data_size);
 
