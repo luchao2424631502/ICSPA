@@ -35,6 +35,6 @@ make_instr_func(jmp_byte)
 	int offset = sign_ext(rel.val, 8); // signed-相对偏移
 	cpu.eip += offset;
 	
-	{printf("\n[JMP_B] old_eip=0x%X new_eip=0x%X \n", eip, eip + 2 + offset);}
+	{printf("\n[JMP_BYTE] old_eip=0x%X new_eip=0x%X \n", eip, eip + 2 + offset);}
 	return 1 + 1;
 }
