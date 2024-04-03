@@ -18,7 +18,7 @@ make_instr_impl_1op(push, r, l) // 生成的push_r_l适用于0x50~0x57, 所以�
 static void instr_execute_1op()
 {
 	printf("\n[PUSH]_before info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X",
+	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
 			cpu.ecx,
 			cpu.edx,
@@ -34,7 +34,7 @@ static void instr_execute_1op()
 	operand_read(&opr_src);
 	vaddr_write(cpu.esp, SREG_CS, (data_size / 8), opr_src.val);
 
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X",
+	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
 			cpu.ecx,
 			cpu.edx,
