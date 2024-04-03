@@ -27,8 +27,8 @@ void instr_execute_2op() // cmp逻辑
 			cpu.ebx,
 			cpu.esp,
 			cpu.ebp);}
-	// 2. 执行cmp (实际通过sub指令来影响eflags标志位, 并且执行32bit减法)
-	alu_sub(sign_ext(opr_src.val, 8), opr_dest.val, data_size);
+	// 2. 执行cmp (手册说将立即数符号扩展到第一个操作数相同,实际通过sub指令来影响eflags标志位, 并且执行32bit减法)
+	alu_sub(sign_ext(opr_src.val, opr_dest.data_size), opr_dest.val, opr_dest.data_size);
 
 	{printf("\teflags after [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
 			cpu.eflags.SF?"SF":"",

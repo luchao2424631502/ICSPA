@@ -59,7 +59,7 @@ instr_func opcode_entry[256] = {
     /* 0xdc - 0xdf*/ group_x87_dc, group_x87_dd, group_x87_de, group_x87_df,
     /* 0xe0 - 0xe3*/ inv, inv, inv, inv,
     /* 0xe4 - 0xe7*/ inv, inv, inv, inv,
-    /* 0xe8 - 0xeb*/ call_near, jmp_near, inv, jmp_byte, /* 24.4.2 添加call_near(4) jmp_b(1) */
+    /* 0xe8 - 0xeb*/ call_near, jmp_near, inv, jmp_byte, /* 24.4.2 添加call_near(4) jmp_near(1) jmp_byte(7) */
     /* 0xec - 0xef*/ inv, inv, inv, inv,
     /* 0xf0 - 0xf3*/ inv, break_point, inv, rep_repe,
     /* 0xf4 - 0xf7*/ hlt, inv, group_3_b, group_3_v,
@@ -94,7 +94,7 @@ instr_func group_1_bv_entry[8] = // group 1指令组包含多个指令. 取决�
 	inv, // 0x4
 	sub_i2rm_bv, // 0x5 24.4.2 添加 sub(3) 指令
 	inv, // 0x6
-	cmp_i2rm_bv  // 0x7 24.4.2 添加 cmp指令
+	cmp_i2rm_bv  // 0x7 24.4.2 添加 cmp()指令
 }; 
 
 /* 0xc0 */
