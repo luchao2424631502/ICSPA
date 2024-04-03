@@ -55,6 +55,6 @@ make_instr_func(jmp_short_BE)
 		cpu.eip += offset;
 	}
 	
-	{printf("\n[JMP_SHORT_BE] old_eip=0x%X new_eip=0x%X offet=%d\n", eip, cpu.eip, rel.val);}
+	{printf("\n[JMP_SHORT_BE] old_eip=0x%X new_eip=0x%X offet=%d\n", eip, eip + 2 + offset, rel.val);}
 	return 1 + 1;
 }
