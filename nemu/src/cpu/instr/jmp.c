@@ -58,3 +58,4 @@ make_instr_func(jmp_short_BE)
 	{printf("\n[JMP_SHORT_BE] old_eip=0x%X new_eip=0x%X offet=%d\n", eip, eip + 2 + offset, (int8_t)rel.val);}
 	return 1 + 1;
 }
+
