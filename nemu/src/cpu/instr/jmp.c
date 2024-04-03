@@ -38,3 +38,23 @@ make_instr_func(jmp_byte)
 	{printf("\n[JMP_BYTE] old_eip=0x%X new_eip=0x%X \n", eip, eip + 2 + offset);}
 	return 1 + 1;
 }
+
+// int jmp_short_BE(uint32_t eip, uint8_t opcode)
+make_instr_func(jmp_short_BE)
+{
+	OPERAND rel;
+	rel.type = ORP_IMM;
+	rel.sreg = SREG_CS;
+	rel.data_size = 8; // short
+	rel.addr = eip + 1;
+
+	operand_read(&rel);
+
+	int offset = sign_ext(rel.val, 8);
+	if (cpu.eflags.CF || cpu.eflags.ZF) {
+		cup.eip += offset;
+	}
+	
+	{printf("\n[JMP_SHORT_BE] old_eip=0x%X new_eip=0x%X \n", eip, cpu.eip);}
+	return 1 + 1;
+}
