@@ -4,7 +4,8 @@ Put the implementations of `cmp' instructions here.
 */
 static void instr_execute_2op();
 
-make_instr_impl_2op(cmp, i, rm, bv) // cmp_i2rm_bv
+make_instr_impl_2op(cmp, i, rm, bv)	// cmp_i2rm_bv
+make_instr_impl_2op(cmp, r, rm, v)	// cmp_r2rm_v
 
 void instr_execute_2op() // cmp逻辑
 {
