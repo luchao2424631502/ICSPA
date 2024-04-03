@@ -11,8 +11,9 @@ make_instr_func(lea)
 	
 	sib.data_size = dest.data_size = data_size;
 
-	// 0. 分析rm sib得到的addr就是lea计算的值
-	len += modrm_r_rm(eip + 1, &dest, &sib);
+	MODRM modrm;
+	modrm.val = instr_fetch(eip, 1);
+	// len += modrm_r_rm(eip + 1, &dest, &sib);
 
 	// 1. 将lea计算得到的值移动到寄存器
 	dest.val = sib.addr;
