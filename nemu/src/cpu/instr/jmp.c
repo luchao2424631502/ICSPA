@@ -52,7 +52,7 @@ make_instr_func(jmp_short_BE)
 
 	int offset = sign_ext(rel.val, 8);
 	if (cpu.eflags.CF || cpu.eflags.ZF) {
-		cup.eip += offset;
+		cpu.eip += offset;
 	}
 	
 	{printf("\n[JMP_SHORT_BE] old_eip=0x%X new_eip=0x%X \n", eip, cpu.eip);}
