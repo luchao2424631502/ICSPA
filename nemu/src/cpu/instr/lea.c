@@ -21,10 +21,17 @@ make_instr_func(lea)
 	len += parse_rm_32(eip + 1, modrm, &src_sib);
 	*/
 
-	// 1. 将lea计算得到的值移动到寄存器
-	// dest.val = sib.addr;
-	// operand_write(&dest);
+	// 1. 将lea计算得到的值(addr)移动到寄存器值中
+	dest.val = sib.addr;
+	operand_write(&dest);
 
+	{printf("\n[LEA] eax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
+			cpu.eax,
+			cpu.ecx,
+			cpu.edx,
+			cpu.ebx,
+			cpu.esp,
+			cpu.ebp);}
 	// {printf("\n[LEA] eax=0x%X ecx=0x%X ()_val=0x%X \n", cpu.eax, cpu.ecx, sib.addr);}
 
 	return len;
