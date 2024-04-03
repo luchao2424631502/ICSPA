@@ -20,7 +20,7 @@ void instr_execute_2op() // cmp逻辑
 			cpu.eflags.SF?"SF":"",
 			cpu.eflags.CF?"CF":"",
 			cpu.eflags.OF?"OF":"");}
-	{printf("\t[LEA] eax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
+	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
 			cpu.eax,
 			cpu.ecx,
 			cpu.edx,
