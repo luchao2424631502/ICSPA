@@ -43,7 +43,7 @@ make_instr_func(jmp_byte)
 make_instr_func(jmp_short_BE)
 {
 	OPERAND rel;
-	rel.type = ORP_IMM;
+	rel.type = OPR_IMM;
 	rel.sreg = SREG_CS;
 	rel.data_size = 8; // short
 	rel.addr = eip + 1;
