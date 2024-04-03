@@ -21,8 +21,8 @@ make_instr_func(jmp_near)
         return 1 + data_size / 8;
 }
 
-// int jmp_b(uint32_t eip, uint8_t opcode)
-make_instr_func(jmp_b)
+// int jmp_byte(uint32_t eip, uint8_t opcode)
+make_instr_func(jmp_byte)
 {
 	OPERAND rel;
 	rel.type = OPR_IMM;
