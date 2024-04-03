@@ -15,7 +15,7 @@ instr_func opcode_entry[256] = {
     /* 0x2c - 0x2f*/ inv, inv, inv, inv,
     /* 0x30 - 0x33*/ inv, inv, inv, inv,
     /* 0x34 - 0x37*/ inv, inv, inv, inv,
-    /* 0x38 - 0x3b*/ inv, cmp_r2rm_v, inv, inv,	/* 24.4.3 添加cmp_r2rm_v 指令*/
+    /* 0x38 - 0x3b*/ inv, cmp_r2rm_v, inv, inv,	/* 24.4.3 添加cmp_r2rm_v(11) 指令*/
     /* 0x3c - 0x3f*/ inv, inv, inv, inv,
     /* 0x40 - 0x43*/ inv, inv, inv, inv,
     /* 0x44 - 0x47*/ inv, inv, inv, inv,
@@ -30,13 +30,13 @@ instr_func opcode_entry[256] = {
     /* 0x68 - 0x6b*/ inv, inv, inv, inv,
     /* 0x6c - 0x6f*/ inv, inv, inv, inv,
     /* 0x70 - 0x73*/ inv, inv, inv, inv,
-    /* 0x74 - 0x77*/ je_short_, inv, jbe_short_, inv, /* 24.4.3 添加指令 */
+    /* 0x74 - 0x77*/ je_short_, inv, jbe_short_, inv, /* 24.4.3 添加 jbe_short(9) je_short_(12) 指令 */
     /* 0x78 - 0x7b*/ inv, inv, inv, inv,
     /* 0x7c - 0x7f*/ inv, inv, inv, inv,
     /* 0x80 - 0x83*/ group_1_b, group_1_v, nemu_trap, group_1_bv,
     /* 0x84 - 0x87*/ inv, inv, inv, inv,
     /* 0x88 - 0x8b*/ mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
-    /* 0x8c - 0x8f*/ inv, lea, inv, inv, /* 24.4.3 添加lea 指令 */
+    /* 0x8c - 0x8f*/ inv, lea, inv, inv, /* 24.4.3 添加lea(10) 指令 */
     /* 0x90 - 0x93*/ nop, inv, inv, inv,
     /* 0x94 - 0x97*/ inv, inv, inv, inv,
     /* 0x98 - 0x9b*/ cbw_a_v, cltd, inv, inv,
@@ -94,7 +94,7 @@ instr_func group_1_bv_entry[8] = // group 1指令组包含多个指令. 取决�
 	inv, // 0x4
 	sub_i2rm_bv, // 0x5 24.4.2 添加 sub(3) 指令
 	inv, // 0x6
-	cmp_i2rm_bv  // 0x7 24.4.2 添加 cmp()指令
+	cmp_i2rm_bv  // 0x7 24.4.2 添加 cmp(8)指令
 }; 
 
 /* 0xc0 */
@@ -132,7 +132,7 @@ instr_func group_3_v_entry[8] =
 /* 0xff */
 instr_func group_5_indirect_entry[8] =
 {
-	inc_rm_v, // opcode 0x0 inc disp8[ebp]
+	inc_rm_v, // 0x0 24.4.3 添加 inc(13) 指令
 	inv, 
 	inv, 
 	inv, 

@@ -4,10 +4,10 @@ Put the implementations of `cmp' instructions here.
 */
 static void instr_execute_2op();
 
-make_instr_impl_2op(cmp, i, rm, bv)	// cmp_i2rm_bv
-make_instr_impl_2op(cmp, r, rm, v)	// cmp_r2rm_v
+make_instr_impl_2op(cmp, i, rm, bv)	// cmp_i2rm_bv  cmp $0x10, %ebx
+make_instr_impl_2op(cmp, r, rm, v)	// cmp_r2rm_v	cmp %ebx, %eax
 
-void instr_execute_2op() // cmp逻辑
+static void instr_execute_2op() // cmp逻辑
 {
 	// 0. 读取imm
 	operand_read(&opr_src);
@@ -27,7 +27,13 @@ void instr_execute_2op() // cmp逻辑
 			cpu.ebx,
 			cpu.esp,
 			cpu.ebp);}
-	// 2. 执行cmp (手册说将立即数符号扩展到第一个操作数相同,实际通过sub指令来影响eflags标志位, 并且执行32bit减法)
+	/* 2. 执行cmp (手册说将立即数符号扩展到第一个操作数相同, 以sub指令的方法实现)
+	      debug发现这里出错原因:
+	      - 没有按照i386指令手册要求的操作数运算大小来进行sub运算
+	      - 这里因为有两个宏, 同时用到 instr_execute_2op() 函数, 
+	        但是两个宏的opr操作数大小不一样, 所以大小需要适配相应指令
+	*/
+
 	alu_sub(sign_ext(opr_src.val, opr_dest.data_size), opr_dest.val, opr_dest.data_size);
 
 	{printf("\teflags after [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
