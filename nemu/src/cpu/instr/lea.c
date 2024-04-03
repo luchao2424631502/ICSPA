@@ -18,7 +18,7 @@ make_instr_func(lea)
 	dest.val = sib.addr;
 	operand_write(&dest);
 
-	{printf("\n[LEA] ()_val=0x%X -> reg reg_val=0x%X \n", sib.addr, dest.val);}
+	{printf("\n[LEA] eax=0x%X ecx=0x%X ()_val=0x%X \n", cpu.eax, cpu.ecx, sib.addr);}
 
 	return len;
 }
