@@ -3,5 +3,6 @@
 /*
 Put the declarations of `inc' instructions here.
 */
+make_instr_func(inc_rm_v);
 
 #endif

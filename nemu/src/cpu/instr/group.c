@@ -32,7 +32,7 @@ make_group_impl_cond(group_2_cb)
 make_group_impl_cond(group_2_cv)
 make_group_impl_cond(group_3_b)
 make_group_impl_cond(group_3_v)
-make_group_impl_cond(group_5_indirect)
+make_group_impl_cond(group_5_indirect)	// 24.4.3
 make_group_impl_cond(group_7)
 make_group_impl_cond(group_x87_d8)
 make_group_impl_cond(group_x87_d9)
