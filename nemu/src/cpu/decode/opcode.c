@@ -21,8 +21,8 @@ instr_func opcode_entry[256] = {
     /* 0x44 - 0x47*/ inv, inv, inv, inv,
     /* 0x48 - 0x4b*/ inv, inv, inv, inv,
     /* 0x4c - 0x4f*/ inv, inv, inv, inv,
-    /* 0x50 - 0x53*/ push_r_l, push_r_l, push_r_l, push_r_l, /* 24.4.2 添加push硬编码指令 */
-    /* 0x54 - 0x57*/ push_r_l, push_r_l, push_r_l, push_r_l, /* 24.4.2 添加push硬编码指令 */
+    /* 0x50 - 0x53*/ push_r_l, push_r_l, push_r_l, push_r_l, /* 24.4.2 添加push(2)硬编码指令 */
+    /* 0x54 - 0x57*/ push_r_l, push_r_l, push_r_l, push_r_l, 
     /* 0x58 - 0x5b*/ inv, inv, inv, inv,
     /* 0x5c - 0x5f*/ inv, inv, inv, inv,
     /* 0x60 - 0x63*/ inv, inv, inv, inv,
@@ -59,7 +59,7 @@ instr_func opcode_entry[256] = {
     /* 0xdc - 0xdf*/ group_x87_dc, group_x87_dd, group_x87_de, group_x87_df,
     /* 0xe0 - 0xe3*/ inv, inv, inv, inv,
     /* 0xe4 - 0xe7*/ inv, inv, inv, inv,
-    /* 0xe8 - 0xeb*/ call_near, jmp_near, inv, jmp_byte, /* 24.4.2 添加call_near jmp_b */
+    /* 0xe8 - 0xeb*/ call_near, jmp_near, inv, jmp_byte, /* 24.4.2 添加call_near(1) jmp_b */
     /* 0xec - 0xef*/ inv, inv, inv, inv,
     /* 0xf0 - 0xf3*/ inv, break_point, inv, rep_repe,
     /* 0xf4 - 0xf7*/ hlt, inv, group_3_b, group_3_v,
