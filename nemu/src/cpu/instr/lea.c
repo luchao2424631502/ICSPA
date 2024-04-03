@@ -22,8 +22,8 @@ make_instr_func(lea)
 	*/
 
 	// 1. 将lea计算得到的值(addr)移动到寄存器值中
-	dest.val = sib.addr;
-	operand_write(&dest);
+	dest_reg.val = src_sib.addr;
+	operand_write(&dest_reg);
 
 	{printf("\n[LEA] eax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
 			cpu.eax,
