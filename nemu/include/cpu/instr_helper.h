@@ -180,7 +180,7 @@ static inline bool inv_cc(); // static 函数声明
 	inv_cc()
 
 #define condition_be \
-	inv_cc()
+	(cpu.eflags.CF || cpu.eflags.ZF)
 
 #define condition_o \
 	inv_cc()

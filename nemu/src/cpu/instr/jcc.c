@@ -18,6 +18,7 @@ static void instr_execute_1op_cc_fail() {/* Do nothing */}
 	make_instr_impl_1op_cc(j, i, suffix, p) \
 	make_instr_impl_1op_cc(j, i, suffix, s) \
 	make_instr_impl_1op_cc(j, i, suffix, ae) \
+	make_instr_impl_1op_cc(j, i, suffix, be) \
 	make_instr_impl_1op_cc(j, i, suffix, ge) \
 	make_instr_impl_1op_cc(j, i, suffix, le) \
 	make_instr_impl_1op_cc(j, i, suffix, na) \
