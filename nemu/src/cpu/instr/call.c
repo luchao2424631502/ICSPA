@@ -13,15 +13,6 @@ make_instr_func(call_near) {
 	// 0. 取到call指令跟着的偏移值
 	operand_read(&rel);
 
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
 	// 1. PUSH RA(下一条指令地址)
 	uint32_t RA = eip + 1 + data_size / 8;
 	cpu.esp -= data_size / 8;
