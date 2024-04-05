@@ -18,9 +18,9 @@ static void instr_execute_1op()
 			cpu.ebp,
 			cpu.esi,
 			cpu.edi);}
-	{printf("\t current_top_of_stack_value=0x%X", vaddr_read(cpu.esp, SREG_CS, data_size));}
+	{printf("\t current_top_of_stack_value=0x%X", vaddr_read(cpu.esp, SREG_CS, data_size / 8));}
 	// 0. 取出当前栈顶的值
-	uint32_t top_val = vaddr_read(cpu.esp, SREG_CS, data_size);
+	uint32_t top_val = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
 	cpu.esp += data_size / 8; 
 	
 	// 1. 将栈顶的值写回到指定寄存器
