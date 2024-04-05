@@ -34,5 +34,4 @@ static void instr_execute_2op()
 			cpu.ebx,
 			cpu.esp,
 			cpu.ebp);}
-	
 }
