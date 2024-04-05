@@ -91,7 +91,7 @@ instr_func group_1_bv_entry[8] = // group 1指令组包含多个指令. 取决�
 	inv, // 0x1
 	inv, // 0x2
 	inv, // 0x3
-	inv, // 0x4
+	and_i2rm_bv, // 0x4 24.4.5 添加 and(2_1)指令
 	sub_i2rm_bv, // 0x5 24.4.2 添加 sub(3) 指令
 	inv, // 0x6
 	cmp_i2rm_bv  // 0x7 24.4.2 添加 cmp(8)指令

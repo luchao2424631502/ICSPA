@@ -14,6 +14,7 @@ static void instr_execute_2op()
 	// 1. 读取立即数的值
 	operand_read(&opr_src);
 
+	printf("\n[AND]\n");
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
 			cpu.eax,
 			cpu.ecx,
