@@ -23,7 +23,7 @@ static void instr_execute_2op()
 			cpu.esp,
 			cpu.ebp);}
 	// 2. and运算
-	opr_dest.val = alu_and(sign_ext(opr_src.val, opr_dest.data_size), opr_dest.val, opr_dest.data_size);
+	opr_dest.val = alu_and(sign_ext(opr_src.val, opr_src.data_size), opr_dest.val, opr_dest.data_size);
 	// 3. 写回
 	operand_write(&opr_dest);
 
