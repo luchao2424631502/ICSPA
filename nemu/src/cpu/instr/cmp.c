@@ -6,6 +6,7 @@ static void instr_execute_2op();
 
 make_instr_impl_2op(cmp, i, rm, bv)	// cmp_i2rm_bv  cmp $0x10, %ebx
 make_instr_impl_2op(cmp, r, rm, v)	// cmp_r2rm_v	cmp %ebx, %eax
+make_instr_impl_2op(cmp, i, a, b)	// cmp_i2a_b	cmp $0x1, %AL
 
 static void instr_execute_2op() // cmp逻辑
 {
