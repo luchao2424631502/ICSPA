@@ -216,7 +216,7 @@ static inline bool inv_cc(); // static 函数声明
 	inv_cc()
 
 #define condition_le \
-	inv_cc()
+	cpu.eflags.ZF || (cpu.eflags.SF != cpu.eflags.OF)
 
 #define condition_ecxz \
 	cpu.ecx == 0
