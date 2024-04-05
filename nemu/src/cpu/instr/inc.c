@@ -5,6 +5,7 @@ Put the implementations of `inc' instructions here.
 static void instr_execute_1op();
 
 make_instr_impl_1op(inc, rm, v) // inc_rm_v
+make_instr_impl_1op(inc, r, v) // inc_r_v
 
 static void instr_execute_1op()
 {

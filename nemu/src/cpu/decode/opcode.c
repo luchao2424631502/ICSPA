@@ -17,8 +17,8 @@ instr_func opcode_entry[256] = {
     /* 0x34 - 0x37*/ inv, inv, inv, inv,
     /* 0x38 - 0x3b*/ inv, cmp_r2rm_v, inv, inv,	/* 24.4.3 添加cmp_r2rm_v(11) 指令*/
     /* 0x3c - 0x3f*/ cmp_i2a_b, inv, inv, inv,
-    /* 0x40 - 0x43*/ inv, inv, inv, inv,
-    /* 0x44 - 0x47*/ inv, inv, inv, inv,
+    /* 0x40 - 0x43*/ inc_r_v, inc_r_v, inc_r_v, inc_r_v,
+    /* 0x44 - 0x47*/ inc_r_v, inc_r_v, inc_r_v, inc_r_v,
     /* 0x48 - 0x4b*/ inv, inv, inv, inv,
     /* 0x4c - 0x4f*/ inv, inv, inv, inv,
     /* 0x50 - 0x53*/ push_r_l, push_r_l, push_r_l, push_r_l, /* 24.4.2 添加push(2)硬编码指令 */
