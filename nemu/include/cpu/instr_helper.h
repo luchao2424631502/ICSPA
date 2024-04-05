@@ -192,7 +192,7 @@ static inline bool inv_cc(); // static 函数声明
 	inv_cc()
 
 #define condition_ne \
-	cpu.eflags.ZF == 0
+	inv_cc()
 
 #define condition_na \
 	inv_cc()
