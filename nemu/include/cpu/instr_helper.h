@@ -207,7 +207,7 @@ static inline bool inv_cc(); // static 函数声明
 	inv_cc()
 
 #define condition_g \
-	inv_cc()
+	(cpu.eflags.ZF == 0) && (cpu.eflags.SF == cpu.eflags.OF)
 
 #define condition_ge \
 	inv_cc()
