@@ -231,7 +231,7 @@ instr_func opcode_2_byte_entry[256] = {
     /* 0x80 - 0x83*/ inv, inv, inv, inv,
     /* 0x84 - 0x87*/ inv, inv, jbe_near/*jbe_near*/, inv, // 24.4.5 添加jbe(2_3) 指令
     /* 0x88 - 0x8b*/ inv, inv, inv, inv,
-    /* 0x8c - 0x8f*/ inv, inv, inv, inv,
+    /* 0x8c - 0x8f*/ jl_near, inv, inv, inv,
     /* 0x90 - 0x93*/ inv, inv, inv, inv,
     /* 0x94 - 0x97*/ inv, setne_b, inv, inv,
     /* 0x98 - 0x9b*/ inv, inv, inv, inv,
