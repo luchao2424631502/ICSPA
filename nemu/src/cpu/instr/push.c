@@ -5,8 +5,9 @@ Put the implementations of `push' instructions here.
 
 static void instr_execute_1op();
 
-make_instr_impl_1op(push, r, l) // 生成的push_r_l适用于0x50~0x57, 所以需要修改相应的opcode function
-make_instr_impl_1op(push, rm, v)
+make_instr_impl_1op(push, r, l) // 生成的push_r_l适用于0x50~0x57
+make_instr_impl_1op(push, rm, v)// push_rm_v
+make_instr_impl_1op(push, i, b) // push_i_b
 /* 
  * int len = 1;
  * decode_data_size_l
