@@ -3,7 +3,8 @@
 Put the implementations of `ret' instructions here.
 */
 /* int ret(uint32_t eip, uint8_t opcode) */
-make_instr_func(ret) { // ret 直接将栈顶值加载到eip中, 但是我这里没有这么做
+make_instr_func(ret) 
+{ // ret 直接将栈顶值加载到eip中, 但是我这里没有这么做
 
 	// 0. 取出栈顶绝对地址, 
 	uint32_t dest_addr = vaddr_read(cpu.esp, SREG_CS, 4);
