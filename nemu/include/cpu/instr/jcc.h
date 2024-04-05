@@ -5,7 +5,7 @@ make_instr_func(je_short_);
 make_instr_func(ja_short_);
 make_instr_func(jae_short_);
 make_instr_func(jb_short_);
-make_instr_func(jbe_short_);
+make_instr_func(jbe_short_); // add
 make_instr_func(jecxz_short_);
 make_instr_func(jg_short_);
 make_instr_func(jge_short_);
@@ -24,6 +24,7 @@ make_instr_func(je_near);
 make_instr_func(ja_near);
 make_instr_func(jae_near);
 make_instr_func(jb_near);
+make_instr_func(jbe_near); // add
 make_instr_func(jg_near);
 make_instr_func(jge_near);
 make_instr_func(jl_near);
