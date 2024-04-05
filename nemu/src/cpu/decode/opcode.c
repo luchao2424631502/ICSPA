@@ -151,7 +151,7 @@ instr_func group_3_v_entry[8] =
 instr_func group_5_indirect_entry[8] =
 {
 	inc_rm_v, // 0x0 24.4.3 添加 inc(13) 指令
-	inv, 
+	dec_rm_v, // 0x1 24.4.5 添加 dec
 	inv, 
 	inv, 
 	inv, 

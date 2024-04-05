@@ -5,6 +5,7 @@ Put the implementations of `dec' instructions here.
 static void instr_execute_1op();
 
 make_instr_impl_1op(dec, r, v) // dec_r_v
+make_instr_impl_1op(dec, rm, v) // dec_rm_v
 
 static void instr_execute_1op()
 {
