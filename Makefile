@@ -21,7 +21,8 @@ run: nemu
 	# ./nemu/nemu --testcase pascal
 	# ./nemu/nemu --testcase sub-longlong
 	# ./nemu/nemu --testcase fact
-	./nemu/nemu --testcase gotbaha
+	# ./nemu/nemu --testcase gotbaha
+	./nemu/nemu --testcase mul-longlong
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
