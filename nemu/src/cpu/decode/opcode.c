@@ -69,7 +69,16 @@ instr_func opcode_entry[256] = {
 
 /* 0x80 */
 instr_func group_1_b_entry[8] =
-    {inv, inv, inv, inv, inv, inv, inv, inv};
+{
+	inv, 
+	inv, 
+	inv, 
+	inv, 
+	inv, 
+	inv, 
+	inv, 
+	cmp_i2rm_b // 80 /7 cmp
+};
 
 /* 0x81 */
 instr_func group_1_v_entry[8] = // imm grp 1 
