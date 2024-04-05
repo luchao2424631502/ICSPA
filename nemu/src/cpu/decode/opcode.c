@@ -90,7 +90,7 @@ instr_func group_1_v_entry[8] = // imm grp 1
 	inv, 
 	inv, 
 	inv, 
-	inv
+	cmp_i2rm_v//opcode 0x7 cmp
 };
 
 /* 0x83 */
