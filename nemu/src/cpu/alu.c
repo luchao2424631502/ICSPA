@@ -328,7 +328,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 	cpu.eflags.ZF = (ans == 0) ? 1 : 0;
 	cpu.eflags.PF = PF;
 	cpu.eflags.SF = 0x1 & (ans >> (data_size - 1)); // 得到符号位标志
-	// 24.4.5 添加
+	// 24.4.5 根据手册指定的影响标志位
 	cpu.eflags.OF = 0;
 	cpu.eflags.CF = 0;
 
