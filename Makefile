@@ -14,7 +14,8 @@ run: nemu
 	# ./nemu/nemu --testcase add-longlong
 	# ./nemu/nemu --testcase bit
 	# ./nemu/nemu --testcase bubble-sort
-	./nemu/nemu --testcase mov-jcc
+	# ./nemu/nemu --testcase mov-jcc
+	./nemu/nemu --testcase if-else
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
