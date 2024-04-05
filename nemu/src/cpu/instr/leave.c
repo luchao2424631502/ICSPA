@@ -10,4 +10,5 @@ make_instr_func(leave)
 	// 1. 将栈机制恢复为调用者的栈基址 pop %ebp
 	cpu.ebp = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
 	cpu.esp += data_size / 8;
+	return 1;
 }
