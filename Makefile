@@ -19,7 +19,8 @@ run: nemu
 	# ./nemu/nemu --testcase fib
 	# ./nemu/nemu --testcase quick-sort
 	# ./nemu/nemu --testcase pascal
-	./nemu/nemu --testcase sub-longlong
+	# ./nemu/nemu --testcase sub-longlong
+	./nemu/nemu --testcase fact
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
