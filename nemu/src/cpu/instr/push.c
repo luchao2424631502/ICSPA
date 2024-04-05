@@ -19,15 +19,13 @@ make_instr_impl_1op(push, rm, v)
 static void instr_execute_1op()
 {
 	printf("\n[PUSH]_before info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
+	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
 			cpu.eax,
 			cpu.ecx,
 			cpu.edx,
 			cpu.ebx,
 			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
+			cpu.ebp);}
 
 	// 0. esp -= 4;
 	cpu.esp -= data_size / 8;
