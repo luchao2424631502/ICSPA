@@ -26,6 +26,7 @@ static void instr_execute_2op()
 	printf("\tsrc.val=0x%X dest.val=0x%X\n", opr_src.val, opr_dest.val);
 	// 2. and运算
 	opr_dest.val = alu_and(sign_ext(opr_src.val, opr_src.data_size), opr_dest.val, opr_dest.data_size);
+	printf("\tsrc.val=0x%X dest.val=0x%X\n", opr_src.val, opr_dest.val);
 	// 3. 写回
 	operand_write(&opr_dest);
 
