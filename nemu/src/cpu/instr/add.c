@@ -6,6 +6,7 @@ Put the implementations of `add' instructions here.
 static void instr_execute_2op();
 
 make_instr_impl_2op(add, i, rm, v) // add_i2rm_v
+make_instr_impl_2op(add, i, a,  v) // add_i2a_v
 
 static void instr_execute_2op()
 {
