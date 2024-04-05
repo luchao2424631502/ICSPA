@@ -8,8 +8,8 @@ make_instr_impl_2op(adc, r, rm, v); // adc_r2rm_v
 
 static void instr_execute_2op()
 {
-	cpu.ebx = 0x9999;
-	cpu.edx = 0x1;
+	// cpu.ebx = 0x9999;
+	// cpu.edx = 0x1;
 
 	// 0. 读取源操作数
 	operand_read(&opr_src);
