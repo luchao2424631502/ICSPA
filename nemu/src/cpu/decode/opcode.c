@@ -138,7 +138,7 @@ instr_func group_5_indirect_entry[8] =
 	inv, 
 	inv, 
 	inv, 
-	inv, 
+	push_rm_v, // 0x6 24.4.5 添加 push(2_2) 指令
 	inv
 };
 
