@@ -27,4 +27,8 @@ static void instr_execute_2op()
 			cpu.esi,
 			cpu.edi);}
 	printf("\talu_and size=%d\n", opr_dest.data_size);
+	{printf("\teflags before [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
+			cpu.eflags.SF?"SF":"",
+			cpu.eflags.CF?"CF":"",
+			cpu.eflags.OF?"OF":"");}
 }
