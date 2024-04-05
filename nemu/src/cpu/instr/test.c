@@ -26,4 +26,5 @@ static void instr_execute_2op()
 			cpu.ebp,
 			cpu.esi,
 			cpu.edi);}
+	printf("\talu_and size=%d\n", opr_dest.data_size);
 }
