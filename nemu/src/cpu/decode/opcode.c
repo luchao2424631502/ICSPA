@@ -144,7 +144,7 @@ instr_func group_3_v_entry[8] =
 	inv, 
 	inv, 
 	inv, 
-	inv
+	idiv_rm2a_v
 };
 
 /* 0xff */
