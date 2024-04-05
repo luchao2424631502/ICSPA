@@ -12,7 +12,7 @@ run: nemu
 	$(call git_commit, "run", $(TIME_MAKE))
 	# ./nemu/nemu --testcase add
 	# ./nemu/nemu --testcase add-longlong
-	./nemu/nemu --testcase bit
+	# ./nemu/nemu --testcase bit
 	./nemu/nemu --testcase bubble-sort
 
 run-kernel: nemu
