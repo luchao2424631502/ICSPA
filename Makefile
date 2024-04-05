@@ -16,7 +16,8 @@ run: nemu
 	# ./nemu/nemu --testcase bubble-sort
 	# ./nemu/nemu --testcase mov-jcc
 	# ./nemu/nemu --testcase if-else
-	./nemu/nemu --testcase fib
+	# ./nemu/nemu --testcase fib
+	./nemu/nemu --testcase quick-sort
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
