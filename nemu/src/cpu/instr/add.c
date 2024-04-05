@@ -7,6 +7,7 @@ static void instr_execute_2op();
 
 make_instr_impl_2op(add, i, rm, v) // add_i2rm_v
 make_instr_impl_2op(add, i, a,  v) // add_i2a_v
+make_instr_impl_2op(add, r, rm, v) // add_r2rm_v
 
 static void instr_execute_2op()
 {

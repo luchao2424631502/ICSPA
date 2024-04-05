@@ -1,7 +1,7 @@
 #include "cpu/instr.h"
 
 instr_func opcode_entry[256] = {
-    /* 0x00 - 0x03*/ inv, inv, inv, inv,
+    /* 0x00 - 0x03*/ inv, add_r2rm_v, inv, inv,	// 24.4.5 添加add(2_5) 指令
     /* 0x04 - 0x07*/ inv, add_i2a_v /* add */, inv, inv, // 24.4.5 添加 add(2_4) 指令
     /* 0x08 - 0x0b*/ inv, inv, inv, inv,
     /* 0x0c - 0x0f*/ inv, inv, inv, opcode_2_byte,
