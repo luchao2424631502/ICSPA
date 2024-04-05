@@ -5,6 +5,7 @@ Put the implementations of `and' instructions here.
 static void instr_execute_2op();
 
 make_instr_impl_2op(and, i, rm, bv)	// and_i2rm_bv
+make_instr_impl_2op(and, rm, r, b)	// and_rm2r_b
 
 static void instr_execute_2op()
 {
