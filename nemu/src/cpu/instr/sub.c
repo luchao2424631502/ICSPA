@@ -7,6 +7,7 @@ static void instr_execute_2op();
 
 /* 属于GRP1(Group1)指令组, 该指令组包括多种操作, 其立即数操作大小固定为8bit */
 make_instr_impl_2op(sub, i, rm, bv) // sub_i2rm_bv
+make_instr_impl_2op(sub, rm, r,  v) // sub_rm2r_v
 
 static void instr_execute_2op()
 {
