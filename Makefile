@@ -20,7 +20,8 @@ run: nemu
 	# ./nemu/nemu --testcase quick-sort
 	# ./nemu/nemu --testcase pascal
 	# ./nemu/nemu --testcase sub-longlong
-	./nemu/nemu --testcase fact
+	# ./nemu/nemu --testcase fact
+	./nemu/nemu --testcase gotbaha
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
