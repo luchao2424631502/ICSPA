@@ -5,6 +5,7 @@ Put the implementations of `or' instructions here.
 static void instr_execute_2op();
 
 make_instr_impl_2op(or, r, rm, v); // or_r2rm_v
+make_instr_impl_2op(or, rm, r, b); // or_rm2r_b
 
 static void instr_execute_2op()
 {
