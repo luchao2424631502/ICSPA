@@ -18,7 +18,7 @@ static void instr_execute_2op()
 	// 1. 读取目的
 	operand_read(&opr_dest);
 	// 2. 执行and操作, 结果丢弃, 只影响标志位即可
-	alu_and(opr_src.val, opr_dest.val, data_size);
+	alu_and(opr_src.val, opr_dest.val, opr_dest.data_size);
 
 	{printf("\n[TEST]\n");}
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n", 
