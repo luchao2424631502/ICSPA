@@ -25,7 +25,7 @@ make_instr_func(cmova_rm2r_v);
 make_instr_func(cmovae_rm2r_v);
 make_instr_func(cmovb_rm2r_v);
 make_instr_func(cmovbe_rm2r_v);
-make_instr_func(cmovg_rm2r_v);
+make_instr_func(cmovg_rm2r_v); // cmovg_rm2r_v
 make_instr_func(cmovge_rm2r_v);
 make_instr_func(cmovl_rm2r_v);
 make_instr_func(cmovle_rm2r_v);
