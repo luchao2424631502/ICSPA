@@ -30,7 +30,8 @@ static void instr_execute_2op()
 			cpu.edi);}
 
 	// 3. 执行sub运算
-	opr_dest.val = alu_sub(opr_src.val, opr_dest.val, opr_dest.data_size);
+	opr_dest.val = alu_sub(sign_ext(opr_src.val, opr_dest.data_size), 
+				opr_dest.val, opr_dest.data_size);
 	// 4. 写回到目标寄存器
 	operand_write(&opr_dest);
 	
