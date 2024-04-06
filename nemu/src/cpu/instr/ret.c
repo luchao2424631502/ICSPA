@@ -10,11 +10,8 @@ make_instr_func(ret)
 	uint32_t dest_addr = vaddr_read(cpu.esp, SREG_CS, 4);
 	cpu.esp += data_size / 8;
 	
-	dest_addr = dest_addr - (eip + 1); // 还是计算偏移地址加到eip上, 因为exec_instr()执行完后会+len, 所以不好直接
-	int offset = sign_ext(dest_addr, data_size);
-
-	// 1. 修改
-	cpu.eip += offset;
+	// 1. 直接修改eip
+	cpu.eip = dest_addr;
 
 	{printf("\n[RET] offset=%d old_cpu_eip=0x%X new_cpu_eip=0x%X\n", offset, eip, eip + offset+ 1);}
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
@@ -28,7 +25,7 @@ make_instr_func(ret)
 			cpu.edi);}
 	printf("\t curr_stack_top_value=0x%X\n", vaddr_read(cpu.esp , SREG_CS, 4));
 
-	return 1;
+	return 0;
 }
 
 make_instr_func(ret_imm16)
