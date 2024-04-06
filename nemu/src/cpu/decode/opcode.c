@@ -141,7 +141,7 @@ instr_func group_3_v_entry[8] =
 	inv, 
 	not_rm_v,  // 0x2 not Ev
 	inv, 
-	inv, 
+	mul_rm2a_v,// 0x4 mul Ev 
 	inv, 
 	inv, 
 	idiv_rm2a_v
