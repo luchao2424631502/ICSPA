@@ -39,7 +39,7 @@ make_instr_func(ret_imm16)
 	len += 2;
 	// 1. 
 	uint32_t dest_addr = vaddr_read(cpu.esp, SREG_CS, 4);
-	cpu.esp += data.size / 8;
+	cpu.esp += data_size / 8;
 
 	dest_addr = dest_addr - (eip + 1); // 还是计算偏移地址加到eip上, 因为exec_instr()执行完后会+len, 所以不好直接
 	int offset = sign_ext(dest_addr, data_size);
