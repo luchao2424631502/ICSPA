@@ -133,7 +133,7 @@ instr_func group_2_cv_entry[8] =
 /* 0xf6 */
 instr_func group_3_b_entry[8] =
 {
-	test_i2rm_b,// 0x0 test Eb 
+	inv/*test_i2rm_b*/,// 0x0 test Eb 
 	inv, 
 	inv, 
 	inv, 
