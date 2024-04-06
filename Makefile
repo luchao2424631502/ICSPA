@@ -23,7 +23,8 @@ run: nemu
 	# ./nemu/nemu --testcase fact
 	# ./nemu/nemu --testcase gotbaha
 	# ./nemu/nemu --testcase mul-longlong
-	./nemu/nemu --testcase shuixianhua
+	# ./nemu/nemu --testcase shuixianhua
+	./nemu/nemu --testcase struct
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
