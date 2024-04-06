@@ -50,7 +50,7 @@ make_instr_func(ret_imm16)
 	// 2. pop imm16 bytes
 	cpu.esp += imm;
 
-	{printf("\n[RET_imm16] offset=%d old_cpu_eip=0x%X new_cpu_eip=0x%X imm=%u\n", offset, eip, eip + offset+ 1, imm);}
+	{printf("\n[RET_imm16] offset=%d old_cpu_eip=0x%X new_cpu_eip=0x%X imm=%u\n", offset, eip, eip + offset + len, imm);}
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
 			cpu.ecx,
