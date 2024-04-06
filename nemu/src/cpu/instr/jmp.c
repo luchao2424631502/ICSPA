@@ -38,3 +38,7 @@ make_instr_func(jmp_byte)
 	{printf("\n[JMP_BYTE] old_eip=0x%X new_eip=0x%X \n", eip, eip + 2 + offset);}
 	return 1 + 1;
 }
+
+make_instr_func(jmp_near_aindirect)
+{
+}
