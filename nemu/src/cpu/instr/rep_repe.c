@@ -11,7 +11,7 @@ make_instr_func(rep_repe)
 		opcode_entry[op](eip + 1, op);
 		return 0;
 	}
-	while (cpu.gpr[REG_ECX]._32 != 0)
+	while (cpu.gpr[REG_ECX]._32 != 0) // 重复指令直到ecx==0
 	{
 		opcode_entry[op](eip + 1, op);
 		cpu.gpr[REG_ECX]._32--;
