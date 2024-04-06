@@ -88,7 +88,7 @@ instr_func group_1_v_entry[8] = // imm grp 1
 	inv, 
 	inv, 
 	inv, 
-	inv, 
+	sub_i2rm_v, // opcode 0x5 sub
 	inv, 
 	cmp_i2rm_v//opcode 0x7 cmp
 };
