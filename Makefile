@@ -25,6 +25,7 @@ run: nemu
 	./nemu/nemu --testcase mul-longlong
 	./nemu/nemu --testcase shuixianhua
 	./nemu/nemu --testcase struct
+	./nemu/nemu --testcase string
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
