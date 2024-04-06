@@ -47,7 +47,7 @@ make_instr_func(jmp_near_aindirect)
 {
 	int len = 1;
 
-	operand src;
+	OPERAND src;
 	src.data_size = 32;
 
 	// 解码r/m, 得到的地址在src.addr
