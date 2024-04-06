@@ -4,5 +4,6 @@
 Put the declarations of `ret' instructions here.
 */
 make_instr_func(ret);
+make_instr_func(ret_imm16);
 
 #endif
