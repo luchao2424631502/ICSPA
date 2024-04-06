@@ -25,13 +25,15 @@ static void instr_execute_2op() // cmp逻辑
 			cpu.eflags.SF?"SF":"",
 			cpu.eflags.CF?"CF":"",
 			cpu.eflags.OF?"OF":"");}
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
+	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n", 
 			cpu.eax,
 			cpu.ecx,
 			cpu.edx,
 			cpu.ebx,
 			cpu.esp,
-			cpu.ebp);}
+			cpu.ebp,
+			cpu.esi,
+			cpu.edi);}
 	/* 2. 执行cmp (手册说将立即数符号扩展到第一个操作数相同, 以sub指令的方法实现)
 	      debug发现这里出错原因:
 	      - 没有按照i386指令手册要求的操作数运算大小来进行sub运算
