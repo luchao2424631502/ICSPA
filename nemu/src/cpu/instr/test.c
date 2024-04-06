@@ -6,6 +6,7 @@ static void instr_execute_2op();
 
 make_instr_impl_2op(test, r, rm, v); // test_r2rm_v
 make_instr_impl_2op(test, r, rm, b); // test_r2rm_b
+make_instr_impl_2op(test, i, rm, v); // test_i2rm_v
 
 static void instr_execute_2op()
 {

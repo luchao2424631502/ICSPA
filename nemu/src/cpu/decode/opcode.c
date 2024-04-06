@@ -137,7 +137,7 @@ instr_func group_3_b_entry[8] =
 /* 0xf7 */
 instr_func group_3_v_entry[8] =
 {
-	inv, 
+	test_i2rm_v, // 0x0 test Ev
 	inv, 
 	not_rm_v,  // 0x2 not Ev
 	inv, 
