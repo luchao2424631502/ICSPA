@@ -10,6 +10,7 @@ make_instr_impl_2op(cmp, i, a, b)	// cmp_i2a_b	cmp $0x1, %AL
 make_instr_impl_2op(cmp, i, rm, b)	// cmp_i2rm_b
 make_instr_impl_2op(cmp, i, rm, v)	// cmp_i2rm_v
 make_instr_impl_2op(cmp, rm, r, v)	// cmp_rm2r_v 	cmp $0x10(%ebp), %eax
+make_instr_impl_2op(cmp, rm, r, b)	// cmp_rm2r_b
 
 static void instr_execute_2op() // cmp逻辑
 {
