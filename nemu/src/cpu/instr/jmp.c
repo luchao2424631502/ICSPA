@@ -39,6 +39,25 @@ make_instr_func(jmp_byte)
 	return 1 + 1;
 }
 
- // make_instr_func(jmp_near_aindirect)
- // {
- // }
+/* 
+ * int jmp_near_aindirect(uint32_t eip,uint8_t opcode)
+ * 间接寻址, 拿到地址, 取出地址然后跳转
+*/
+make_instr_func(jmp_near_aindirect)
+{
+	int len = 1;
+
+	operand src;
+	src.data_size = 32;
+
+	// 解码r/m, 得到的地址在src.addr
+	len += modrm_rm(eip + 1, &src); 
+
+	// 1. 读取地址上的值(绝对地址)
+	operand_read(&src);
+
+	// 2. jmp 跳转过去 (手册上说直接设置eip)
+	cpu.eip = src.val;
+
+	return 0; 
+}
