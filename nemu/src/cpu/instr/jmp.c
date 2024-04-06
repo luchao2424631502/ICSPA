@@ -39,6 +39,6 @@ make_instr_func(jmp_byte)
 	return 1 + 1;
 }
 
-make_instr_func(jmp_near_aindirect)
-{
-}
+ // make_instr_func(jmp_near_aindirect)
+ // {
+ // }
