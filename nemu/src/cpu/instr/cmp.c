@@ -38,7 +38,7 @@ static void instr_execute_2op() // cmp逻辑
 	        但是两个宏的opr操作数大小不一样, 所以大小需要适配相应指令
 	*/
 
-	alu_sub(sign_ext(opr_src.val, opr_src.data_size), opr_dest.val, opr_dest.data_size);
+	alu_sub(sign_ext(opr_src.val, opr_dest.data_size), opr_dest.val, opr_dest.data_size);
 
 	{printf("\teflags after [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
 			cpu.eflags.SF?"SF":"",
