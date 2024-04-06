@@ -29,7 +29,7 @@ instr_func opcode_entry[256] = {
     /* 0x64 - 0x67*/ inv, inv, data_size_16, inv,
     /* 0x68 - 0x6b*/ inv, inv, push_i_b, inv, // 24.4.5 push(3_1)
     /* 0x6c - 0x6f*/ inv, inv, inv, inv,
-    /* 0x70 - 0x73*/ inv, inv, jb_short_, inv,
+    /* 0x70 - 0x73*/ inv, inv, inv, inv,
     /* 0x74 - 0x77*/ je_short_, jne_short_, jbe_short_, inv, /* 24.4.3 添加 jbe_short(9) je_short_(12) 指令 */
     /* 0x78 - 0x7b*/ inv, inv, inv, inv,
     /* 0x7c - 0x7f*/ jl_short_, jge_short_, jle_short_, jg_short_,
@@ -42,7 +42,7 @@ instr_func opcode_entry[256] = {
     /* 0x98 - 0x9b*/ cbw_a_v, cltd, inv, inv,
     /* 0x9c - 0x9f*/ inv, inv, sahf, inv,
     /* 0xa0 - 0xa3*/ mov_o2a_b, mov_o2a_v, mov_a2o_b, mov_a2o_v,
-    /* 0xa4 - 0xa7*/ movs_b, movs_v, cmps_b, cmps_v,
+    /* 0xa4 - 0xa7*/ movs_b, movs_v, inv, cmps_v,
     /* 0xa8 - 0xab*/ test_i2a_b, test_i2a_v, stos_b, inv,
     /* 0xac - 0xaf*/ inv, inv, inv, inv,
     /* 0xb0 - 0xb3*/ mov_i2r_b, mov_i2r_b, mov_i2r_b, mov_i2r_b,
@@ -132,16 +132,7 @@ instr_func group_2_cv_entry[8] =
 
 /* 0xf6 */
 instr_func group_3_b_entry[8] =
-{
-	test_i2rm_b,// 0x0 test Eb 
-	inv, 
-	inv, 
-	inv, 
-	inv, 
-	inv, 
-	inv, 
-	inv
-};
+    {inv, inv, inv, inv, inv, inv, inv, inv};
 
 /* 0xf7 */
 instr_func group_3_v_entry[8] =
@@ -163,7 +154,7 @@ instr_func group_5_indirect_entry[8] =
 	dec_rm_v, // 0x1 24.4.5 添加 dec
 	inv, 
 	inv, 
-	jmp_near_aindirect, // 0x4 jmp_
+	inv, 
 	inv, 
 	push_rm_v, // 0x6 24.4.5 添加 push(2_2) 指令
 	inv
@@ -224,7 +215,7 @@ instr_func opcode_2_byte_entry[256] = {
     /* 0x40 - 0x43*/ inv, inv, inv, inv,
     /* 0x44 - 0x47*/ cmove_rm2r_v, cmovne_rm2r_v, inv, cmova_rm2r_v,
     /* 0x48 - 0x4b*/ cmovs_rm2r_v, cmovns_rm2r_v, inv, inv,
-    /* 0x4c - 0x4f*/ inv, cmovge_rm2r_v, inv, cmovg_rm2r_v,
+    /* 0x4c - 0x4f*/ inv, cmovge_rm2r_v, inv, inv,
     /* 0x50 - 0x53*/ inv, inv, inv, inv,
     /* 0x54 - 0x57*/ inv, inv, inv, inv,
     /* 0x58 - 0x5b*/ inv, inv, inv, inv,
@@ -238,9 +229,9 @@ instr_func opcode_2_byte_entry[256] = {
     /* 0x78 - 0x7b*/ inv, inv, inv, inv,
     /* 0x7c - 0x7f*/ inv, inv, inv, inv,
     /* 0x80 - 0x83*/ inv, inv, inv, inv,
-    /* 0x84 - 0x87*/ inv/*je_near*/, jne_near, jbe_near, ja_near, // 24.4.5 添加jbe(2_3) 指令
-    /* 0x88 - 0x8b*/ js_near, inv, inv, inv,
-    /* 0x8c - 0x8f*/ jl_near, inv, jle_near, jg_near,
+    /* 0x84 - 0x87*/ inv, inv, jbe_near/*jbe_near*/, inv, // 24.4.5 添加jbe(2_3) 指令
+    /* 0x88 - 0x8b*/ inv, inv, inv, inv,
+    /* 0x8c - 0x8f*/ jl_near, inv, jle_near, inv,
     /* 0x90 - 0x93*/ inv, inv, inv, inv,
     /* 0x94 - 0x97*/ inv, setne_b, inv, inv,
     /* 0x98 - 0x9b*/ inv, inv, inv, inv,
