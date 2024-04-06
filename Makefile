@@ -22,7 +22,8 @@ run: nemu
 	# ./nemu/nemu --testcase sub-longlong
 	# ./nemu/nemu --testcase fact
 	# ./nemu/nemu --testcase gotbaha
-	./nemu/nemu --testcase mul-longlong
+	# ./nemu/nemu --testcase mul-longlong
+	./nemu/nemu --testcase shuixianhua
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
