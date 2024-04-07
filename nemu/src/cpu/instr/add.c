@@ -29,7 +29,9 @@ static void instr_execute_2op()
 			cpu.edi);}
 
 	// 2. 执行add运算
-	opr_dest.val = alu_add(opr_src.val, opr_dest.val, data_size);
+	// opr_dest.val = alu_add(opr_src.val, opr_dest.val, data_size);
+	opr_dest.val = alu_add(sign_ext(opr_src.val, opr_src.data_size),
+			opr_dest.val, data_size);
 
 	// 2. 值写回到目标寄存器
 	operand_write(&opr_dest);
