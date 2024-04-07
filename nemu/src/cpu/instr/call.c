@@ -24,7 +24,7 @@ make_instr_func(call_near) {
 	int offset = sign_ext(rel.val, data_size);
 	cpu.eip += offset;
 
-	{printf("\t offset=0x%X\n", offset);}
+	{printf("\t rel.val=0x%X offset=0x%X\n", rel.val, offset);}
 
 	return 1 + data_size / 8;
 }
