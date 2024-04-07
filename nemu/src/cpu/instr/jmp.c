@@ -45,19 +45,18 @@ make_instr_func(jmp_byte)
 */
 make_instr_func(jmp_near_aindirect)
 {
-	int len = 1;
-
 	OPERAND src;
 	src.data_size = 32;
 
-	// 解码r/m, 得到的地址在src.addr
+	// 0.解码r/m, 得到的地址在src.addr
 	len += modrm_rm(eip + 1, &src); 
-
-	// 1. 读取地址上的值(绝对地址)
+	// 1.根据地址拿到数据(跳转地址)
 	operand_read(&src);
 
-	// 2. jmp 跳转过去 (手册上说直接设置eip)
+	// 2. 直接跳转过去
 	cpu.eip = src.val;
+
+	{printf("\n[JMP_NEAR_AINDIRECT]\n src.addr=0x%X src.val=0x%X\n", src.addr, src.val);};
 
 	return 0; 
 }
