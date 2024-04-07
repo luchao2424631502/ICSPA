@@ -26,7 +26,7 @@ run: nemu
 	# ./nemu/nemu --testcase shuixianhua
 	# ./nemu/nemu --testcase struct
 	# ./nemu/nemu --testcase string
-	# ./nemu/nemu --testcase hello-str
+	./nemu/nemu --testcase hello-str
 	./nemu/nemu --testcase test-float
 
 run-kernel: nemu
