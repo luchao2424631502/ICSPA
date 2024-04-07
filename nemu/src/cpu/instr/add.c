@@ -30,6 +30,7 @@ static void instr_execute_2op()
 
 	// 2. 执行add运算
 	// opr_dest.val = alu_add(opr_src.val, opr_dest.val, data_size);
+	// 上面这个情况不满足后面添加的add_i2rm_bv, 所以错误才会在后面发生
 	opr_dest.val = alu_add(sign_ext(opr_src.val, opr_src.data_size),
 			opr_dest.val, data_size);
 
