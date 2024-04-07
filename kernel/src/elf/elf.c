@@ -43,7 +43,7 @@ uint32_t loader()
 /* TODO: copy the segment from the ELF file to its proper memory area */
 			memcpy((void *)(ph->p_vaddr), (void *)elf + ph->p_offset, pf->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
-			if (pf->p_filesz < pf->p_memsz)
+			if (ph->p_filesz < ph->p_memsz)
 				memset((void *)(ph->p_vaddr) + ph->p_filesz, 
 				      0, ph->p_memsz - ph->p_filesz);	
 
