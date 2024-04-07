@@ -75,7 +75,6 @@ test_pa-1: nemu
 
 test_pa-2-1: nemu 
 	$(call git_commit, "test_pa-2-1", $(TIME_MAKE))
-	# ./nemu/nemu --autorun --testcase 32_keyboard_inline
 	./nemu/nemu --autorun --testcase mov
 	./nemu/nemu --autorun --testcase mov-cmp
 	./nemu/nemu --autorun --testcase mov-c
