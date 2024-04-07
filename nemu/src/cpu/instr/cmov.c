@@ -12,7 +12,7 @@ static void instr_execute_2op_cc_fail() { /*Do nothing*/}
 make_instr_impl_2op_cc(cmov, rm, r, v, a)
 make_instr_impl_2op_cc(cmov, rm, r, v, ae)
 make_instr_impl_2op_cc(cmov, rm, r, v, b)
-make_instr_impl_2op_cc(cmov, rm, r, v, be)
+make_instr_impl_2op_cc(cmov, rm, r, v, be) // cmovbe_rm2r_v
 make_instr_impl_2op_cc(cmov, rm, r, v, g) // cmovg_rm2r_v
 make_instr_impl_2op_cc(cmov, rm, r, v, ge)
 make_instr_impl_2op_cc(cmov, rm, r, v, l)
