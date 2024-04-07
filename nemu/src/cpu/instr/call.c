@@ -34,7 +34,7 @@ make_instr_func(call_near_indirect)
 {
 	int len = 1;
 	OPERAND src;
-	src->data_size = data_size;
+	src.data_size = data_size;
 	// 0. 解析r/m表示的寄存器, 并且获得值
 	len += modrm_rm(eip + 1, &src);
 	operand_read(&src);
