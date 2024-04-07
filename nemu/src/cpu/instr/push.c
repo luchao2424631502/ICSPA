@@ -20,7 +20,7 @@ make_instr_impl_1op(push, i, v) // push_i_v kernel使用到
 /* 实现统一的instr_execute_1op */
 static void instr_execute_1op()
 {
-	printf("\n[PUSH]_before eip=0x%X info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", eip, cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
+	printf("\n[PUSH]_before eip=0x%X info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.eip, cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
 			cpu.eax,
 			cpu.ecx,
