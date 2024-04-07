@@ -8,6 +8,7 @@ static void instr_execute_1op();
 make_instr_impl_1op(push, r, l) // 生成的push_r_l适用于0x50~0x57
 make_instr_impl_1op(push, rm, v)// push_rm_v
 make_instr_impl_1op(push, i, b) // push_i_b [可能存在存在操作数大小问题]
+make_instr_impl_1op(push, i, v) // push_i_v kernel使用到
 /* 
  * int len = 1;
  * decode_data_size_l

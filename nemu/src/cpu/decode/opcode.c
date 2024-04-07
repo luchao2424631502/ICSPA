@@ -231,7 +231,7 @@ instr_func opcode_2_byte_entry[256] = {
     /* 0x5c - 0x5f*/ inv, inv, inv, inv,
     /* 0x60 - 0x63*/ inv, inv, inv, inv,
     /* 0x64 - 0x67*/ inv, inv, inv, inv,
-    /* 0x68 - 0x6b*/ inv, inv, inv, inv,
+    /* 0x68 - 0x6b*/ push_i_v, inv, inv, inv,
     /* 0x6c - 0x6f*/ inv, inv, inv, inv,
     /* 0x70 - 0x73*/ inv, inv, inv, inv,
     /* 0x74 - 0x77*/ inv, inv, inv, inv,
