@@ -74,7 +74,7 @@ instr_func group_1_b_entry[8] =
 	inv, 
 	inv, 
 	inv, 
-	inv, 
+	and_i2rm_b, // 0x4 and b
 	inv, 
 	inv, 
 	cmp_i2rm_b // 80 /7 cmp

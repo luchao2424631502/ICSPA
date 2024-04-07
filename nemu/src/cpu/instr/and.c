@@ -8,6 +8,7 @@ make_instr_impl_2op(and, i, rm, bv)	// and_i2rm_bv
 make_instr_impl_2op(and, rm, r, b)	// and_rm2r_b
 make_instr_impl_2op(and, r, rm, v)	// and_r2rm_v
 make_instr_impl_2op(and, i, rm, v)	// and_i2rm_v
+make_instr_impl_2op(and, i, rm, b)	// and_i2rm_b
 
 static void instr_execute_2op()
 {
