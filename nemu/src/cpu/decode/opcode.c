@@ -161,7 +161,7 @@ instr_func group_5_indirect_entry[8] =
 {
 	inc_rm_v, // 0x0 24.4.3 添加 inc(13) 指令
 	dec_rm_v, // 0x1 24.4.5 添加 dec
-	inv, 
+	call_near_indirect, 
 	inv, 
 	jmp_near_aindirect, // 0x4 jmp
 	inv, 

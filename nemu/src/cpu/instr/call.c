@@ -28,3 +28,22 @@ make_instr_func(call_near) {
 
 	return 1 + data_size / 8;
 }
+
+/* 注意和jmp是不一样的, jmp直接跳转就行 */
+make_instr_func(call_near_indirect)
+{
+	int len = 1;
+	OPERAND src;
+	// 0. 解析r/m表示的寄存器, 并且获得值
+	len += modrm_rm(eip + 1, &src);
+	operand_read(&src);
+
+	// 1. push RA
+	cpu.esp -= data_size / 8;
+	vaddr_write(cpu.esp, SREG_CS, data_size / 8, eip + len);
+
+	// 2. 跳转到目标地址
+	cpu.eip = src.val;
+
+	return 0; // 绝对call
+}
