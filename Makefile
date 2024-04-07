@@ -26,8 +26,8 @@ run: nemu
 	# ./nemu/nemu --testcase shuixianhua
 	# ./nemu/nemu --testcase struct
 	# ./nemu/nemu --testcase string
-	./nemu/nemu --testcase hello-str
-	./nemu/nemu --testcase test-float
+	# ./nemu/nemu --testcase hello-str
+	# ./nemu/nemu --testcase test-float
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
