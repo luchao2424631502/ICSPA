@@ -38,11 +38,14 @@ uint32_t loader()
 		{
 
 			// remove this panic!!!
-			panic("Please implement the loader");
+			// panic("Please implement the loader");
 
 /* TODO: copy the segment from the ELF file to its proper memory area */
-
+			memcpy(ph->p_vaddr, (void *)elf + ph->p_offset, pf->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
+			if (pf->p_filesz < pf->p_memsz)
+				memset((void *)(ph->p_vaddr) + ph->p_filesz, 
+				      0, pf->p_memsz - pf->p_filesz);	
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
