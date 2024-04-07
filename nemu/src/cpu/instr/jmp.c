@@ -49,7 +49,7 @@ make_instr_func(jmp_near_aindirect)
 	src.data_size = 32;
 
 	// 0.解码r/m, 得到的地址在src.addr
-	len += modrm_rm(eip + 1, &src); 
+	modrm_rm(eip + 1, &src); 
 	// 1.根据地址拿到数据(跳转地址)
 	operand_read(&src);
 
