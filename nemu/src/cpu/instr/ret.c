@@ -13,7 +13,7 @@ make_instr_func(ret)
 	// 1. 直接修改eip
 	cpu.eip = dest_addr;
 
-	{printf("\n[RET] old_cpu_eip=0x%X new_cpu_eip=0x%X\n", eip, cpu.eip);}
+	{printf("\n[RET] current_eip=0x%X new_cpu_eip=0x%X\n", eip, cpu.eip);}
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
 			cpu.ecx,
