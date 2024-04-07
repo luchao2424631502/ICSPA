@@ -41,7 +41,7 @@ uint32_t loader()
 			// panic("Please implement the loader");
 
 /* TODO: copy the segment from the ELF file to its proper memory area */
-			{printf("offset=0x%x vaddr=0x%x filesize=0x%x memsize=0x%x\n", 
+			{printk("offset=0x%x vaddr=0x%x filesize=0x%x memsize=0x%x\n", 
 					ph->p_offset,
 					ph->p_vaddr,
 					ph->p_filesz,
