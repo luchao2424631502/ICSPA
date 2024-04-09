@@ -34,7 +34,7 @@ static struct rule
 	{" +", NOTYPE}, // white space
 	{"\\+", '+'}, // \+ 匹配+符号
 
-	{"[0-9]+", NUM},// \d+ 匹配一个以上的数字
+	{"[0-9]+", NUM},// 
 	{"\\-", '-'},	// \- 匹配-符号
 	{"\\*", '*'},	// \* 匹配*符号
 	{"\\/", '/'},	// \/ 匹配/符号
@@ -88,7 +88,7 @@ static bool make_token(char *e)
 		/* Try all rules one by one. */
 		for (i = 0; i < NR_REGEX; i++)
 		{
-			printf("input=%s NR_REGEX=%d\t", e + position, NR_REGEX);
+			printf("input=%s NR_REGEX=%d\n", e + position, NR_REGEX);
 			if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0)
 			{
 				char *substr_start = e + position;
@@ -107,7 +107,6 @@ static bool make_token(char *e)
 					printf("NOTYPE");
 					break;
 				case NUM:
-					printf("NUM");
 					if (substr_len <= 32) {
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
