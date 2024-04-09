@@ -103,8 +103,10 @@ static bool make_token(char *e)
 				switch (rules[i].token_type)
 				{
 				case NOTYPE:
+					printf("NOTYPE");
 					break;
 				case NUM:
+					printf("NUM");
 					if (substr_len <= 32) {
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
