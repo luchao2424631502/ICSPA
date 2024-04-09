@@ -214,7 +214,7 @@ static int eval(int left, int right)
 			return strtol(tokens[left].str, NULL, 16);
 		// 处理寄存器值
 		if (tokens[left].type == REG) {
-			return cpu.eax;
+			return cpu.esp;
 		}
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
