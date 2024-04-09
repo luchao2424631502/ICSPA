@@ -119,7 +119,7 @@ static bool make_token(char *e)
 				case HEX:
 				case NUM:
 					if (substr_len <= 32) {
-						printf("token=%s\n", substr_start);
+						// printf("token=%s\n", substr_start);
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
 						printf("ERROR substr_len > 32\n");
@@ -206,11 +206,14 @@ static int eval(int left, int right)
 		assert(0);
 		return 0;
 	} else if (left == right) {
-		// 假设str值在uing32_t范围内, 否则值无法预期
 		if (tokens[left].type == NUM)
 			return atoi(tokens[left].str); 
 		if (tokens[left].type == HEX)
 			return strtol(tokens[left].str, NULL, 16);
+		// 处理寄存器值
+		if (tokens[left].type == REG) {
+			return cpu.eax;
+		}
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
 	} else {
