@@ -234,7 +234,7 @@ static uint32_t eval(int left, int right)
 		
 		int val1 = eval(left, dop_index - 1);
 		int val2 = eval(dop_index + 1, right);
-		switch(tokens[op].type) {
+		switch(dop) {
 		case '+':
 			return val1 + val2;
 		case '-':
