@@ -107,9 +107,9 @@ static bool make_token(char *e)
 				case NOTYPE:
 					break;
 				case NUM:
-					if (likely(substr_len <= 32)) {
+					if (substr_len <= 32) {
 					} else {
-						// printf("", );
+						printf("", );
 					}
 				default:
 					tokens[nr_token].type = rules[i].token_type;
