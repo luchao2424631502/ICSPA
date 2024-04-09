@@ -214,7 +214,27 @@ static int eval(int left, int right)
 			return strtol(tokens[left].str, NULL, 16);
 		// 处理寄存器值
 		if (tokens[left].type == REG) {
-			return cpu.esp;
+			printf("str=%s\n", tokens[left].str);
+			switch(tokens[left].str) {
+			case "eax":
+				return cpu.eax;
+			case "ebx":
+				return cpu.ebx;
+			case "ecx":
+				return cpu.ecx;
+			case "edx":
+				return cpu.edx;
+			case "ebp":
+				return cpu.ebp;
+			case "esp":
+				return cpu.esp;
+			case "esi":
+				return cpu.esi;
+			case "edi":
+				return cpu.edi;
+			default:
+				return 0x0;
+			}
 		}
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
