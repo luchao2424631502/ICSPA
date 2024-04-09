@@ -88,7 +88,6 @@ static bool make_token(char *e)
 		/* Try all rules one by one. */
 		for (i = 0; i < NR_REGEX; i++)
 		{
-			printf("input=%s NR_REGEX=%d\n", e + position, NR_REGEX);
 			if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0)
 			{
 				char *substr_start = e + position;
@@ -101,6 +100,7 @@ static bool make_token(char *e)
 				 * Add codes to perform some actions with this token.
 				 */
 
+				printf("input=%s token_type=%c\n", e + position, rules[i].token_type);
 				switch (rules[i].token_type)
 				{
 				case NOTYPE:
