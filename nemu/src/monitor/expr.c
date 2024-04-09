@@ -193,9 +193,11 @@ static uint32_t check_badexpr(int left, int right)
 static int operator_level(char operator)
 {
 	if ('+' == operator || '-' == operator)
-		return 1;
+		return 7;
 	if ('*' == operator || '/' == operator)
-		return 2;
+		return 8;
+	if (EQ == operator)
+		return 4;
 	return 0x7FFFFFFF;
 }
 
@@ -268,7 +270,8 @@ static int eval(int left, int right)
 				continue;
 			// 非运算符直接走
 			if (tokens[i].type == '+' || tokens[i].type == '-' || 
-				tokens[i].type == '*' || tokens[i].type == '/') {
+				tokens[i].type == '*' || tokens[i].type == '/' ||
+				tokens[i].type == EQ) {
 				// 后者优先级低选择后者, 优先级相同也选择后者
 				if (!dop || operator_level(tokens[i].type) <= 
 						operator_level(dop)) {
