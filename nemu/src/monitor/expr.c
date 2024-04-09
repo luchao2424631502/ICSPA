@@ -197,6 +197,8 @@ static int operator_level(char operator)
 	return 0x7FFFFFFF;
 }
 
+extern CPU_STATE cpu;
+
 /* 递归求解表达式 */
 static int eval(int left, int right)
 {
