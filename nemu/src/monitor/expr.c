@@ -16,10 +16,10 @@ enum
 	EQ,
 	NUM,
 	REG,
-	SYMB
+	SYMB,
 
 	/* TODO: Add more token types */
-
+	BRKT,
 };
 
 static struct rule
@@ -33,6 +33,7 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space
+	/* {"\\+", '+'}, \+ 匹配+符号*/
 	{"\\+", '+'},	// \+ 匹配+符号
 
 	{"\\d+", 'd'},	// \d+ 匹配一个以上的数字
