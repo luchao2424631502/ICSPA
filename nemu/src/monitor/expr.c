@@ -267,5 +267,5 @@ uint32_t expr(char *e, bool *success)
 	// fflush(stdout);
 	// assert(0);
 
-	return eval(0, NR_REGEX - 1);
+	return eval(0, nr_token - 1);
 }
