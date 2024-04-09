@@ -191,7 +191,7 @@ static uint32_t eval(int left, int right)
 	if (left > right) {
 		printf("%s ERROR [left > right]\n", __func__);
 		assert(0);
-		return NULL;
+		return 0;
 	} else if (left == right) {
 		// 假设str值在uing32_t范围内, 否则值无法预期
 		return strtoul(tokens[left].str, NULL, 10); 
@@ -236,8 +236,8 @@ static uint32_t eval(int left, int right)
 			}
 		}
 		
-		val1 = eval(left, op - 1);
-		val2 = eval(op + 1, right);
+		int val1 = eval(left, dop_index - 1);
+		int val2 = eval(dop_index + 1, right);
 		switch(tokens[op].type) {
 		case '+':
 			return val1 + val2;
@@ -252,6 +252,10 @@ static uint32_t eval(int left, int right)
 			assert(0);
 		}
 	}
+
+	printf("ERROR eval non-void function\n");
+	assert(0);
+	return 0;
 }
 
 uint32_t expr(char *e, bool *success)
