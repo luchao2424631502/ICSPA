@@ -235,8 +235,9 @@ static int eval(int left, int right)
 			return strtol(tokens[left].str, NULL, 16);
 		// 处理寄存器值
 		if (tokens[left].type == REG) {
-			printf("str=%s\n", tokens[left].str);
-			return cpu.gpr[reg_index(tokens[left].str)]._32;
+			int rdx = reg_index(tokens[left].str);
+			printf("str=%s\n index=%d", tokens[left].str, reg_index(tokens[left].str));
+			return cpu.gpr[rdx]._32;
 		}
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
