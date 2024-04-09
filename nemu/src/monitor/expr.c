@@ -40,7 +40,7 @@ static struct rule
 	{"\\*", '*'},	// \* 匹配*符号
 	{"\\/", '/'},	// \/ 匹配/符号
 	{"\\(", '('},	// \( 匹配(括号
-	{"\\)", ')'},
+	{"\\)", ')'},	// \) 匹配)括号
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -103,6 +103,8 @@ static bool make_token(char *e)
 
 				switch (rules[i].token_type)
 				{
+				case NOTYPE:
+					break;
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
