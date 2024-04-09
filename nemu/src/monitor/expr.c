@@ -182,7 +182,7 @@ static int operator_level(char operator)
 		return 1;
 	if ('*' == operator || '/' == operator)
 		return 2;
-	return 0;
+	return 0x7FFFFFFF;
 }
 
 /* 递归求解表达式 */
@@ -223,15 +223,11 @@ static uint32_t eval(int left, int right)
 			// 非运算符直接走
 			if (tokens[i].type == '+' || tokens[i].type == '-' || 
 				tokens[i].type == '*' || tokens[i].type == '/') {
-				if (0 == dop) { // 首次
+				// 后者优先级低选择后者, 优先级相同也选择后者
+				if (!dop || operator_level(tokens[i].type) <= 
+						operator_level(dop)) {
 					dop = tokens[i].type;
 					dop_index = i;
-				} else {
-					// 1.后者优先级低选择后者, 优先级相同也选择后者
-					if (tokens[i].type <= dop) {
-						dop = tokens[i].type;
-						dop_index = i;
-					}
 				}
 			}
 		}
