@@ -23,6 +23,7 @@ enum
 	NEQ,
 	AND,
 	OR,
+	NOT,
 };
 
 static struct rule
@@ -55,6 +56,7 @@ static struct rule
 	{"!=", NEQ},
 	{"&&", AND},
 	{"\\|\\|", OR},
+	{"!", NOT},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
