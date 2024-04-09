@@ -33,15 +33,15 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space
-	/* {"\\+", '+'}, \+ 匹配+符号*/
-	{"\\+", '+'},	// \+ 匹配+符号
+	/* {"\\+", '+'}, \+ 匹配+符号 */
+	{"\\+", SYMB},	// \+ 匹配+符号
 
-	{"\\d+", 'd'},	// \d+ 匹配一个以上的数字
-	{"\\-", '-'},	// \- 匹配-符号
-	{"\\*", '*'},	// \* 匹配*符号
-	{"\\/", '/'},	// \/ 匹配/符号
-	{"\\(", '('},	// \( 匹配(括号
-	{"\\)", ')'},	// \) 匹配)括号
+	{"\\d+", NUM},	// \d+ 匹配一个以上的数字
+	{"\\-", SYMB},	// \- 匹配-符号
+	{"\\*", SYMB},	// \* 匹配*符号
+	{"\\/", SYMB},	// \/ 匹配/符号
+	{"\\(", BRKT},	// \( 匹配(括号
+	{"\\)", BRKT},	// \) 匹配)括号
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -106,6 +106,11 @@ static bool make_token(char *e)
 				{
 				case NOTYPE:
 					break;
+				case NUM:
+					if (likely(substr_len <= 32)) {
+					} else {
+						// printf("", );
+					}
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
