@@ -128,6 +128,10 @@ static bool make_token(char *e)
 		}
 	}
 
+	for (int i = 0; i < nr_token; i++) {
+		printf("\ttoken_type=%c src=%s\n", tokens[i].token_type, tokens[i].str? tokens[i].str : NULL);
+	}
+
 	return true;
 }
 
