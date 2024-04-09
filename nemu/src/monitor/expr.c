@@ -136,6 +136,7 @@ static bool make_token(char *e)
 		else	
 			printf("%c", tokens[i].type);
 	}
+	printf("\n");
 
 	return true;
 }
