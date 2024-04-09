@@ -44,9 +44,9 @@ static struct rule
 	/* 扩展功能 */
 	{"0[xX]{1}[0-9a-fA-F]+", HEX}, // 为了区分0 0x, 先解析hex
 	{"[0-9]+", NUM},
-	{"e[abcd]x", REG}, // 通用寄存器
-	{"e[bs]p", REG},
-	{"e[ds]i", REG}
+	{"%e[abcd]{1}x", REG}, // 通用寄存器
+	{"%e[bs]p", REG},
+	{"%e[ds]i", REG}
 
 };
 
