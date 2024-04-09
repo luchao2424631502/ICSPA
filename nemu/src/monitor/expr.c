@@ -293,6 +293,8 @@ static int eval(int left, int right)
 			return val1 * val2;
 		case '/':
 			return val1 / val2;
+		case EQ:
+			return val1 == val2;
 		default:
 			printf("ERROR tokens[i].type is not operator\n");
 			assert(0);
