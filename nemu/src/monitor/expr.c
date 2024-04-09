@@ -203,7 +203,7 @@ static int eval(int left, int right)
 		if (tokens[left].type == NUM)
 			return atoi(tokens[left].str); 
 		if (tokens[left].type == HEX)
-			return (int)strtol(tokens[left].str, NULL, 16);
+			return strtol(tokens[left].str, NULL, 16);
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
 	} else {
