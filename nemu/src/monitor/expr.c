@@ -22,6 +22,7 @@ enum
 	HEX,
 	NEQ,
 	AND,
+	OR,
 };
 
 static struct rule
@@ -53,6 +54,7 @@ static struct rule
 	{"==", EQ}, // 逻辑运算符号
 	{"!=", NEQ},
 	{"&&", AND},
+	{"\\|\\|", OR},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -203,6 +205,8 @@ static int operator_level(int operator)
 		return 4;
 	if (AND == operator)
 		return 0;
+	if (OR == operator)
+		return -1;
 	return 0x7FFFFFFF;
 }
 
@@ -277,7 +281,7 @@ static int eval(int left, int right)
 			if (tokens[i].type == '+' || tokens[i].type == '-' || 
 				tokens[i].type == '*' || tokens[i].type == '/' ||
 				tokens[i].type == EQ  || tokens[i].type == NEQ ||
-				tokens[i].type == AND) {
+				tokens[i].type == AND || tokens[i].type == OR) {
 				// 后者优先级低选择后者, 优先级相同也选择后者
 				if (!dop || operator_level(tokens[i].type) <= 
 						operator_level(dop)) {
@@ -305,6 +309,8 @@ static int eval(int left, int right)
 			return val1 != val2;
 		case AND:
 			return val1 && val2;
+		case OR:
+			return val1 || val2;
 		default:
 			printf("ERROR tokens[i].type is not operator\n");
 			assert(0);
