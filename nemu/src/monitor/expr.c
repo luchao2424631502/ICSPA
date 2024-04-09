@@ -283,7 +283,8 @@ static int eval(int left, int right)
 			if (tokens[i].type == '+' || tokens[i].type == '-' || 
 				tokens[i].type == '*' || tokens[i].type == '/' ||
 				tokens[i].type == EQ  || tokens[i].type == NEQ ||
-				tokens[i].type == AND || tokens[i].type == OR) {
+				tokens[i].type == AND || tokens[i].type == OR ||
+				tokens[i].type == NOT) {
 				// 后者优先级低选择后者, 优先级相同也选择后者
 				if (!dop || operator_level(tokens[i].type) <= 
 						operator_level(dop)) {
@@ -293,9 +294,15 @@ static int eval(int left, int right)
 			}
 		}
 		
-		int val1 = eval(left, dop_index - 1);
-		int val2 = eval(dop_index + 1, right);
-		printf("dop=%d val1=%d val2=%d dop_index=%d\n", dop, val1, val2, dop_index);
+		int val1, val2;
+		// 处理单目运算
+		if (dop == NOT) {
+			val2 = eval(dop_index + 1, right);
+		} else {
+			val1 = eval(left, dop_index - 1);
+			val2 = eval(dop_index + 1, right);
+		}
+		// printf("dop=%d val1=%d val2=%d dop_index=%d\n", dop, val1, val2, dop_index);
 		switch(dop) {
 		case '+':
 			return val1 + val2;
@@ -313,6 +320,8 @@ static int eval(int left, int right)
 			return val1 && val2;
 		case OR:
 			return val1 || val2;
+		case NOT:
+			return !val2;
 		default:
 			printf("ERROR tokens[i].type is not operator\n");
 			assert(0);
