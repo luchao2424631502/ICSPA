@@ -42,8 +42,12 @@ static struct rule
 	{"\\)", ')'},	// \) 匹配)括号
 
 	/* 扩展功能 */
-	{"0[xX]{1}[0-9a-fA-F]+", HEX},
+	{"0[xX]{1}[0-9a-fA-F]+", HEX}, // 为了区分0 0x, 先解析hex
 	{"[0-9]+", NUM},
+	{"e[abcd]x", REG}, // 通用寄存器
+	{"e[bs]p", REG},
+	{"e[ds]i", REG}
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -111,9 +115,11 @@ static bool make_token(char *e)
 				case NOTYPE:
 					printf("NOTYPE");
 					break;
+				case REG:
 				case HEX:
 				case NUM:
 					if (substr_len <= 32) {
+						printf("token=%s\n", substr_start);
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
 						printf("ERROR substr_len > 32\n");
