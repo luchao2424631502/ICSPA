@@ -75,6 +75,7 @@ typedef struct token
 Token tokens[32];
 int nr_token;
 
+/* 将字符串解析为token数组 */
 static bool make_token(char *e)
 {
 	int position = 0;
@@ -128,6 +129,7 @@ static bool make_token(char *e)
 		}
 	}
 
+	// 打印 token 数组
 	for (int i = 0; i < nr_token; i++) {
 		if (tokens[i].type == NUM)
 			printf("%s", tokens[i].str);
@@ -138,6 +140,120 @@ static bool make_token(char *e)
 	return true;
 }
 
+static uint32_t check_parentheses(int left, int right)
+{
+	int count = 0;
+
+	if (tokens[left].type != '(' || tokens[right].type != ')')
+		return 0;
+
+	for (int i = left; i <= right; i++) {
+		if (tokens[i].type == '(')
+			count += 1;
+		if (tokens[i].type == ')')
+			count -= 1;
+		// 中途出现0 说明不是最左和最右匹配
+		if ((count <= 0) && (i != right))
+			return 0; 
+	}
+	
+	return !count ? 1 : 0;
+}
+
+/* 错误表达式不能分裂 */
+static uint32_t check_badexpr(int left, int right)
+{
+	int count = 0;
+	for (int i = left; i <= right; i++) {
+		if (tokens[i].type == '(')
+			count += 1;
+		if (tokens[i].type == ')')
+			count -= 1;
+		if (count < 0) 
+			return 1;
+	}
+	return !count ? 0 : 1;
+}
+
+/* 计算操作数的优先级 */
+static int operator_level(char operator)
+{
+	if ('+' == operator || '-' == operator)
+		return 1;
+	if ('*' == operator || '/' == operator)
+		return 2;
+	return 0;
+}
+
+/* 递归求解表达式 */
+static uint32_t eval(int left, int right)
+{
+	if (left > right) {
+		printf("%s ERROR [left > right]\n", __func__);
+		assert(0);
+		return NULL;
+	} else if (left == right) {
+		// 假设str值在uing32_t范围内, 否则值无法预期
+		return strtoul(tokens[left].str, NULL, 10); 
+	} else if (check_parentheses(left, right)) { // (express)
+		return eval(left + 1, right - 1);
+	} else {
+		// 0. 判断是否为错误表达式
+		if (check_badexpr(left, right)) {
+			printf("ERROR invalid expression \n");
+			assert(0);
+		}
+
+		// 1. 找到dominant operator, 分裂表达式
+		int dop_index = 0;
+		char dop = 0;
+		int count = 0;
+		for (int i = left; i <= right; i++) {
+			if (tokens[i].type == '(') {
+				count += 1;
+				continue; 
+			}
+			if (tokens[i].type == ')') {
+				count -= 1;
+				continue;
+			}
+			// 位于括号内直接走
+			if (count > 0)
+				continue;
+			// 非运算符直接走
+			if (tokens[i].type == '+' || tokens[i].type == '-' || 
+				tokens[i].type == '*' || tokens[i].type == '/') {
+				if (0 == dop) { // 首次
+					dop = tokens[i].type;
+					dop_index = i;
+				} else {
+					// 1.后者优先级低选择后者, 优先级相同也选择后者
+					if (tokens[i].type <= dop) {
+						dop = tokens[i].type;
+						dop_index = i;
+					}
+				}
+			}
+		}
+		
+		val1 = eval(left, op - 1);
+		val2 = eval(op + 1, right);
+		switch(tokens[op].type) {
+		case '+':
+			return val1 + val2;
+		case '-':
+			return val1 - val2;
+		case '*':
+			return val1 * val2;
+		case '/':
+			return val1 / val2;
+		default:
+			printf("ERROR tokens[i].type is not operator\n");
+			assert(0);
+		}
+	}
+}
+
 uint32_t expr(char *e, bool *success)
 {
 	if (!make_token(e))
@@ -146,9 +262,9 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-	printf("\nPlease implement expr at expr.c\n");
-	fflush(stdout);
-	assert(0);
+	// printf("\nPlease implement expr at expr.c\n");
+	// fflush(stdout);
+	// assert(0);
 
-	return 0;
+	return eval(0, NR_REGEX - 1);
 }
