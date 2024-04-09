@@ -43,8 +43,7 @@ static struct rule
 	{"\\)", ')'},	// \) 匹配)括号
 
 	/* 扩展功能 */
-	{"0x[0-9]+", HEX},
-	// {"", REG},
+	{"0[xX]{1}[0-9a-fA-F]+", HEX},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
