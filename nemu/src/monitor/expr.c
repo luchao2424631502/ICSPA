@@ -19,7 +19,6 @@ enum
 	SYMB,
 
 	/* TODO: Add more token types */
-	BRKT,
 };
 
 static struct rule
@@ -33,15 +32,14 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space
-	/* {"\\+", '+'}, \+ 匹配+符号 */
-	{"\\+", SYMB},	// \+ 匹配+符号
+	{"\\+", '+'}, // \+ 匹配+符号
 
 	{"\\d+", NUM},	// \d+ 匹配一个以上的数字
-	{"\\-", SYMB},	// \- 匹配-符号
-	{"\\*", SYMB},	// \* 匹配*符号
-	{"\\/", SYMB},	// \/ 匹配/符号
-	{"\\(", BRKT},	// \( 匹配(括号
-	{"\\)", BRKT},	// \) 匹配)括号
+	{"\\-", '-'},	// \- 匹配-符号
+	{"\\*", '*'},	// \* 匹配*符号
+	{"\\/", '/'},	// \/ 匹配/符号
+	{"\\(", '('},	// \( 匹配(括号
+	{"\\)", ')'},	// \) 匹配)括号
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -108,8 +106,9 @@ static bool make_token(char *e)
 					break;
 				case NUM:
 					if (substr_len <= 32) {
+						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
-						printf("substr_len > 32\n");
+						printf("ERROR substr_len > 32\n");
 					}
 				default:
 					tokens[nr_token].type = rules[i].token_type;
