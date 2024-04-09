@@ -20,6 +20,7 @@ enum
 
 	/* TODO: Add more token types */
 	HEX,
+	NEQ,
 };
 
 static struct rule
@@ -46,7 +47,8 @@ static struct rule
 	{"[0-9]+", NUM},
 	{"%e[abcd]{1}x", REG}, // 通用寄存器
 	{"%e[bs]p", REG},
-	{"%e[ds]i", REG}
+	{"%e[ds]i", REG},
+	{"==", EQ},
 
 };
 
@@ -278,7 +280,7 @@ static int eval(int left, int right)
 		
 		int val1 = eval(left, dop_index - 1);
 		int val2 = eval(dop_index + 1, right);
-		printf("val1=%d val2=%d\n", val1, val2);
+		printf("dop=%d val1=%d val2=%d\n", val1, val2, dop);
 		switch(dop) {
 		case '+':
 			return val1 + val2;
