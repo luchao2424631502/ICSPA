@@ -217,6 +217,7 @@ static int reg_index(char *str)
 		return 6;
 	if (strcmp(str, "edi") == 0)
 		return 7;
+	return 0;
 }
 
 /* 递归求解表达式 */
