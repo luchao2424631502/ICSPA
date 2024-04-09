@@ -254,7 +254,7 @@ static int eval(int left, int right)
 
 		// 1. 找到dominant operator, 分裂表达式
 		int dop_index = 0;
-		char dop = 0;
+		int dop = 0;
 		int count = 0;
 		for (int i = left; i <= right; i++) {
 			if (tokens[i].type == '(') {
