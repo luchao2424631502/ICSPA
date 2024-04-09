@@ -101,7 +101,7 @@ static bool make_token(char *e)
 				 * Add codes to perform some actions with this token.
 				 */
 
-				printf("input=%s token_type=%c\n", e + position, rules[i].token_type);
+				// printf("input=%s token_type=%c\n", e + position, rules[i].token_type);
 				switch (rules[i].token_type)
 				{
 				case NOTYPE:
