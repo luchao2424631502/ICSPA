@@ -19,6 +19,7 @@ enum
 	SYMB,
 
 	/* TODO: Add more token types */
+	HEX,
 };
 
 static struct rule
@@ -26,7 +27,6 @@ static struct rule
 	char *regex;
 	int token_type;
 } rules[] = {
-
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
@@ -34,12 +34,17 @@ static struct rule
 	{" +", NOTYPE}, // white space
 	{"\\+", '+'}, // \+ 匹配+符号
 
-	{"[0-9]+", NUM},// 
+	/* 整数的加减乘除 */
+	{"[0-9]+", NUM},
 	{"\\-", '-'},	// \- 匹配-符号
 	{"\\*", '*'},	// \* 匹配*符号
 	{"\\/", '/'},	// \/ 匹配/符号
 	{"\\(", '('},	// \( 匹配(括号
 	{"\\)", ')'},	// \) 匹配)括号
+
+	/* 扩展功能 */
+	{"0x[0-9]+", HEX},
+	// {"", REG},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -196,7 +201,10 @@ static int eval(int left, int right)
 		return 0;
 	} else if (left == right) {
 		// 假设str值在uing32_t范围内, 否则值无法预期
-		return atoi(tokens[left].str); 
+		if (tokens[left].type == NUM)
+			return atoi(tokens[left].str); 
+		if (tokens[left].type == HEX)
+			return (int)strtol(tokens[left].str, NULL, 16);
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
 	} else {
