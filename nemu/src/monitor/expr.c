@@ -197,7 +197,7 @@ static int operator_level(int operator)
 		return 7;
 	if ('*' == operator || '/' == operator)
 		return 8;
-	if (EQ == operator)
+	if (EQ == operator || NEQ == operator)
 		return 4;
 	return 0x7FFFFFFF;
 }
@@ -272,7 +272,7 @@ static int eval(int left, int right)
 			// 非运算符直接走
 			if (tokens[i].type == '+' || tokens[i].type == '-' || 
 				tokens[i].type == '*' || tokens[i].type == '/' ||
-				tokens[i].type == EQ) {
+				tokens[i].type == EQ  || tokens[i].type == NEQ) {
 				// 后者优先级低选择后者, 优先级相同也选择后者
 				if (!dop || operator_level(tokens[i].type) <= 
 						operator_level(dop)) {
@@ -296,6 +296,8 @@ static int eval(int left, int right)
 			return val1 / val2;
 		case EQ:
 			return val1 == val2;
+		case NEQ:
+			return val1 != val2;
 		default:
 			printf("ERROR tokens[i].type is not operator\n");
 			assert(0);
