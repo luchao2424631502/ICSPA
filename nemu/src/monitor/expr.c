@@ -202,7 +202,7 @@ static uint32_t eval(int left, int right)
 	} else {
 		// 0. 判断是否为错误表达式
 		if (check_badexpr(left, right)) {
-			printf("ERROR invalid expression \n");
+			printf("ERROR bad expression \n");
 			assert(0);
 		}
 
@@ -267,6 +267,9 @@ uint32_t expr(char *e, bool *success)
 	// printf("\nPlease implement expr at expr.c\n");
 	// fflush(stdout);
 	// assert(0);
+	uint32_t ans = eval(0, nr_token - 1);
 
-	return eval(0, nr_token - 1);
+	printf("ans=%lu\n", ans);
+
+	return ans;
 }
