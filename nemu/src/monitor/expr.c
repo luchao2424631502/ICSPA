@@ -187,7 +187,7 @@ static int operator_level(char operator)
 }
 
 /* 递归求解表达式 */
-static uint32_t eval(int left, int right)
+static int eval(int left, int right)
 {
 	printf("left=%d right=%d\n", left, right);
 	if (left > right) {
@@ -196,7 +196,7 @@ static uint32_t eval(int left, int right)
 		return 0;
 	} else if (left == right) {
 		// 假设str值在uing32_t范围内, 否则值无法预期
-		return strtoul(tokens[left].str, NULL, 10); 
+		return atoi(tokens[left].str); 
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
 	} else {
