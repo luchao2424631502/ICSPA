@@ -288,7 +288,7 @@ static int eval(int left, int right)
 				tokens[i].type == '*' || tokens[i].type == '/' ||
 				tokens[i].type == EQ  || tokens[i].type == NEQ ||
 				tokens[i].type == AND || tokens[i].type == OR ||
-				tokens[i].type == NOT) {
+				tokens[i].type == NOT || tokens[i].type == DEREF) {
 				// 后者优先级低选择后者, 优先级相同也选择后者
 				if (!dop || operator_level(tokens[i].type) <= 
 						operator_level(dop)) {
@@ -302,6 +302,9 @@ static int eval(int left, int right)
 		// 处理单目运算
 		if (dop == NOT) {
 			val2 = eval(dop_index + 1, right);
+		} else if (dop == DEREF) {
+			val2 = eval(dop_index + 1, right); // 地址
+			val2 = vaddr_read(val2, SREG_CS, 4);
 		} else {
 			val1 = eval(left, dop_index - 1);
 			val2 = eval(dop_index + 1, right);
@@ -326,6 +329,8 @@ static int eval(int left, int right)
 			return val1 || val2;
 		case NOT:
 			return !val2;
+		case DEREF:
+			return val2; // 返回解引用后的值
 		default:
 			printf("ERROR tokens[i].type is not operator\n");
 			assert(0);
