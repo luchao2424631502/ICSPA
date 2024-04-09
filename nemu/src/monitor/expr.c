@@ -269,7 +269,7 @@ uint32_t expr(char *e, bool *success)
 	// assert(0);
 	uint32_t ans = eval(0, nr_token - 1);
 
-	printf("ans=%lu\n", ans);
+	printf("ans=%u\n", ans);
 
 	return ans;
 }
