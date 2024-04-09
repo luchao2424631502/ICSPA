@@ -48,8 +48,9 @@ static struct rule
 	{"%e[abcd]{1}x", REG}, // 通用寄存器
 	{"%e[bs]p", REG},
 	{"%e[ds]i", REG},
-	{"==", EQ},
 
+	{"==", EQ}, // 逻辑运算符号
+	{"!=", NEQ},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
