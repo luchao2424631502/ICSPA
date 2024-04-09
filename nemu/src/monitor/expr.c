@@ -199,6 +199,26 @@ static int operator_level(char operator)
 
 extern CPU_STATE cpu;
 
+static int reg_index(char *str)
+{
+	if (strcmp(str, "eax") == 0)
+		return 0;
+	if (strcmp(str, "ecx") == 0)
+		return 1;
+	if (strcmp(str, "edx") == 0)
+		return 2;
+	if (strcmp(str, "ebx") == 0)
+		return 3;
+	if (strcmp(str, "esp") == 0)
+		return 4;
+	if (strcmp(str, "ebp") == 0)
+		return 5;
+	if (strcmp(str, "esi") == 0)
+		return 6;
+	if (strcmp(str, "edi") == 0)
+		return 7;
+}
+
 /* 递归求解表达式 */
 static int eval(int left, int right)
 {
@@ -215,26 +235,7 @@ static int eval(int left, int right)
 		// 处理寄存器值
 		if (tokens[left].type == REG) {
 			printf("str=%s\n", tokens[left].str);
-			switch(tokens[left].str) {
-			case "eax":
-				return cpu.eax;
-			case "ebx":
-				return cpu.ebx;
-			case "ecx":
-				return cpu.ecx;
-			case "edx":
-				return cpu.edx;
-			case "ebp":
-				return cpu.ebp;
-			case "esp":
-				return cpu.esp;
-			case "esi":
-				return cpu.esi;
-			case "edi":
-				return cpu.edi;
-			default:
-				return 0x0;
-			}
+			return cpu.gpr[reg_index(tokens[left].str)]._32;
 		}
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
