@@ -190,7 +190,7 @@ static uint32_t check_badexpr(int left, int right)
 }
 
 /* 计算操作数的优先级 */
-static int operator_level(char operator)
+static int operator_level(int operator)
 {
 	if ('+' == operator || '-' == operator)
 		return 7;
