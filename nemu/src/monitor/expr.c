@@ -236,7 +236,7 @@ static int eval(int left, int right)
 		// 处理寄存器值
 		if (tokens[left].type == REG) {
 			int rdx = reg_index(tokens[left].str);
-			printf("str=%s\n index=%d", tokens[left].str, reg_index(tokens[left].str));
+			printf("str=%s index=%d\n", tokens[left].str, reg_index(tokens[left].str));
 			return cpu.gpr[rdx]._32;
 		}
 	} else if (check_parentheses(left, right)) { // (express)
