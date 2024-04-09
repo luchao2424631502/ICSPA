@@ -111,6 +111,7 @@ static bool make_token(char *e)
 				case NOTYPE:
 					printf("NOTYPE");
 					break;
+				case HEX:
 				case NUM:
 					if (substr_len <= 32) {
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
@@ -200,7 +201,7 @@ static int eval(int left, int right)
 		return 0;
 	} else if (left == right) {
 		// 假设str值在uing32_t范围内, 否则值无法预期
-		printf("type=%c str=%s\n",  tokens[left].type, tokens[left].str);
+		printf("type=%c str=%s\n", tokens[left].type, tokens[left].str);
 		if (tokens[left].type == NUM)
 			return atoi(tokens[left].str); 
 		if (tokens[left].type == HEX)
