@@ -267,9 +267,6 @@ uint32_t expr(char *e, bool *success)
 	// printf("\nPlease implement expr at expr.c\n");
 	// fflush(stdout);
 	// assert(0);
-	uint32_t ans = eval(0, nr_token - 1);
-
-	printf("ans=%u\n", ans);
-
-	return ans;
+	*success = true;
+	return eval(0, nr_token - 1);
 }
