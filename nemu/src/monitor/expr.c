@@ -201,21 +201,21 @@ extern CPU_STATE cpu;
 
 static int reg_index(char *str)
 {
-	if (strcmp(str, "eax") == 0)
+	if (strcmp(str, "%eax") == 0)
 		return 0;
-	if (strcmp(str, "ecx") == 0)
+	if (strcmp(str, "%ecx") == 0)
 		return 1;
-	if (strcmp(str, "edx") == 0)
+	if (strcmp(str, "%edx") == 0)
 		return 2;
-	if (strcmp(str, "ebx") == 0)
+	if (strcmp(str, "%ebx") == 0)
 		return 3;
-	if (strcmp(str, "esp") == 0)
+	if (strcmp(str, "%esp") == 0)
 		return 4;
-	if (strcmp(str, "ebp") == 0)
+	if (strcmp(str, "%ebp") == 0)
 		return 5;
-	if (strcmp(str, "esi") == 0)
+	if (strcmp(str, "%esi") == 0)
 		return 6;
-	if (strcmp(str, "edi") == 0)
+	if (strcmp(str, "%edi") == 0)
 		return 7;
 	return 0;
 }
