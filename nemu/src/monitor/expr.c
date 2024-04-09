@@ -24,6 +24,7 @@ enum
 	AND,
 	OR,
 	NOT,
+	DEREF,
 };
 
 static struct rule
@@ -57,6 +58,7 @@ static struct rule
 	{"&&", AND},
 	{"\\|\\|", OR},
 	{"!", NOT},
+	// {"\\*", '*'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -209,6 +211,8 @@ static int operator_level(int operator)
 		return 0;
 	if (OR == operator)
 		return -1;
+	if (NOT == operator || DEREF == operator)
+		return 9; 
 	return 0x7FFFFFFF;
 }
 
@@ -344,6 +348,12 @@ uint32_t expr(char *e, bool *success)
 	// printf("\nPlease implement expr at expr.c\n");
 	// fflush(stdout);
 	// assert(0);
+
+	// 处理 *解引用情况
+	for (int i = 0; i < nr_token; i++) {
+		if (tokens[i].type == '*' && (i == 0 || (tokens[i-1].type != HEX && tokens[i-1].type != NUM)))
+			tokens[i].type = DEREF;
+	}
 	*success = true;
 	return eval(0, nr_token - 1);
 }
