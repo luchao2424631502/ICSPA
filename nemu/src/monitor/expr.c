@@ -188,6 +188,7 @@ static int operator_level(char operator)
 /* 递归求解表达式 */
 static uint32_t eval(int left, int right)
 {
+	printf("left=%d right=%d\n", left, right);
 	if (left > right) {
 		printf("%s ERROR [left > right]\n", __func__);
 		assert(0);
