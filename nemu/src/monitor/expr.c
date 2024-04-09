@@ -284,7 +284,7 @@ static int eval(int left, int right)
 		
 		int val1 = eval(left, dop_index - 1);
 		int val2 = eval(dop_index + 1, right);
-		printf("dop=%d val1=%d val2=%d\n", dop, val1, val2);
+		printf("dop=%d val1=%d val2=%d dop_index=%d\n", dop, val1, val2, dop_index);
 		switch(dop) {
 		case '+':
 			return val1 + val2;
