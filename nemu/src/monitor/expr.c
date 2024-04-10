@@ -265,6 +265,7 @@ static tab_desc shtab_base(Elf32_Ehdr *elf)
 static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 {
 	tab_desc shentry = shtab_base(elf);
+	printf("BREAK POINT\n");
 	char *shstrtab = shstrtab_base(elf);
 	tab_desc ret = {.base=NULL, .num=0,};
 	for (int i = 0; i < shentry.num; i++) {
@@ -281,7 +282,6 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
-	printf("BREAK POINT\n");
 	tab_desc strtab = nametab_base(elf, ".strtab");
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
