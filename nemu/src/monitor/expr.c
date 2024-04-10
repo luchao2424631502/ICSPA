@@ -129,12 +129,12 @@ static bool make_token(char *e)
 				case NOTYPE:
 					printf("NOTYPE");
 					break;
-				case SYMB:
 				case REG:
+				case SYMB:
 				case HEX:
 				case NUM:
 					if (substr_len <= 32) {
-						// printf("token=%s\n", substr_start);
+						printf("token=%s\n", substr_start);
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
 						printf("ERROR substr_len > 32\n");
