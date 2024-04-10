@@ -250,10 +250,13 @@ typedef struct {
 
 static void *shstrtab_base(Elf32_Ehdr *elf)
 {
-	Elf32_Shdr *entry = (void *)elf + elf->e_shoff;
-	Elf32_Half shstrndx = elf->e_shstrndx;
+	// Elf32_Shdr *entry = (void *)elf + elf->e_shoff;
+	Elf32_Shdr *entry = (void *)elf + vaddr_read(&(elf->e_shoff), SREG_CS, 4);
+	// Elf32_Half shstrndx = elf->e_shstrndx;
+	Elf32_Half shstrndx = vaddr_read(&(elf->e_shstrndx), SREG_CS, 4);
 	Elf32_Shdr *shstrtab = entry + shstrndx;
-	return ((void *)elf + shstrtab->sh_offset);
+	// return ((void *)elf + shstrtab->sh_offset);
+	return vaddr_read((void *)elf + vaddr_read(&(shstrtab->sh_offset), SREG_CS, 4), SREG_CS, 4);
 }
 
 static tab_desc shtab_base(Elf32_Ehdr *elf)
