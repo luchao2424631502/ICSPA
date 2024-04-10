@@ -299,13 +299,14 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
 	tab_desc strtab = nametab_base(elf, ".strtab");
-	printf("PPP symtab.base=%x strtab.base=0x%x", HEXADDR(symtab.base), HEXADDR(strtab.base));
-	return 0;
+	// printf("PPP symtab.base=%x strtab.base=0x%x\n", HEXADDR(symtab.base), HEXADDR(strtab.base));
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
-		if (0 == strcmp(strtab_base + (entry + i)->st_name, varname)) {
-			return (entry + i)->st_value;
+		// if (0 == strcmp(strtab_base + (entry + i)->st_name, varname)) {
+		if (0 == strcmp(strtab_base + vaddr_read(HEXADDR(&((entry + i)->st_name)) , SREG_CS, 4), varname)) {
+			// return (entry + i)->st_value;
+			return vaddr_read(HEXADDR(&((entry + i)->st_name)) , SREG_CS, 4);
 		}
 	}
 	return 0;
