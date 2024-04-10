@@ -281,6 +281,7 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
+	printf("BREAK POINT\n");
 	tab_desc strtab = nametab_base(elf, ".strtab");
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
@@ -323,7 +324,6 @@ static int eval(int left, int right)
 			// Log("ELF loading from hard disk.");
 #else
 			elf = (void *)0x0;
-			printf("BREAK POINT\n");
 			int val = varobject_addr(elf, tokens[left].str);
 			printf("var_val=%x\n", val);	
 			return val;
