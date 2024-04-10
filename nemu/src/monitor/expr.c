@@ -350,15 +350,12 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-	// printf("\nPlease implement expr at expr.c\n");
-	// fflush(stdout);
-	// assert(0);
-
 	// 处理 *解引用情况
 	for (int i = 0; i < nr_token; i++) {
 		if (tokens[i].type == '*' && (i == 0 || (tokens[i-1].type != HEX && tokens[i-1].type != NUM)))
 			tokens[i].type = DEREF;
 	}
 	*success = true;
+	// 没有实现对负数表达式的解析
 	return eval(0, nr_token - 1);
 }
