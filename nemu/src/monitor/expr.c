@@ -288,7 +288,7 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 			ret.num = !vaddr_read(HEXADDR(&(entry->sh_entsize)), SREG_CS, 4) ? 0 :
 			       	vaddr_read(HEXADDR(&(entry->sh_size)), SREG_CS, 4) / 
 				vaddr_read(HEXADDR(&(entry->sh_entsize)), SREG_CS, 4);	
-			printf("%s %s\n", section_name, tmp + vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4));
+			// printf("%s %s\n", section_name, tmp + vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4));
 			return ret;
 		}
 	}
@@ -300,6 +300,7 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 	tab_desc symtab = nametab_base(elf, ".symtab");
 	tab_desc strtab = nametab_base(elf, ".strtab");
 	printf("PPP symtab.base=%x strtab.base=0x%x", HEXADDR(symtab.base), HEXADDR(strtab.base));
+	return 0;
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
