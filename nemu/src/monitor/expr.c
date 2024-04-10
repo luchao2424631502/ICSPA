@@ -275,7 +275,7 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 {
 	tab_desc shentry = shtab_base(elf);
 	char *shstrtab = shstrtab_base(elf);
-	printf("END BREAK POINT 0x%x\n", HEXADDR(shstrtab);
+	printf("END BREAK POINT 0x%x\n", HEXADDR(shstrtab));
 	tab_desc ret = {.base=NULL, .num=0,};
 	for (int i = 0; i < shentry.num; i++) {
 		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
