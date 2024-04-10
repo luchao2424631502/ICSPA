@@ -265,15 +265,17 @@ static void *shstrtab_base(Elf32_Ehdr *elf)
 
 static tab_desc shtab_base(Elf32_Ehdr *elf)
 {
-	tab_desc tmp = {.base = (void *)elf + elf->e_shoff, .num = elf->e_shnum};
+	// tab_desc tmp = {.base = (void *)elf + elf->e_shoff, .num = elf->e_shnum};
+	tab_desc tmp = {.base = (void *)elf + vaddr_read(HEXADDR(&(elf->e_shoff)), SREG_CS, 4), 
+		.num=vaddr_read(HEXADDR(&(elf->e_shnum)), SREG_CS, 4)};
 	return tmp;
 }
 
 static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 {
 	tab_desc shentry = shtab_base(elf);
-	printf("BREAK POINT\n");
 	char *shstrtab = shstrtab_base(elf);
+	printf("END BREAK POINT 0x%x\n", shstrtab);
 	tab_desc ret = {.base=NULL, .num=0,};
 	for (int i = 0; i < shentry.num; i++) {
 		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
