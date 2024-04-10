@@ -264,8 +264,8 @@ static int eval(int left, int right)
 		}
 		// 符号-变量,
 		if (tokens[left].type == SYMB) {
-			Elf32_Ehdr *elf;
-			Elf32_Phdr *ph, *eph;
+			// Elf32_Ehdr *elf;
+			// Elf32_Phdr *ph, *eph;
 
 #ifdef HAS_DEVICE_IDE
 			uint8_t buf[4096];
@@ -273,8 +273,8 @@ static int eval(int left, int right)
 			elf = (void *)buf;
 			Log("ELF loading from hard disk.");
 #else
-			elf = (void *)0x0;
-			Log("ELF loading from ram disk.");
+			// elf = (void *)0x0;
+			// Log("ELF loading from ram disk.");
 #endif
 		}
 	} else if (check_parentheses(left, right)) { // (express)
