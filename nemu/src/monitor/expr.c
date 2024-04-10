@@ -130,6 +130,7 @@ static bool make_token(char *e)
 				case NOTYPE:
 					printf("NOTYPE");
 					break;
+				case SYMB:
 				case REG:
 				case HEX:
 				case NUM:
