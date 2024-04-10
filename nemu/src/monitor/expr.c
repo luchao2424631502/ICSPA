@@ -134,9 +134,7 @@ static bool make_token(char *e)
 				case HEX:
 				case NUM:
 					if (substr_len <= 32) {
-						// printf("old_tokens[nr_token].str = %s new_str=%s\n", tokens[nr_token].str,
-						// 		substr_start);
-						memset(tokens[nr_token].str, 0, 32);
+						memset(tokens[nr_token].str, 0, 32); // 上一次长的token会覆盖当前短token导致, token变形
 						memcpy(tokens[nr_token].str, substr_start, substr_len);
 					} else {
 						printf("ERROR substr_len > 32\n");
