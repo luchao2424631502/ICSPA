@@ -129,8 +129,8 @@ static bool make_token(char *e)
 				case NOTYPE:
 					printf("NOTYPE");
 					break;
-				case REG:
 				case SYMB:
+				case REG:
 				case HEX:
 				case NUM:
 					if (substr_len <= 32) {
@@ -243,6 +243,56 @@ static int reg_index(char *str)
 	return 0;
 }
 
+typedef struct {
+	void *base;
+	int num;
+}tab_desc;
+
+static void *shstrtab_base(Elf32_Ehdr *elf)
+{
+	Elf32_Shdr *entry = (void *)elf + elf->e_shoff;
+	Elf32_Half shstrndx = elf->e_shstrndx;
+	Elf32_Shdr *shstrtab = entry + shstrndx;
+	return ((void *)elf + shstrtab->sh_offset);
+}
+
+static tab_desc shtab_base(Elf32_Ehdr *elf)
+{
+	tab_desc tmp = {.base = (void *)elf + elf->e_shoff, .num = elf->e_shnum};
+	return tmp;
+}
+
+static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
+{
+	tab_desc shentry = shtab_base(elf);
+	char *shstrtab = shstrtab_base(elf);
+	tab_desc ret = {.base=NULL, .num=0,};
+	for (int i = 0; i < shentry.num; i++) {
+		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
+		if (0 == strcmp(section_name, entry->sh_name + shstrtab)) {
+			ret.base = (void *)elf + entry->sh_offset;
+			ret.num = !entry->sh_entsize ? 0 : entry->sh_size / entry->sh_entsize;
+			return ret;
+		}
+	}
+	return ret;
+}
+
+static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
+{
+	tab_desc symtab = nametab_base(elf, ".symtab");
+	tab_desc strtab = nametab_base(elf, ".strtab");
+	char *strtab_base = strtab.base;
+	Elf32_Sym *entry = symtab.base;
+	for (int i = 0; i < symtab.num; i++) {
+		if (0 == strcmp(strtab_base + (entry + i)->st_name, varname)) {
+			return (entry + i)->st_value;
+		}
+	}
+	return 0;
+}
+
+
 /* 递归求解表达式 */
 static int eval(int left, int right)
 {
@@ -266,7 +316,6 @@ static int eval(int left, int right)
 		if (tokens[left].type == SYMB) {
 			// Elf32_Ehdr *elf;
 			// Elf32_Phdr *ph, *eph;
-			printf("t=%s\n", tokens[left].str);
 
 #ifdef HAS_DEVICE_IDE
 			uint8_t buf[4096];
