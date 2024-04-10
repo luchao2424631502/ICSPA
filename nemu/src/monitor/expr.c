@@ -282,7 +282,6 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
 	tab_desc strtab = nametab_base(elf, ".strtab");
-	printf("BREAK POINT\n");
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
@@ -316,7 +315,6 @@ static int eval(int left, int right)
 		// 符号-变量,
 		if (tokens[left].type == SYMB) {
 			Elf32_Ehdr *elf;
-			// Elf32_Phdr *ph, *eph;
 
 #ifdef HAS_DEVICE_IDE
 			uint8_t buf[4096];
@@ -325,7 +323,7 @@ static int eval(int left, int right)
 			// Log("ELF loading from hard disk.");
 #else
 			elf = (void *)0x0;
-			// Log("ELF loading from ram disk.");
+			printf("BREAK POINT\n");
 			int val = varobject_addr(elf, tokens[left].str);
 			printf("var_val=%x\n", val);	
 			return val;
