@@ -325,7 +325,9 @@ static int eval(int left, int right)
 #else
 			elf = (void *)0x0;
 			// Log("ELF loading from ram disk.");
-			return varobject_addr(elf, tokens[left].str);
+			int val = varobject_addr(elf, tokens[left].str);
+			printf("var_val=%x\n", val);	
+			return val;
 #endif
 		}
 	} else if (check_parentheses(left, right)) { // (express)
