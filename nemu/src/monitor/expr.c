@@ -345,7 +345,7 @@ static int eval(int left, int right)
 #else
 			elf = (void *)0x0;
 			int val = varobject_addr(elf, tokens[left].str);
-			printf("var_val=%x\n", val);	
+			printf("var_val=0x%x\n", val);	
 			return val;
 #endif
 		}
