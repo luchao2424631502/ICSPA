@@ -304,7 +304,8 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
 		// if (0 == strcmp(strtab_base + (entry + i)->st_name, varname)) {
-		if (0 == strcmp(strtab_base + vaddr_read(HEXADDR(&((entry + i)->st_name)) , SREG_CS, 4), varname)) {
+		if (0 == strcmp((char *)hw_mem + HEXADDR(strtab_base) + vaddr_read(HEXADDR(&((entry + i)->st_name)) 
+						, SREG_CS, 4), varname)) {
 			// return (entry + i)->st_value;
 			return vaddr_read(HEXADDR(&((entry + i)->st_name)) , SREG_CS, 4);
 		}
