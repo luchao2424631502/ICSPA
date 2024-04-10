@@ -254,10 +254,8 @@ static void *shstrtab_base(Elf32_Ehdr *elf)
 {
 	// Elf32_Shdr *entry = (void *)elf + elf->e_shoff;
 	Elf32_Shdr *entry = (void *)elf + vaddr_read(HEXADDR(&(elf->e_shoff)), SREG_CS, 4);
-	printf("111 BREAK POINT\n");
 	// Elf32_Half shstrndx = elf->e_shstrndx;
 	Elf32_Half shstrndx = vaddr_read(HEXADDR(&(elf->e_shstrndx)), SREG_CS, 4);
-	printf("222 BREAK POINT\n");
 	Elf32_Shdr *shstrtab = entry + shstrndx;
 	// return ((void *)elf + shstrtab->sh_offset);
 	return ((void *)elf + vaddr_read(HEXADDR(&(shstrtab->sh_offset)), SREG_CS, 4));
@@ -275,7 +273,8 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 {
 	tab_desc shentry = shtab_base(elf);
 	char *shstrtab = shstrtab_base(elf);
-	printf("END BREAK POINT 0x%x\n", HEXADDR(shstrtab));
+	printf("END BREAK POINT shstrtab.base=0x%x shtab.base=0x%x\n", HEXADDR(shstrtab), 
+			HEXADDR(shentry.base));
 	tab_desc ret = {.base=NULL, .num=0,};
 	for (int i = 0; i < shentry.num; i++) {
 		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
