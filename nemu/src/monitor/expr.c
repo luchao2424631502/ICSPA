@@ -273,14 +273,20 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 {
 	tab_desc shentry = shtab_base(elf);
 	char *shstrtab = shstrtab_base(elf);
-	printf("END BREAK POINT shstrtab.base=0x%x shtab.base=0x%x\n", HEXADDR(shstrtab), 
-			HEXADDR(shentry.base));
+	// printf("END BREAK POINT shstrtab.base=0x%x shtab.base=0x%x\n", HEXADDR(shstrtab), 
+	// 		HEXADDR(shentry.base));
 	tab_desc ret = {.base=NULL, .num=0,};
 	for (int i = 0; i < shentry.num; i++) {
 		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
-		if (0 == strcmp(section_name, entry->sh_name + shstrtab)) {
-			ret.base = (void *)elf + entry->sh_offset;
-			ret.num = !entry->sh_entsize ? 0 : entry->sh_size / entry->sh_entsize;
+		// if (0 == strcmp(section_name, entry->sh_name + shstrtab)) {
+		if (0 == strcmp(section_name, hw_mem + shstrtab + 
+					vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4))) {
+			// ret.base = (void *)elf + entry->sh_offset;
+			ret.base = (void *)elf + vaddr_read(HEXADDR(&(entry->sh_offset)), SREG_CS, 4);
+			// ret.num = !entry->sh_entsize ? 0 : entry->sh_size / entry->sh_entsize;
+			ret.num = !vaddr_read(HEXADDR(&(entry->sh_entsize)), SREG_CS, 4) ? 0 :
+			       	vaddr_read(HEXADDR(&(entry->sh_size)), SREG_CS, 4) / 
+				vaddr_read(HEXADDR(&(entry->sh_entsize)), SREG_CS, 4);	
 			return ret;
 		}
 	}
@@ -291,6 +297,7 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
 	tab_desc strtab = nametab_base(elf, ".strtab");
+	printf("symtab.base=%x strtab.base=0x%x", symtab.base, strtab.base);
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
