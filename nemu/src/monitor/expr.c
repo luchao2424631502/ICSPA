@@ -59,6 +59,8 @@ static struct rule
 	{"\\|\\|", OR},
 	{"!", NOT},
 	// {"\\*", '*'}
+
+	{"[A-Za-z_][A-Za-z0-9_]*", SYMB},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
