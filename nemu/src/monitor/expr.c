@@ -288,7 +288,7 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 			ret.num = !vaddr_read(HEXADDR(&(entry->sh_entsize)), SREG_CS, 4) ? 0 :
 			       	vaddr_read(HEXADDR(&(entry->sh_size)), SREG_CS, 4) / 
 				vaddr_read(HEXADDR(&(entry->sh_entsize)), SREG_CS, 4);	
-			printf("xxx\n");
+			printf("%s\n", tmp + vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4));
 			return ret;
 		}
 	}
