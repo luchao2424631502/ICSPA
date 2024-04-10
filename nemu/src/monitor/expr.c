@@ -279,8 +279,8 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 	for (int i = 0; i < shentry.num; i++) {
 		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
 		// if (0 == strcmp(section_name, entry->sh_name + shstrtab)) {
-		if (0 == strcmp(section_name, hw_mem + shstrtab + 
-					vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4))) {
+		if (0 == strcmp(section_name, (char *)hw_mem + shstrtab + 
+					(char *)vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4))) {
 			// ret.base = (void *)elf + entry->sh_offset;
 			ret.base = (void *)elf + vaddr_read(HEXADDR(&(entry->sh_offset)), SREG_CS, 4);
 			// ret.num = !entry->sh_entsize ? 0 : entry->sh_size / entry->sh_entsize;
@@ -297,7 +297,7 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
 	tab_desc strtab = nametab_base(elf, ".strtab");
-	printf("symtab.base=%x strtab.base=0x%x", symtab.base, strtab.base);
+	printf("symtab.base=%x strtab.base=0x%x", HEXADDR(symtab.base), HEXADDR(strtab.base));
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
