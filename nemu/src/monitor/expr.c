@@ -279,8 +279,8 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 	for (int i = 0; i < shentry.num; i++) {
 		Elf32_Shdr *entry = ((Elf32_Shdr *)shentry.base) + i;
 		// if (0 == strcmp(section_name, entry->sh_name + shstrtab)) {
-		if (0 == strcmp(section_name, (char *)hw_mem + shstrtab + 
-					(char *)vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4))) {
+		if (0 == strcmp(section_name, (char *)hw_mem + 0 + shstrtab + 
+					vaddr_read(HEXADDR(&(entry->sh_name)), SREG_CS, 4))) {
 			// ret.base = (void *)elf + entry->sh_offset;
 			ret.base = (void *)elf + vaddr_read(HEXADDR(&(entry->sh_offset)), SREG_CS, 4);
 			// ret.num = !entry->sh_entsize ? 0 : entry->sh_size / entry->sh_entsize;
