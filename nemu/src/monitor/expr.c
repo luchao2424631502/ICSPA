@@ -60,7 +60,6 @@ static struct rule
 	{"&&", AND},
 	{"\\|\\|", OR},
 	{"!", NOT},
-	// {"\\*", '*'}
 
 	{"[A-Za-z_][A-Za-z0-9_]*", SYMB},
 };
