@@ -282,6 +282,7 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
 	tab_desc strtab = nametab_base(elf, ".strtab");
+	printf("BREAK POINT\n");
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
