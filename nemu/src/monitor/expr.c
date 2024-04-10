@@ -266,7 +266,7 @@ static int eval(int left, int right)
 		if (tokens[left].type == SYMB) {
 			// Elf32_Ehdr *elf;
 			// Elf32_Phdr *ph, *eph;
-			printf("t=%s\n", tokens[left].src);
+			printf("t=%s\n", tokens[left].str);
 
 #ifdef HAS_DEVICE_IDE
 			uint8_t buf[4096];
