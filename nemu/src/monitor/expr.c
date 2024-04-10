@@ -307,7 +307,7 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 		if (0 == strcmp((char *)hw_mem + HEXADDR(strtab_base) + vaddr_read(HEXADDR(&((entry + i)->st_name)) 
 						, SREG_CS, 4), varname)) {
 			// return (entry + i)->st_value;
-			return vaddr_read(HEXADDR(&((entry + i)->st_name)) , SREG_CS, 4);
+			return vaddr_read(HEXADDR(&((entry + i)->st_value)) , SREG_CS, 4);
 		}
 	}
 	return 0;
