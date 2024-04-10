@@ -298,9 +298,8 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
-	printf("tmp");
 	tab_desc strtab = nametab_base(elf, ".strtab");
-	printf("symtab.base=%x strtab.base=0x%x", HEXADDR(symtab.base), HEXADDR(strtab.base));
+	printf("PPP symtab.base=%x strtab.base=0x%x", HEXADDR(symtab.base), HEXADDR(strtab.base));
 	char *strtab_base = strtab.base;
 	Elf32_Sym *entry = symtab.base;
 	for (int i = 0; i < symtab.num; i++) {
