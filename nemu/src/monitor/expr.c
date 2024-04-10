@@ -260,6 +260,21 @@ static int eval(int left, int right)
 			// printf("str=%s index=%d\n", tokens[left].str, reg_index(tokens[left].str));
 			return cpu.gpr[rdx]._32;
 		}
+		// 符号-变量,
+		if (tokens[left].type == SYMB) {
+			Elf32_Ehdr *elf;
+			Elf32_Phdr *ph, *eph;
+
+#ifdef HAS_DEVICE_IDE
+			uint8_t buf[4096];
+			ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
+			elf = (void *)buf;
+			Log("ELF loading from hard disk.");
+#else
+			elf = (void *)0x0;
+			Log("ELF loading from ram disk.");
+#endif
+		}
 	} else if (check_parentheses(left, right)) { // (express)
 		return eval(left + 1, right - 1);
 	} else {
