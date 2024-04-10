@@ -156,12 +156,12 @@ static bool make_token(char *e)
 	}
 
 	// 打印 token 数组
-	for (int i = 0; i < nr_token; i++) {
-		if (tokens[i].type == NUM || tokens[i].type == SYMB)
-			printf("%s", tokens[i].str);
-		else	
-			printf("%c", tokens[i].type);
-	}
+	// for (int i = 0; i < nr_token; i++) {
+	// 	if (tokens[i].type == NUM || tokens[i].type == SYMB)
+	// 		printf("%s", tokens[i].str);
+	// 	else	
+	// 		printf("%c", tokens[i].type);
+	// }
 	printf("\n");
 
 	return true;
