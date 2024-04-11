@@ -61,7 +61,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	if (tmp) {
 		uint32_t ret1 = cache_read(paddr, tmp);
 		paddr = (paddr_t)((char *)paddr + tmp);
-		printf("tmp=%d %p %p", paddr, ((char *)paddr + tmp));
+		printf("tmp=%d %p %p", tmp, paddr, ((char *)paddr + tmp));
 		uint32_t ret2 = cache_read(paddr, len - tmp);
 		return ret1 | (ret2 << (8 * tmp));
 		printf("[%s] span cache_line read\n", __func__);
