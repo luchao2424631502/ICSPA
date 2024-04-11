@@ -3,7 +3,7 @@
 uint8_t hw_cache[CACHE_SIZE_B];
 CacheLinfo hw_cache_info[CACHE_LINE_NUMS];
 
-CacheLdata *cache_line_data = hw_cache;
+CacheLdata *cache_line_data = (CacheLdata *)hw_cache;
 CacheLinfo *cache_line_info = hw_cache_info;
 
 // init the cache
