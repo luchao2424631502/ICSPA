@@ -73,7 +73,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	uint32_t offset = cache_get_offset(paddr);
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
-		{printf("\ttag=%x valid=%x\n", cache_line_info[index].tag, cache_line_info[index].valid);}
+		// {printf("\ttag=%x valid=%x\n", cache_line_info[index].tag, cache_line_info[index].valid);}
 		if (cache_line_info[index].tag == tag && 
 			cache_line_info[index].valid == 1) {
 			uint32_t ret = 0;
@@ -84,19 +84,20 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	}
 
 	printf("[%s] MISS\n", __func__);
-	uint32_t ret = hw_mem_read(paddr, len);
-	return ret;
+	// uint32_t ret = hw_mem_read(paddr, len);
+	// return ret;
 
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
-		if (cache_line_info[index].valid == 0) {
+		if (0 == cache_line_info[index].valid) {
 			// 0. 更新标志位
 			cache_line_info[index].valid = 1;
 			cache_line_info[index].tag = tag;
 			// 1. 更新 64B cache line
 			memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
 
-			{printf("\t paddr=0x%x, val=0x%x len=%d\n", paddr, ret, len);}
+			printf("paddr=0x%x base+offset=0x%x\n", paddr, BASEADDR64(paddr) + offset);
+
 			return ret;
 		}
 	}
