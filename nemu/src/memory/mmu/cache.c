@@ -9,9 +9,9 @@ void init_cache()
 {
 	// implement me in PA 3-1
 
-	printf("%s\n", __func__);
 	memset(hw_cache, 0, CACHE_SIZE_B);
 	cache_line_info = malloc(sizeof(CacheLinfo) * CACHE_LINE_NUMS);
+	printf("%s cli=%p\n", __func__, cache_line_info);
 }
 
 // write data to cache
