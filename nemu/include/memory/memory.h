@@ -15,6 +15,9 @@ extern uint64_t hw_mem_access_time;
 
 #define hwa_to_va(p) ((void *)(hw_mem + (unsigned)p))
 
+uint32_t hw_mem_read(paddr_t paddr, size_t len);
+void hw_mem_write(paddr_t paddr, size_t len, uint32_t data); 
+
 // read memory with physical address and size of bytes
 uint32_t paddr_read(paddr_t paddr, size_t len);
 
