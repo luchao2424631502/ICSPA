@@ -1,8 +1,10 @@
 #include "memory/mmu/cache.h"
 
-#include <stdlib.h>
 uint8_t hw_cache[CACHE_SIZE_B];
-CacheLinfo *cache_line_info;
+CacheLinfo hw_cache_info[CACHE_LINE_NUMS];
+
+CacheLdata *cache_line_data = hw_cache;
+CacheLinfo *cache_line_info = hw_cache_info;
 
 // init the cache
 void init_cache()
