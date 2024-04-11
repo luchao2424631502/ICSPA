@@ -73,6 +73,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	uint32_t tag = cache_get_tag(paddr);
 	uint32_t group = cache_get_group(paddr);
 	uint32_t offset = cache_get_offset(paddr);
+	mdebug("\t tag=%x group=%x offset=%x\n", tag, group, offset);
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
 		if (cache_line_info[index].tag == tag && 
