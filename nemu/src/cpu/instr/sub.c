@@ -36,7 +36,7 @@ static void instr_execute_2op()
 	// 4. 写回到目标寄存器
 	operand_write(&opr_dest);
 	
-	{printf("\teip=0x%X\n", eip);}
+	{printf("\teip=0x%X\n", cpu.eip);}
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
 			cpu.ecx,
