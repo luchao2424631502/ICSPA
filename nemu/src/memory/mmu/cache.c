@@ -4,6 +4,7 @@
 uint8_t hw_cache[CACHE_SIZE_B];
 CacheLinfo hw_cache_info[CACHE_LINE_NUMS];
 
+// 内存结构映射
 CacheLdata *cache_line_data = (CacheLdata *)hw_cache;
 CacheLinfo *cache_line_info = hw_cache_info;
 
@@ -71,6 +72,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			cache_line_info[index].valid = 1;
 			cache_line_info[index].tag = tag;
 			// 1. 更新 64B cache line
+			memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
 
 			return ret;
 		}
