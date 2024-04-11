@@ -3,8 +3,6 @@
 
 #include "nemu.h"
 
-#ifdef CACHE_ENABLED
-
 #define CACHE_SIZE_B 64*1024
 #define CACHE_LINE_SIZE 64
 #define CACHE_LINE_NUMS (CACHE_SIZE_B/CACHE_LINE_SIZE)
@@ -21,6 +19,8 @@ typedef struct {
 typedef struct {
 	uint8_t data[CACHE_LINE_SIZE];
 }CacheLdata;
+
+#ifdef CACHE_ENABLED
 
 // init the cache
 void init_cache();
