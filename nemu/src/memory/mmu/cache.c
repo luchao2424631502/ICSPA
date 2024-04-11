@@ -69,6 +69,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 		uint32_t ret2 = cache_read(paddr + tmp, len - tmp);
 		// uint32_t ret2 = hw_mem_read(paddr + tmp, len - tmp);
 		printf("paddr=0x%x tmp=%x ret1=0x%x paddr2=0x%x tmp=%d ret2=0x%x\n", paddr, tmp, ret1, paddr+tmp, len-tmp, ret2);
+		printf("ans=0x%x\n", ret1 | (ret2 << (8 * tmp)));
 		return ret1 | (ret2 << (8 * tmp));
 	}
 	uint32_t tag = cache_get_tag(paddr);
