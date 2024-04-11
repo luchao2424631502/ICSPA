@@ -59,7 +59,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	// implement me in PA 3-1 
 	uint32_t tmp = is_span(paddr, len);
 	if (tmp) {
-		printf("[%s] span cache_line read\n", __func__);
+		printf("[%s] span paddr=0x%p\n", __func__, paddr);
 		assert(0);
 		uint32_t ret1 = cache_read(paddr, tmp);
 		printf("tmp=%d %x %x", tmp, paddr, paddr + tmp);
