@@ -33,7 +33,7 @@ static inline uint32_t is_span(uint32_t vaddr, int len)
 	uint32_t offset = vaddr & ((1<<6)-1);
 	if ((offset + len) <= 64)
 		return 0;
-	return (offset + len) - 64;
+	return 64 - offset;
 }	
 
 // init the cache
@@ -57,7 +57,11 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
 	// implement me in PA 3-1 
-	if (is_span(paddr, len)) {
+	uint32_t tmp = is_span(paddr, len);
+	if (!tmp) {
+		uint32_t ret1 = cache_read(paddr, tmp);
+		uint32_t ret2 = cache_read(paddr + tmp, len - tmp);
+		return ret1 | (ret2 << (8 * tmp));
 		printf("[%s] span cache_line read\n", __func__);
 		assert(0);
 	}
