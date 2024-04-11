@@ -28,6 +28,14 @@ static inline uint32_t BASEADDR64(uint32_t vaddr)
 	return vaddr & ~((1<<6)-1);
 }	
 
+static inline uint32_t is_span(uint32_t vaddr, int len)
+{
+	uint32_t offset = vaddr & ((1<<6)-1);
+	if ((offset + len) <= 64)
+		return 0;
+	return (offset + len) - 64;
+}	
+
 // init the cache
 void init_cache()
 {
@@ -49,6 +57,10 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
 	// implement me in PA 3-1 
+	if (is_span(paddr)) {
+		printf("[%s] span cache_line read\n", __func__);
+		assert(0);
+	}
 	uint32_t tag = cache_get_tag(paddr);
 	uint32_t group = cache_get_group(paddr);
 	uint32_t offset = cache_get_offset(paddr);
