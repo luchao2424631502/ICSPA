@@ -4,6 +4,7 @@
 void init_cache()
 {
 	// implement me in PA 3-1
+	printf("%s\n", __func__);
 }
 
 // write data to cache
