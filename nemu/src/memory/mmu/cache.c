@@ -84,7 +84,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	}
 
 	printf("[%s] MISS\n", __func__);
-	// uint32_t ret = hw_mem_read(paddr, len);
+	uint32_t ret = hw_mem_read(paddr, len);
 	// return ret;
 
 	for (uint32_t i = 0; i < 8; i++) {
