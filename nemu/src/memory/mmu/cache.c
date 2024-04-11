@@ -73,20 +73,20 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	uint32_t tag = cache_get_tag(paddr);
 	uint32_t group = cache_get_group(paddr);
 	uint32_t offset = cache_get_offset(paddr);
-	mdebug("\tpaddr=0x%x tag=%x group=%x offset=%x\n", paddr, tag, group, offset);
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
 		if (cache_line_info[index].tag == tag && 
 			cache_line_info[index].valid == 1) {
 			uint32_t ret = 0;
 			memcpy(&ret, cache_line_data[index].data + offset, len);
-			{printf("\t paddr=0x%x, val=0x%x len=%d\n", paddr, ret, len);}
+			{printf("\t HIT paddr=0x%x, val=0x%x len=%d\n", paddr, ret, len);}
 			return ret;
 		}
 	}
 
-	// printf("[%s] hit miss\n", __func__);
+	printf("[%s] MISS\n", __func__);
 	uint32_t ret = hw_mem_read(paddr, len);
+	return ret;
 
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
