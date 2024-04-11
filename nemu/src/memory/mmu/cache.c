@@ -60,10 +60,10 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	// implement me in PA 3-1 
 	uint32_t tmp = is_span(paddr, len);
 	if (tmp) {
-		printf("[%s] span paddr=0x%x\n", __func__, paddr);
-		assert(0);
+		// printf("[%s] span paddr=0x%x\n", __func__, paddr);
+		// assert(0);
+		printf("tmp=%d paddr=%x paddr+tmp=%x\n", tmp, paddr, paddr + tmp);
 		uint32_t ret1 = cache_read(paddr, tmp);
-		printf("tmp=%d %x %x", tmp, paddr, paddr + tmp);
 		uint32_t ret2 = cache_read(paddr + tmp, len - tmp);
 		return ret1 | (ret2 << (8 * tmp));
 	}
