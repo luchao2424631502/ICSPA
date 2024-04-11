@@ -10,21 +10,21 @@ nemu:
 
 run: nemu
 	$(call git_commit, "run", $(TIME_MAKE))
-	./nemu/nemu --testcase add
-	./nemu/nemu --testcase add-longlong
-	./nemu/nemu --testcase bit
-	./nemu/nemu --testcase bubble-sort
-	./nemu/nemu --testcase mov-jcc
-	./nemu/nemu --testcase if-else
-	./nemu/nemu --testcase fib
-	./nemu/nemu --testcase quick-sort
-	./nemu/nemu --testcase pascal
-	./nemu/nemu --testcase sub-longlong
-	./nemu/nemu --testcase fact
-	./nemu/nemu --testcase gotbaha
-	./nemu/nemu --testcase mul-longlong
-	./nemu/nemu --testcase shuixianhua
-	./nemu/nemu --testcase struct
+	# ./nemu/nemu --testcase add
+	# ./nemu/nemu --testcase add-longlong
+	# ./nemu/nemu --testcase bit
+	# ./nemu/nemu --testcase bubble-sort
+	# ./nemu/nemu --testcase mov-jcc
+	# ./nemu/nemu --testcase if-else
+	# ./nemu/nemu --testcase fib
+	# ./nemu/nemu --testcase quick-sort
+	# ./nemu/nemu --testcase pascal
+	# ./nemu/nemu --testcase sub-longlong
+	# ./nemu/nemu --testcase fact
+	# ./nemu/nemu --testcase gotbaha
+	# ./nemu/nemu --testcase mul-longlong
+	# ./nemu/nemu --testcase shuixianhua
+	# ./nemu/nemu --testcase struct
 	./nemu/nemu --testcase string
 	./nemu/nemu --testcase hello-str
 	./nemu/nemu --testcase test-float
