@@ -65,6 +65,7 @@ void init_mem()
 #ifdef CACHE_ENABLED
 	init_cache();
 #endif
+
 #ifdef TLB_ENABLED
 	make_all_tlb();
 	init_all_tlb();
