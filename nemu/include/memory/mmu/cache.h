@@ -5,6 +5,19 @@
 
 #ifdef CACHE_ENABLED
 
+#define CACHE_SIZE_B 64*1024
+#define CACHE_LINE_SIZE 64
+#define CACHE_LINE_NUMS (CACHE_SIZE_B/CACHE_LINE_SIZE)
+
+typedef struct {
+	uint16_t tag 	:14;
+	uint8_t bit	:2;
+}CacheLinfo;
+
+typedef struct {
+	uint8_t data[CACHE_LINE_SIZE];
+}CacheLdata;
+
 // init the cache
 void init_cache();
 

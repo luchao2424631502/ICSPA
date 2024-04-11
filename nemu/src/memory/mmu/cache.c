@@ -1,10 +1,16 @@
 #include "memory/mmu/cache.h"
 
+uint8_t hw_cache[CACHE_SIZE_B];
+CacheLinfo *cache_line_info;
+
 // init the cache
 void init_cache()
 {
 	// implement me in PA 3-1
+
 	printf("%s\n", __func__);
+	memset(hw_cache, 0, CACHE_SIZE_B);
+	cache_line_info = malloc(sizeof(CacheLinfo) * CACHE_LINE_NUMS);
 }
 
 // write data to cache
