@@ -77,6 +77,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			cache_line_info[index].valid == 1) {
 			uint32_t ret = 0;
 			memcpy(&ret, cache_line_data[index].data + offset, len);
+			{printf("\t paddr=0x%x, val=0x%x\n", paddr, ret);}
 			return ret;
 		}
 	}
@@ -93,6 +94,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			// 1. 更新 64B cache line
 			memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
 
+			{printf("\t paddr=0x%x, val=0x%x\n", paddr, ret);}
 			return ret;
 		}
 	}
@@ -101,6 +103,8 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	cache_line_info[index].valid = 1;
 	cache_line_info[index].tag = tag;
 	memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
+
+	{printf("\t paddr=0x%x, val=0x%x\n", paddr, ret);}
 
 	return ret;
 }
