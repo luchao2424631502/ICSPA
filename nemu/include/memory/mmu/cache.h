@@ -15,7 +15,7 @@
 
 typedef struct {
 	uint16_t tag 	:14;
-	uint8_t bit	:2;
+	uint8_t valid	:2;
 }CacheLinfo;
 
 typedef struct {
