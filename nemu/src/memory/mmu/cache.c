@@ -77,6 +77,11 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			return ret;
 		}
 	}
+	// 缓存替换
+	uint32_t index = group * 8 + paddr & ((1<<3)-1);
+	cache_line_info[index].valid = 1;
+	cache_line_info[index].tag = tag;
+	memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
 
 	return ret;
 }
