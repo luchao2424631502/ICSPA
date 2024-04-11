@@ -12,7 +12,10 @@ void init_cache()
 	// implement me in PA 3-1
 
 	memset(hw_cache, 0, CACHE_SIZE_B);
-	printf("%s cli=%p cld=%p\n", __func__, cache_line_info, cache_line_data);
+	memset(hw_cache_info, 0, sizeof(CacheLinfo) * CACHE_LINE_NUMS);
+	
+	// printf("%s cli=%p cld=%p\n", __func__, cache_line_info, cache_line_data);
+	
 }
 
 // write data to cache
