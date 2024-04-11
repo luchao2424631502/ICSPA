@@ -78,7 +78,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			cache_line_info[index].valid == 1) {
 			uint32_t ret = 0;
 			memcpy(&ret, cache_line_data[index].data + offset, len);
-			{printf("HIT cache_ret=0x%x hw_mem_ret=0x%x\n", ret, hw_mem_read(paddr, len));
+			// {printf("HIT cache_ret=0x%x hw_mem_ret=0x%x\n", ret, hw_mem_read(paddr, len));
 			return ret;
 		}
 	}
