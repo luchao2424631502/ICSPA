@@ -25,7 +25,8 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 #ifndef CACHE_ENABLED
 	ret = hw_mem_read(paddr, len);
 #else
-	ret = cache_read(paddr, len);
+	// ret = cache_read(paddr, len);
+	ret = hw_mem_read(paddr, len);
 #endif
 	return ret;
 }
