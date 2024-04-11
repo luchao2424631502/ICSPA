@@ -1,5 +1,6 @@
 #include "memory/mmu/cache.h"
 
+#include <stdlib.h>
 uint8_t hw_cache[CACHE_SIZE_B];
 CacheLinfo *cache_line_info;
 
