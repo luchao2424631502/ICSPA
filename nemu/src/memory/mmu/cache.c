@@ -64,10 +64,9 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	if (tmp) {
 		// printf("[%s] span paddr=0x%x\n", __func__, paddr);
 		// assert(0);
-		printf("tmp=%d paddr=%x paddr+tmp=%x\n", tmp, paddr, paddr + tmp);
 		uint32_t ret1 = cache_read(paddr, tmp);
 		uint32_t ret2 = cache_read(paddr + tmp, len - tmp);
-		printf("tmp ret1=0x%x ret2=0x%x\n", ret1, ret2);
+		printf("tmp=%d len=%d paddr=%x ret1=%x paddr+tmp=%x ret2=%x\n", tmp, len, paddr, ret1, paddr + tmp, ret2);
 		return ret1 | (ret2 << (8 * tmp));
 	}
 	uint32_t tag = cache_get_tag(paddr);
