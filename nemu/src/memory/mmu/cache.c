@@ -110,7 +110,6 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 
 	printf("[%s] MISS\n", __func__);
 	uint32_t ret = hw_mem_read(paddr, len);
-	// return ret;
 
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
@@ -128,7 +127,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	}
 
 	// 缓存替换
-	uint32_t index = group * 8 + (paddr & ((1<<3)-1));
+	uint32_t index = group * 8 + ((paddr >> 8) & ((1<<3)-1));
 	printf("NEED Replace paddr=0x%x num=%d\n", paddr, paddr & ((1<<3)-1));
 	
 	cache_line_info[index].valid = 1;
