@@ -91,14 +91,15 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 		// uint32_t ret1 = hw_mem_read(paddr, tmp);
 		uint32_t ret2 = cache_read(paddr + tmp, len - tmp);
 		// uint32_t ret2 = hw_mem_read(paddr + tmp, len - tmp);
-		printf("paddr=0x%x tmp=%x ret1=0x%x paddr2=0x%x tmp=%d ret2=0x%x ans=0x%x\n", 
-				paddr, tmp, ret1, paddr+tmp, len-tmp, ret2, ret1|(ret2 << (8 * tmp)));
-		printf("ans=0x%x\n", ret1 | (ret2 << (8 * tmp)));
+		// printf("paddr=0x%x tmp=%x ret1=0x%x paddr2=0x%x tmp=%d ret2=0x%x ans=0x%x\n", 
+		// 		paddr, tmp, ret1, paddr+tmp, len-tmp, ret2, ret1|(ret2 << (8 * tmp)));
+		// printf("ans=0x%x\n", ret1 | (ret2 << (8 * tmp)));
 		return ret1 | (ret2 << (8 * tmp));
 	}
 	uint32_t tag = cache_get_tag(paddr);
 	uint32_t group = cache_get_group(paddr);
 	uint32_t offset = cache_get_offset(paddr);
+	printf("\tpaddr=0x%x, tag=0x%x, group=0x%x, offset=0x%x\n", paddr, tag, group, offset);
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
 		// {printf("\ttag=%x valid=%x\n", cache_line_info[index].tag, cache_line_info[index].valid);}
@@ -106,12 +107,12 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			cache_line_info[index].valid == 1) {
 			uint32_t ret = 0;
 			memcpy(&ret, cache_line_data[index].data + offset, len);
-			{printf("HIT cache_ret=0x%x hw_mem_ret=0x%x\n", ret, hw_mem_read(paddr, len));}
+			// {printf("HIT cache_ret=0x%x hw_mem_ret=0x%x\n", ret, hw_mem_read(paddr, len));}
 			return ret;
 		}
 	}
 
-	printf("[%s] MISS\n", __func__);
+	// printf("[%s] MISS\n", __func__);
 	uint32_t ret = hw_mem_read(paddr, len);
 
 	for (uint32_t i = 0; i < 8; i++) {
@@ -123,7 +124,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			// 1. 更新 64B cache line
 			memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
 
-			printf("paddr=0x%x base+offset=0x%x\n", paddr, BASEADDR64(paddr) + offset);
+			// printf("paddr=0x%x base+offset=0x%x\n", paddr, BASEADDR64(paddr) + offset);
 
 			return ret;
 		}
@@ -131,7 +132,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 
 	// 缓存替换
 	uint32_t index = group * 8 + ((paddr >> 8) & ((1<<3)-1));
-	printf("NEED Replace paddr=0x%x num=%d\n", paddr, paddr & ((1<<3)-1));
+	// printf("NEED Replace paddr=0x%x num=%d\n", paddr, paddr & ((1<<3)-1));
 	
 	cache_line_info[index].valid = 1;
 	cache_line_info[index].tag = tag;
