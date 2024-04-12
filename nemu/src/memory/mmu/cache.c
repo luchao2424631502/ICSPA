@@ -65,7 +65,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	}
 
 	// write through + no write allocate
-	hw_write(paddr, len, data);
+	hw_mem_write(paddr, len, data);
 }
 
 // read data from cache
