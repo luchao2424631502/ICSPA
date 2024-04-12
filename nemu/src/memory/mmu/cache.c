@@ -52,9 +52,21 @@ void init_cache()
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
 	// implement me in PA 3-1
-}
+	uint32_t tag = cache_get_tag(paddr);
+	uint32_t group = cache_get_group(paddr);
+	uint32_t offset = cache_get_offset(paddr);
+	for (uint32_t i = 0; i < 8; i++) { // HIT 就要修改内容
+		uint32_t index = i + group * 8;
+		if (cache_line_info[index].tag == tag &&
+			1 == cache_line_info[index].valid) {
+			// 更新cache
+			memcpy(cache_line_data[index].data + offset, &data, len);
+		}
+	}
 
-#define mdebug(msg, ...) printf(msg, __VA_ARGS__)
+	// write through + no write allocate
+	hw_write(paddr, len, data);
+}
 
 // read data from cache
 uint32_t cache_read(paddr_t paddr, size_t len)
