@@ -45,8 +45,8 @@ void init_cache()
 	memset(hw_cache, 0, CACHE_SIZE_B);
 	memset(hw_cache_info, 0, sizeof(CacheLinfo) * CACHE_LINE_NUMS);
 	
-	printf("[%s] CACHE_SIZE_B=0X%X CACHE_LINE_NUMS=0x%X \
-			sizeof(CLdata)=0x%X sizeof(CLinfo)=0x%X\n", __func__, CACHE_SIZE_B, CACHE_LINE_NUMS,
+	printf("[%s] CACHE_SIZE_B=0X%X CACHE_LINE_NUMS=0x%X" 
+			"sizeof(CLdata)=0x%X sizeof(CLinfo)=0x%X\n", __func__, CACHE_SIZE_B, CACHE_LINE_NUMS,
 			sizeof(CacheLdata), sizeof(CacheLinfo));
 	assert(0);
 }
