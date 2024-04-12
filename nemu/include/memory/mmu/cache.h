@@ -7,9 +7,13 @@
 #define CACHE_LINE_SIZE 64
 #define CACHE_LINE_NUMS (CACHE_SIZE_B/CACHE_LINE_SIZE)
 
-#define O_MASK ((1 << 6) - 1)
-#define S_MASK (((1 << 7)-1)<<6)
-#define T_MASK (((1 << 14)-1)<<13)
+#define O_LEN 6 
+#define S_LEN 7
+#define T_LEN 14
+
+#define O_MASK ((1 << O_LEN) - 1)
+#define S_MASK (((1 << S_LEN)-1) << O_LEN)
+#define T_MASK (((1 << T_LEN)-1) << (O_LEN + S_LEN))
 
 typedef struct {
 	uint16_t tag 	:14;

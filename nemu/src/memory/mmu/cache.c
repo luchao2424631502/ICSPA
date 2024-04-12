@@ -10,12 +10,12 @@ CacheLinfo *cache_line_info = hw_cache_info;
 
 static inline uint32_t cache_get_tag(uint32_t vaddr)
 {
-	return vaddr & T_MASK;
+	return (vaddr & T_MASK) >> (O_LEN + S_LEN);
 }
 
 static inline uint32_t cache_get_group(uint32_t vaddr)
 {
-	return vaddr & S_MASK;
+	return (vaddr & S_MASK) >> (O_LEN);
 }
 
 static inline uint32_t cache_get_offset(uint32_t vaddr)
