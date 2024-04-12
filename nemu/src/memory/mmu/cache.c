@@ -52,7 +52,7 @@ void init_cache()
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
 	// implement me in PA 3-1
-	uint32_t tmp = is_span(paddri, len);
+	uint32_t tmp = is_span(paddr, len);
 	if (tmp) {
 		printf("[%s] span paddr=0x%x\n", __func__, paddr);
 		assert(0);
