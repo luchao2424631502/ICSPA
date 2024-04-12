@@ -45,10 +45,9 @@ void init_cache()
 	memset(hw_cache, 0, CACHE_SIZE_B);
 	memset(hw_cache_info, 0, sizeof(CacheLinfo) * CACHE_LINE_NUMS);
 	
-	printf("[%s] CACHE_SIZE_B=0X%X CACHE_LINE_NUMS=0x%X" 
-			"sizeof(CLdata)=0x%X sizeof(CLinfo)=0x%X\n", __func__, CACHE_SIZE_B, CACHE_LINE_NUMS,
-			sizeof(CacheLdata), sizeof(CacheLinfo));
-	assert(0);
+//	printf("[%s] CACHE_SIZE_B=0X%X CACHE_LINE_NUMS=0x%X" 
+//			" sizeof(CLdata)=0x%X sizeof(CLinfo)=0x%X\n", __func__, CACHE_SIZE_B, CACHE_LINE_NUMS,
+//			sizeof(CacheLdata), sizeof(CacheLinfo));
 }
 
 // write data to cache
@@ -72,6 +71,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 			1 == cache_line_info[index].valid) {
 			// 更新cache
 			memcpy(cache_line_data[index].data + offset, &data, len);
+			break;
 		}
 	}
 
