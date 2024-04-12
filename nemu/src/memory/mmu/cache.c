@@ -31,7 +31,7 @@ static inline uint32_t BASEADDR64(uint32_t vaddr)
 static inline uint32_t is_span(uint32_t vaddr, int len)
 {
 	uint32_t offset = vaddr & ((1<<6)-1);
-	printf("[%s] addr=%d, len=%d\n", __func__, offset, len);
+	// printf("[%s] addr=%d, len=%d\n", __func__, offset, len);
 	if ((offset + len) <= 64)
 		return 0;
 	return 64 - offset;
