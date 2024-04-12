@@ -56,6 +56,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	// implement me in PA 3-1
 	uint32_t tmp = is_span(paddr, len);
 	if (tmp) {
+		data = 0xe78af3d1;
 		uint32_t val1 = data & ((1<<(8 * tmp)) - 1);
 		uint32_t val2 = (data & ~((1<<(8 * tmp)) - 1)) >> (8 * tmp);
 		
