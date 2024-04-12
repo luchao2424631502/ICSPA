@@ -52,6 +52,14 @@ void init_cache()
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
 	// implement me in PA 3-1
+	uint32_t tmp = is_span(paddri, len);
+	if (tmp) {
+		printf("[%s] span paddr=0x%x\n", __func__, paddr);
+		assert(0);
+		cache_write(paddr, tmp, data);
+		cache_write(paddr + tmp, len - tmp, data);
+		return ;
+	}
 	uint32_t tag = cache_get_tag(paddr);
 	uint32_t group = cache_get_group(paddr);
 	uint32_t offset = cache_get_offset(paddr);
