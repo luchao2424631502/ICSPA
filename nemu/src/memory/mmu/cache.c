@@ -60,8 +60,8 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 		uint32_t val1 = data & ((1<<(8 * tmp)) - 1);
 		uint32_t val2 = (data & ~((1<<(8 * tmp)) - 1)) >> (8 * tmp);
 		
-		printf("[%s] span paddr=0x%x tmp=%d data=0x%x val1=0x%x val2=0x%x\n", 
-				__func__, paddr, tmp, data, val1, val2);
+		// printf("[%s] span paddr=0x%x tmp=%d data=0x%x val1=0x%x val2=0x%x\n", 
+		// 		__func__, paddr, tmp, data, val1, val2);
 		cache_write(paddr, tmp, val1);
 		cache_write(paddr + tmp, len - tmp, val2);
 		// assert(0);
@@ -105,20 +105,17 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	uint32_t tag = cache_get_tag(paddr);
 	uint32_t group = cache_get_group(paddr);
 	uint32_t offset = cache_get_offset(paddr);
-	printf("\tpaddr=0x%x, tag=0x%x, group=0x%x, offset=0x%x\n", paddr, tag, group, offset);
+	// printf("\tpaddr=0x%x, tag=0x%x, group=0x%x, offset=0x%x\n", paddr, tag, group, offset);
 	for (uint32_t i = 0; i < 8; i++) {
 		uint32_t index = i + group * 8;
-		// {printf("\ttag=%x valid=%x\n", cache_line_info[index].tag, cache_line_info[index].valid);}
 		if (cache_line_info[index].tag == tag && 
 			cache_line_info[index].valid == 1) {
 			uint32_t ret = 0;
 			memcpy(&ret, cache_line_data[index].data + offset, len);
-			// {printf("HIT cache_ret=0x%x hw_mem_ret=0x%x\n", ret, hw_mem_read(paddr, len));}
 			return ret;
 		}
 	}
 
-	// printf("[%s] MISS\n", __func__);
 	uint32_t ret = hw_mem_read(paddr, len);
 
 	for (uint32_t i = 0; i < 8; i++) {
@@ -130,16 +127,12 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 			// 1. 更新 64B cache line
 			memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
 
-			// printf("paddr=0x%x base+offset=0x%x\n", paddr, BASEADDR64(paddr) + offset);
-
 			return ret;
 		}
 	}
 
 	// 缓存替换
 	uint32_t index = group * 8 + ((paddr >> 8) & ((1<<3)-1));
-	// printf("NEED Replace paddr=0x%x num=%d\n", paddr, paddr & ((1<<3)-1));
-	
 	cache_line_info[index].valid = 1;
 	cache_line_info[index].tag = tag;
 	memcpy(cache_line_data[index].data, hw_mem + BASEADDR64(paddr), CACHE_LINE_SIZE);
