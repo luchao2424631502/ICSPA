@@ -33,8 +33,10 @@ void load_sreg(uint8_t sreg)
 
 	// 2. limit
 	uint32_t limit = entry[index].limit_15_0 | (entry[index].limit_19_16 << 16);
-	{printf("[%s] limit=0x%X\n", __func__, limit);}
+	uint8_t granularity = entry[index].granularity; 
+	{printf("[%s] limit=0x%X granularity=%d\n", __func__, limit, granularity);}
 	assert(0xFFFFF == limit);
+	assert(0x1 == granularity);
 	cpu.segReg[sreg].limit = limit;
 
 	// 3. type
