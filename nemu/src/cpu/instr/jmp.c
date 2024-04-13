@@ -39,6 +39,28 @@ make_instr_func(jmp_byte)
 	return 1 + 1;
 }
 
+make_instr_func(ljmp)
+{
+	OPERAND rel;
+	rel.type = OPR_IMM;
+	rel.sreg = SREG_CS;
+	rel.data_size = data_size;
+	rel.addr = eip + 1;
+
+	operand_read(&rel);
+
+	// eip赋值
+	cpu.eip = rel.val;
+	
+	rel.data_size = 16;
+	rel.addr = eip + 1 + 4;
+	operand_read(&rel);
+	// cs赋值
+	cpu.cs.val = rel.val;
+	{printf("\n[LJMP] cs=0x%x epi=0x%x\n", cpu.cs.val, cpu.eip);}
+	return 0;
+}
+
 /* 
  * int jmp_near_aindirect(uint32_t eip,uint8_t opcode)
  * 间接寻址, 拿到地址, 取出地址然后跳转
