@@ -3,6 +3,47 @@
 
 #include "nemu.h"
 
+#ifdef IA32_SEG
+typedef struct {
+	uint16_t limit;
+	uint32_t base;
+}GDTR;
+
+typedef struct {
+	union {
+		struct {
+			uint8_t rpl:2;
+			uint8_t ti:1;
+			uint16_t index:13; 
+		};
+		uint16_t val;
+	};
+
+	// 对用户透明部分
+	struct {
+		uint32_t base;
+		uint32_t limit;
+		uint32_t type:5;
+		uint32_t privilege_level:2;
+		uint32_t soft_use:1;
+	};
+}SegReg;	
+
+typedef union {
+	struct {
+		uint8_t		PE:1;
+		uint8_t 	MP:1;
+		uint8_t 	EM:1;
+		uint8_t 	TS:1;
+		uint8_t 	ET:1;
+		uint32_t 	reserved:26;
+		uint8_t 	PG:1;
+	};
+	uint32_t val;
+}CR0;
+
+#endif
+
 // define the structure of registers
 typedef struct
 {
