@@ -54,5 +54,5 @@ void load_sreg(uint8_t sreg)
 	{printf("[%s] soft_use=0x%X\n", __func__, soft_use);}
 	cpu.segReg[sreg].soft_use = soft_use;
 
-	assert(0);
+	return ;
 }

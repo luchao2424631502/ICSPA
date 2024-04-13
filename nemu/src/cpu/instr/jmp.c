@@ -58,7 +58,7 @@ make_instr_func(ljmp)
 	// cs赋值
 	cpu.cs.val = rel.val;
 
-	// 将段描述符载入段寄存器
+	// 修改了段寄存器就要更新段寄存器缓冲
 	load_sreg(rel.val >> 3);
 	{printf("\n[LJMP] cs=0x%x epi=0x%x sreg=%d\n", cpu.cs.val, cpu.eip, rel.val >> 3);}
 	return 0;
