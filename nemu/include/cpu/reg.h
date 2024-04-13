@@ -10,6 +10,7 @@ typedef struct {
 }GDTR;
 
 typedef struct {
+	// 用户不透明, 可用
 	union {
 		struct {
 			uint8_t rpl:2;
