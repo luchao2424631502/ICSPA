@@ -19,7 +19,7 @@ void load_sreg(uint8_t sreg)
 	 */
 
 	uint16_t index = cpu.segReg[sreg].val >> 3; // 得到index值
-	SegDesc *entry = hwa_to_va(cpu.gdtr);
+	SegDesc *entry = hwa_to_va(cpu.gdtr.base);
 	
 	{printf("[%s] index=%d\n", __func__, index);};
 
