@@ -57,7 +57,10 @@ make_instr_func(ljmp)
 	operand_read(&rel);
 	// cs赋值
 	cpu.cs.val = rel.val;
-	{printf("\n[LJMP] cs=0x%x epi=0x%x\n", cpu.cs.val, cpu.eip);}
+
+	// 将段描述符载入段寄存器
+	load_sreg(rel.val >> 3);
+	{printf("\n[LJMP] cs=0x%x epi=0x%x sreg=%d\n", cpu.cs.val, cpu.eip, rel.val >> 3);}
 	return 0;
 }
 
