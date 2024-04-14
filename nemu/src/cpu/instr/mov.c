@@ -33,7 +33,7 @@ make_instr_func(mov_rm2sr_v)
 
 	// 加载段寄存器的不可见部分
 	load_sreg(seg.addr);
-	printf("seg_reg=0x%x src_reg=0x%x\n", seg.addr, src.addr);
+	printf("[MOV] seg_reg=0x%x <- src_reg=0x%x src_reg_val=0x%x\n", seg.addr , src.addr, cpu.gpr[src.addr].val);
 	return len;
 	assert(0);
 }
