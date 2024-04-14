@@ -40,17 +40,36 @@ uint32_t loader()
 			// remove this panic!!!
 			// panic("Please implement the loader");
 
+#ifndef IA32_PAGE
 /* TODO: copy the segment from the ELF file to its proper memory area */
-			{printk("offset=0x%x vaddr=0x%x filesize=0x%x memsize=0x%x\n", 
-					ph->p_offset,
-					ph->p_vaddr,
-					ph->p_filesz,
-					ph->p_memsz);}
+			// {printk("offset=0x%x vaddr=0x%x filesize=0x%x memsize=0x%x\n", 
+			// 		ph->p_offset,
+			// 		ph->p_vaddr,
+			// 		ph->p_filesz,
+			// 		ph->p_memsz);}
 			memcpy((void *)(ph->p_vaddr), (void *)elf + ph->p_offset, ph->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
 			if (ph->p_filesz < ph->p_memsz)
 				memset((void *)(ph->p_vaddr) + ph->p_filesz, 
 				      0, ph->p_memsz - ph->p_filesz);	
+#else
+/* 开启了分页, 不能直接拷贝到0x10000了, 让kernel来建立页表映射关系 */
+			// 1. 根据segment的虚拟地址来申请物理地址
+			uint32_t physical_addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+			// 2. 因为kernel页表虚拟地址前128MB一对一映射到物理地址的前128MB,
+			//    所以这里的物理地址即使经过页表翻译也是真正的物理地址
+			memcpy((void *)physical_addr, (void *)elf + ph->p_offset, ph->p_filesz);
+			if (ph->p_filesz < ph->p_memsz)
+				memset((void *)(ph->p_vaddr) + ph->p_filesz, 
+					0, ph->p_memsz - ph->p_filesz);
+			{printk("physical_addr=0x%x offset=0x%x vaddr=0x%x"
+					" filesize=0x%x memsize=0x%x\n", 
+					physical_addr,
+					ph->p_offset,
+					ph->p_vaddr,
+					ph->p_filesz,
+					ph->p_memsz);}
+#endif
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use */

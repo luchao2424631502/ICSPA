@@ -42,7 +42,19 @@ typedef union {
 	};
 	uint32_t val;
 }CR0;
+#endif
 
+#ifdef IA32_PAGE
+typedef union {
+	struct {
+		uint32_t PAD0:3; 
+		uint32_t PAGE_WH:1;
+		uint32_t PAGE_CD:1;
+		uint32_t PAD1:7;
+		uint32_t BASE:20;
+	};
+	uint32_t val;
+}CR3;
 #endif
 
 // define the structure of registers

@@ -22,11 +22,14 @@ void init_page(void)
 
 	/* fill PDEs and PTEs */
 	pframe_idx = 0;
-	for (pdir_idx = 0; pdir_idx < PHY_MEM / PT_SIZE; pdir_idx++)
+	for (pdir_idx = 0; pdir_idx < PHY_MEM / PT_SIZE; pdir_idx++) // 填充页目录每一项(页目录项)
 	{
+		/* 前128MB虚拟地址一一映射到 0开始的整个128MB物理地址 */
 		pdir[pdir_idx].val = make_pde(ptable);
+		/* 0xC0000000开始的128MB大小(内核)的虚拟地址也映射到 0开始的物理地址 */
 		pdir[pdir_idx + KOFFSET / PT_SIZE].val = make_pde(ptable);
-		for (ptable_idx = 0; ptable_idx < NR_PTE; ptable_idx++)
+		/* (顺序)填充页表每一项,表项指向的物理地址也是从0开始 */
+		for (ptable_idx = 0; ptable_idx < NR_PTE; ptable_idx++) // 填充页表每一项(页表项)
 		{
 			ptable->val = make_pte(pframe_idx << 12);
 			pframe_idx++;

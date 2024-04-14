@@ -2,8 +2,8 @@
 #include "memory.h"
 #include <string.h>
 
-PDE updir[NR_PDE] align_to_page;
-CR3 ucr3;
+PDE updir[NR_PDE] align_to_page; // user 页目录
+CR3 ucr3; // user 自己的CR3 , 和NEMU的CR3有区别
 
 PDE *get_updir() { return updir; }
 uint32_t get_ucr3() { return ucr3.val; }
@@ -33,5 +33,5 @@ void init_mm()
 	memcpy(&updir[KOFFSET / PT_SIZE], &kpdir[KOFFSET / PT_SIZE],
 		   (PHY_MEM / PT_SIZE) * sizeof(PDE));
 
-	ucr3.val = (uint32_t)va_to_pa((uint32_t)updir) & ~0x3ff;
+	ucr3.val = (uint32_t)va_to_pa((uint32_t)updir) & ~0x3ff; // 记录用户进程的页表基础地址
 }
