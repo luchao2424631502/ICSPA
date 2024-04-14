@@ -127,7 +127,7 @@ void vaddr_write(vaddr_t vaddr, uint8_t sreg, size_t len, uint32_t data)
 #ifndef IA32_SEG
 	laddr_write(vaddr, len, data);
 #else
-	if (cpu.cr0.PE) { // 开启了分段机制, 先将虚拟地址翻译为线性地址
+	if (cpu.cr0.protect_enable) { // 开启了分段机制, 先将虚拟地址翻译为线性地址
 		printf("[vaddr_write] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
 		     sreg, vaddr, segment_translate(vaddr, sreg));
 		laddr_write(segment_translate(vaddr, sreg), len, data);
