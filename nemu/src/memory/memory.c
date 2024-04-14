@@ -74,7 +74,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 		{printf("[%s] _read\n", __func__);}
 		return paddr_read(phy_addr, len);
 	} else {
-		{printf("[%s] 没有开启分页\n", __func__);
+		{printf("[%s] 没有开启分页\n", __func__);}
 		return paddr_read(laddr, len);
 	}
 #endif
@@ -99,7 +99,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 		paddr_write(phy_addr, len, data);
 		{printf("[%s] _write\n", __func__);}
 	} else {
-		{printf("[%s] 没有开启分页\n", __func__);
+		{printf("[%s] 没有开启分页\n", __func__);}
 		paddr_write(laddr, len, data);
 	}
 #endif
