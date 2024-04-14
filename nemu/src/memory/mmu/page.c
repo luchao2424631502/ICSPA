@@ -13,6 +13,7 @@ paddr_t page_translate(laddr_t laddr)
 	/* Please implement page_translate() */
 	
 	// 0. 由CR3拿到页目录表基地址 (页帧号<<12转物理地址)
+	/*
 	uint32_t pdirtable_base = cpu.cr3.page_directory_base << 12;
 
 	// 1. 得到页表的物理基地址
@@ -39,6 +40,7 @@ paddr_t page_translate(laddr_t laddr)
 	printf("[%s] laddr=0x%x -> phy_addr=0x%x ", __func__, laddr, phy_addr);
 	assert(0);
 	return phy_addr;
+	*/
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
 #endif
