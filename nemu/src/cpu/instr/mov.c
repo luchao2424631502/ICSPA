@@ -27,7 +27,14 @@ make_instr_func(mov_rm2sr_v)
 	OPERAND seg, src;
 	src.data_size = data_size;
 	len += modrm_r_rm(eip + 1, &seg, &src);
+
+	// mov 通用寄存器 -> 段寄存器
+	cpu.segReg[seg.addr].val = cpu.gpr[src.addr];
+
+	// 加载段寄存器的不可见部分
+	load_sreg(seg.addr);
 	printf("seg_reg=0x%x src_reg=0x%x\n", seg.addr, src.addr);
+	return len;
 	assert(0);
 }
 
