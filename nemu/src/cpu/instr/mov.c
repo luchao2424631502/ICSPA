@@ -21,6 +21,7 @@ make_instr_impl_2op(mov, a, o, v)
 make_instr_impl_2op(mov, o, a, b)
 make_instr_impl_2op(mov, o, a, v)
 
+// 通用寄存器赋值到段寄存器
 make_instr_func(mov_rm2sr_v)
 {
 	int len = 1;
