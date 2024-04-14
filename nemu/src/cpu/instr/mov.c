@@ -38,12 +38,12 @@ make_instr_func(mov_rm2sr_v)
 }
 
 // CR->GPR 
-make_instr_func(mov_cr2rm_v)
-{
-	int len = 1;
-	OPERAND cr, rm;
-	
-}
+// make_instr_func(mov_cr2rm_v)
+// {
+// 	int len = 1;
+// 	OPERAND cr, rm;
+// 	
+// }
 
 // make_instr_func(mov_cr2rm_v)
 // {
