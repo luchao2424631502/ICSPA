@@ -19,6 +19,7 @@ make_instr_func(mov_srm82r_v);
 make_instr_func(mov_srm162r_l);
 
 make_instr_func(mov_rm2sr_v);
+make_instr_func(mov_cr2rm_v);
 
 make_instr_func(movs_v);
 make_instr_func(movs_b);

@@ -38,12 +38,20 @@ make_instr_func(mov_rm2sr_v)
 }
 
 // CR->GPR 
-// make_instr_func(mov_cr2rm_v)
-// {
-// 	int len = 1;
-// 	OPERAND cr, rm;
-// 	
-// }
+make_instr_func(mov_cr2rm_v)
+{
+	int len = 1;
+	OPERAND cr, rm;
+	len += modrm_r_rm(eip + 1, &cr, &rm);
+
+	// 将控制寄存器复制到通用寄存器
+	if (0 == cr.addr) {
+		cpu.gpr[rm.addr].val = cpu.cr0.val;
+		printf("[MOV] reg[%x] = cr0.val%0x\n", rm.addr, cpu.cr0.val);
+	}
+
+	return len;
+}
 
 // make_instr_func(mov_cr2rm_v)
 // {
