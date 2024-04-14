@@ -8,7 +8,6 @@ uint32_t segment_translate(uint32_t offset, uint8_t sreg)
 	 * by reading the invisible part of the segment register 'sreg'
 	 */
 	return cpu.segReg[sreg].base + offset;
-	// return offset + cpu.segReg[sreg].base;
 }
 
 // load the invisible part of a segment register
