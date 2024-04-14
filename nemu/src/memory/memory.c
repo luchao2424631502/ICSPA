@@ -58,7 +58,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 #ifndef IA32_PAGE
 	return paddr_read(laddr, len);
 #else
-	if (cpu.cr0.PG && cpu.cr0.PE) { // 判断CPU是否开启了分页机制
+	if (cpu.cr0.paging && cpu.cr0.protect_enable) { // 判断CPU是否开启了分页机制
 		uint32_t tmp = is_span(laddr, len);
 		// 越页边界了
 		if (tmp) {
@@ -85,7 +85,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 #ifndef IA32_PAGE
 	paddr_write(laddr, len, data);
 #else
-	if (cpu.cr0.PG && cpu.cr0.PE) {
+	if (cpu.cr0.paging && cpu.cr0.protect_enable) {
 		uint32_t tmp = is_span(laddr, len);
 		if (tmp) {
 			uint32_t val1 = data & ((1<<(8 * tmp)) - 1);
@@ -111,7 +111,7 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 #ifndef IA32_SEG
 	return laddr_read(vaddr, len);
 #else
-	if (cpu.cr0.PE) { // 开启了分段机制, 先将虚拟地址翻译为线性地址
+	if (cpu.cr0.protect_enable) { // 开启了分段机制, 先将虚拟地址翻译为线性地址
 		printf("[vaddr_write] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
 		     sreg, vaddr, segment_translate(vaddr, sreg));
 		return laddr_read(segment_translate(vaddr, sreg), len);
