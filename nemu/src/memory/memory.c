@@ -58,7 +58,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 #ifndef IA32_PAGE
 	return paddr_read(laddr, len);
 #else
-	if (cpu.cr0.PG) { // 判断CPU是否开启了分页机制
+	if (cpu.cr0.PG && cpu.cr0.PE) { // 判断CPU是否开启了分页机制
 		uint32_t tmp = is_span(laddr, len);
 		// 越页边界了
 		if (tmp) {
@@ -74,6 +74,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 		{printf("[%s] _read\n", __func__);}
 		return paddr_read(phy_addr, len);
 	} else {
+		{printf("[%s] 没有开启分页\n", __func__);
 		return paddr_read(laddr, len);
 	}
 #endif
@@ -84,7 +85,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 #ifndef IA32_PAGE
 	paddr_write(laddr, len, data);
 #else
-	if (cpu.cr0.PG) {
+	if (cpu.cr0.PG && cpu.cr0.PE) {
 		uint32_t tmp = is_span(laddr, len);
 		if (tmp) {
 			uint32_t val1 = data & ((1<<(8 * tmp)) - 1);
@@ -98,6 +99,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 		paddr_write(phy_addr, len, data);
 		{printf("[%s] _write\n", __func__);}
 	} else {
+		{printf("[%s] 没有开启分页\n", __func__);
 		paddr_write(laddr, len, data);
 	}
 #endif
