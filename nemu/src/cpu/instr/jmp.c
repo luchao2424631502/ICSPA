@@ -55,12 +55,13 @@ make_instr_func(ljmp)
 	rel.data_size = 16;
 	rel.addr = eip + 1 + 4;
 	operand_read(&rel);
-	// cs赋值
+	// 段选择子
 	cpu.cs.val = rel.val;
 
 	// 修改了段寄存器就要更新段寄存器缓冲
 	load_sreg(rel.val >> 3);
-	{printf("\n[LJMP] cs=0x%x eip=0x%x sreg=%d\n", cpu.cs.val, cpu.eip, rel.val >> 3);}
+	{printf("\n[LJMP] cs=0x%x eip=0x%x rel.val=0x%x sreg=%d\n", cpu.cs.val, cpu.eip,
+			rel.val, rel.val >> 3);}
 	return 0;
 }
 
