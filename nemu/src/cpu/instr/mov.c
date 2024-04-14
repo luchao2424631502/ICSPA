@@ -25,7 +25,6 @@ make_instr_func(mov_rm2sr_v)
 {
 	int len = 1;
 	OPERAND seg, src;
-	src.data_size = data_size;
 	len += modrm_r_rm(eip + 1, &seg, &src);
 
 	// mov 通用寄存器 -> 段寄存器
@@ -37,6 +36,18 @@ make_instr_func(mov_rm2sr_v)
 	return len;
 	assert(0);
 }
+
+// CR->GPR 
+make_instr_func(mov_cr2rm_v)
+{
+	int len = 1;
+	OPERAND cr, rm;
+	
+}
+
+// make_instr_func(mov_cr2rm_v)
+// {
+// }
 
 make_instr_func(mov_zrm82r_v) {
 	int len = 1;
