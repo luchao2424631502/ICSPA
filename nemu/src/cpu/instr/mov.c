@@ -21,6 +21,16 @@ make_instr_impl_2op(mov, a, o, v)
 make_instr_impl_2op(mov, o, a, b)
 make_instr_impl_2op(mov, o, a, v)
 
+make_instr_func(mov_rm2sr_v)
+{
+	int len = 1;
+	OPERAND seg, src;
+	src.data_size = data_size;
+	len += modrm_r_rm(eip + 1, &seg, &src);
+	printf("seg_reg=0x%x src_reg=0x%x\n", seg.addr, src.addr);
+	assert(0);
+}
+
 make_instr_func(mov_zrm82r_v) {
 	int len = 1;
 	OPERAND r, rm;
