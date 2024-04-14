@@ -32,13 +32,20 @@ typedef struct {
 
 typedef union {
 	struct {
-		uint8_t		PE:1;
-		uint8_t 	MP:1;
-		uint8_t 	EM:1;
-		uint8_t 	TS:1;
-		uint8_t 	ET:1;
-		uint32_t 	reserved:26;
-		uint8_t 	PG:1;
+		uint32_t protect_enable : 1;
+		uint32_t monitor_coprocessor : 1;
+		uint32_t emulation : 1;
+		uint32_t task_switched : 1;
+		uint32_t extension_type : 1;
+		uint32_t numeric_error : 1;
+		uint32_t pad0 : 10;
+		uint32_t write_protect : 1;
+		uint32_t pad1 : 1;
+		uint32_t alignment_mask : 1;
+		uint32_t pad2 : 10;
+		uint32_t no_write_through : 1;
+		uint32_t cache_disable : 1;
+		uint32_t paging : 1;
 	};
 	uint32_t val;
 }CR0;
@@ -47,11 +54,11 @@ typedef union {
 #ifdef IA32_PAGE
 typedef union {
 	struct {
-		uint32_t PAD0:3; 
-		uint32_t PAGE_WH:1;
-		uint32_t PAGE_CD:1;
-		uint32_t PAD1:7;
-		uint32_t BASE:20;
+		uint32_t pad0 : 3;
+		uint32_t page_write_through : 1;
+		uint32_t page_cache_disable : 1;
+		uint32_t pad1 : 7;
+		uint32_t page_directory_base : 20;
 	};
 	uint32_t val;
 }CR3;
