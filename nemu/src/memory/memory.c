@@ -57,8 +57,11 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 	return laddr_read(vaddr, len);
 #else
 	// assert(cpu.cr0.PE == 1);
-	if (cpu.cr0.PE)
+	if (cpu.cr0.PE) {
+		printf("[vaddr_write] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
+		     sreg, vaddr, segment_translate(vaddr, sreg));
 		return laddr_read(segment_translate(vaddr, sreg), len);
+	}
 	else
 		return laddr_read(vaddr, len);
 #endif
@@ -71,8 +74,11 @@ void vaddr_write(vaddr_t vaddr, uint8_t sreg, size_t len, uint32_t data)
 	laddr_write(vaddr, len, data);
 #else
 	// assert(cpu.cr0.PE == 1);
-	if (cpu.cr0.PE)
+	if (cpu.cr0.PE) {
+		printf("[vaddr_write] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
+		     sreg, vaddr, segment_translate(vaddr, sreg));
 		laddr_write(segment_translate(vaddr, sreg), len, data);
+	}
 	else
 		laddr_write(vaddr, len, data);
 #endif
