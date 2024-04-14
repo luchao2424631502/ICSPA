@@ -29,7 +29,7 @@ make_instr_func(mov_rm2sr_v)
 	len += modrm_r_rm(eip + 1, &seg, &src);
 
 	// mov 通用寄存器 -> 段寄存器
-	cpu.segReg[seg.addr].val = cpu.gpr[src.addr];
+	cpu.segReg[seg.addr].val = cpu.gpr[src.addr].val;
 
 	// 加载段寄存器的不可见部分
 	load_sreg(seg.addr);
