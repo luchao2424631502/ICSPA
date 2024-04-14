@@ -97,7 +97,7 @@ instr_func group_1_v_entry[8] = // imm grp 1
 instr_func group_1_bv_entry[8] = // group 1指令组包含多个指令. 取决于ModR/M的reg(opcode)
 {	
 	add_i2rm_bv, // 0x0 24.4.5 添加 add(2_7) 指令
-	inv, // 0x1
+	or_i2rm_bv, // 0x1
 	inv, // 0x2
 	inv, // 0x3
 	and_i2rm_bv, // 0x4 24.4.5 添加 and(2_1)指令
