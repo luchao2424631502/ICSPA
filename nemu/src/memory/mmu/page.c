@@ -39,15 +39,15 @@ paddr_t page_translate(laddr_t laddr)
 		assert(0);
 	}
 	uint32_t page_base = pte_entry->page_frame << 12;
-	printf("\tpresent=%d page_frame=0x%x page_base=0x%x\n", pte_entry->present,
-			pte_entry->page_frame, page_base);
-	assert(0);
+	// printf("\tpresent=%d page_frame=0x%x page_base=0x%x\n", pte_entry->present,
+	// 		pte_entry->page_frame, page_base);
+	// assert(0);
 	
-	// 3. 拼接得到最终转换的物理地址
+	// 3. 拼接得到最终转换的物理地址(去掉模拟器地址偏移)
 	paddr_t phy_addr = PAGE_OFFSET(laddr) + page_base;
 
-	assert(0);
 	printf("[%s] laddr=0x%x -> phy_addr=0x%x ", __func__, laddr, phy_addr);
+	assert(0);
 	return phy_addr;
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
