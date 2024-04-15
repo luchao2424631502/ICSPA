@@ -99,7 +99,8 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 		paddr_write(phy_addr, len, data);
 		{printf("[%s] _write\n", __func__);}
 	} else {
-		{printf("[%s] 没有开启分页\n", __func__);}
+		{printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
+				cpu.cr0.paging, cpu.cr0.protect_enable);}
 		paddr_write(laddr, len, data);
 	}
 #endif
@@ -116,8 +117,11 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 		     sreg, vaddr, segment_translate(vaddr, sreg));
 		return laddr_read(segment_translate(vaddr, sreg), len);
 	}
-	else
+	else {
+		{printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
+				cpu.cr0.paging, cpu.cr0.protect_enable);}
 		return laddr_read(vaddr, len);
+	}
 #endif
 }
 
