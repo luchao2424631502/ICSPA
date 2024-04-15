@@ -66,14 +66,15 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 			// uint32_t val2 = paddr_read(page_translate(laddr+tmp), len-tmp);
 			uint32_t val1 = laddr_read(laddr, tmp);
 			uint32_t val2 = laddr_read(laddr+tmp, len-tmp);
-			{printf("[%s] 越界read\n", __func__);}
+			{printf("[%s PG PE] 越界read\n", __func__);}
 			return val1 | (val2 << (8 * tmp));
 		}
 		// 没有越界
 		paddr_t phy_addr = page_translate(laddr);
-		{printf("[%s] _read\n", __func__);}
+		{printf("[%s PG PE] _read\n", __func__);}
 		return paddr_read(phy_addr, len);
 	} else {
+		assert(0);
 		{printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
 				cpu.cr0.paging, cpu.cr0.protect_enable);}
 		return paddr_read(laddr, len);
@@ -93,13 +94,14 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 			uint32_t val2 = (data & ~((1<<(8 * tmp)) - 1)) >> (8 * tmp);
 			laddr_write(laddr, tmp, val1);
 			laddr_write(laddr+tmp, len-tmp, val2);
-			{printf("[%s] 越界write\n", __func__);}
+			{printf("[%s PG PE] 越界write\n", __func__);}
 			return ;
 		}
 		paddr_t phy_addr = page_translate(laddr);
 		paddr_write(phy_addr, len, data);
-		{printf("[%s] _write\n", __func__);}
+		{printf("[%s PG PE] _write\n", __func__);}
 	} else {
+		assert(0);
 		{printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
 				cpu.cr0.paging, cpu.cr0.protect_enable);}
 		paddr_write(laddr, len, data);
@@ -114,7 +116,7 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 	return laddr_read(vaddr, len);
 #else
 	if (cpu.cr0.protect_enable) { // 开启了分段机制, 先将虚拟地址翻译为线性地址
-		printf("[vaddr_write] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
+		printf("[vaddr_write PE] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
 		     sreg, vaddr, segment_translate(vaddr, sreg));
 		return laddr_read(segment_translate(vaddr, sreg), len);
 	}
@@ -130,7 +132,7 @@ void vaddr_write(vaddr_t vaddr, uint8_t sreg, size_t len, uint32_t data)
 	laddr_write(vaddr, len, data);
 #else
 	if (cpu.cr0.protect_enable) { // 开启了分段机制, 先将虚拟地址翻译为线性地址
-		printf("[vaddr_write] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
+		printf("[vaddr_write PE] sreg=%x\n vaddr=0x%x trans_vaddr=0x%x\n",
 		     sreg, vaddr, segment_translate(vaddr, sreg));
 		laddr_write(segment_translate(vaddr, sreg), len, data);
 	}
