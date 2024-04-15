@@ -21,14 +21,15 @@ paddr_t page_translate(laddr_t laddr)
 	PDE *pde_entry = (PDE *)((void *)hw_mem + pdirtable_base + offset);
 	// PDE *pde_entry = (PDE *)(pdirtable_base + offset);
 	printf("\tpde_entry=0x%x\n", (uint32_t)pde_entry);
-	assert(0);
+	// assert(0);
 	if (0 == pde_entry->present) { // 地址转换出了问题 
 		printf("[%s] 页目录表项不存在\n", __func__);
 		assert(0);
 	}
 	uint32_t ptable_base = pde_entry->page_frame << 12;
-	printf("\toffset=0x%x pde_entry=0x%x ptable_base=0x%x\n", offset,
-		       	(uint32_t)pde_entry, ptable_base);
+	printf("\tpresent=%d page_frame=0x%x\n", pde_entry->present, 
+			pde_entry->ptable_base);
+	assert(0);
 
 	// 2. 得到页的物理基础地址
 	offset = PTE_INDEX(laddr);
