@@ -24,7 +24,8 @@ paddr_t page_translate(laddr_t laddr)
 		assert(0);
 	}
 	uint32_t ptable_base = pde_entry->page_frame << 12;
-	printf("\toffset=0x%x pde_entry=0x%x ptable_base=0x%x\n", offset, pde_entry, ptable_base);
+	printf("\toffset=0x%x pde_entry=0x%x ptable_base=0x%x\n", offset,
+		       	(uint32_t)pde_entry, ptable_base);
 
 	// 2. 得到页的物理基础地址
 	offset = PTE_INDEX(laddr);
