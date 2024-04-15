@@ -33,5 +33,5 @@ void init_mm()
 	memcpy(&updir[KOFFSET / PT_SIZE], &kpdir[KOFFSET / PT_SIZE],
 		   (PHY_MEM / PT_SIZE) * sizeof(PDE));
 
-	ucr3.val = (uint32_t)va_to_pa((uint32_t)updir) & ~0x3ff; // 记录用户进程的页表基础地址
+	ucr3.val = (uint32_t)va_to_pa((uint32_t)updir) & ~0x3ff;
 }
