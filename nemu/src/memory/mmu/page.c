@@ -47,7 +47,7 @@ paddr_t page_translate(laddr_t laddr)
 	paddr_t phy_addr = PAGE_OFFSET(laddr) + page_base;
 
 	printf("\t[%s] laddr=0x%x -> phy_addr=0x%x\n", __func__, laddr, phy_addr);
-	assert(0);
+	// assert(0);
 	return phy_addr;
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
