@@ -45,7 +45,7 @@ make_instr_func(mov_cr2rm_v)
 	OPERAND cr, rm;
 	len += modrm_r_rm(eip + 1, &cr, &rm);
 
-	printf("[MOV_rm2cr] reg[%x] = cr%x.val = \n", rm.addr, cr.addr);
+	printf("[MOV_cr2rm] reg[%x] = cr%x\n", rm.addr, cr.addr);
 	// 将控制寄存器复制到通用寄存器
 	if (0 == cr.addr) {
 		cpu.gpr[rm.addr].val = cpu.cr0.val;
