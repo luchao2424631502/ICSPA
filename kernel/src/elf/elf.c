@@ -77,7 +77,7 @@ uint32_t loader()
 #ifdef HAS_DEVICE_VGA
 	create_video_mapping();
 #endif
-	write_cr3(get_ucr3());
+	write_cr3(get_ucr3()); // 切换到用户的页表了?
 #endif
 	return entry;
 }
