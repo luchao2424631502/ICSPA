@@ -18,7 +18,8 @@ paddr_t page_translate(laddr_t laddr)
 
 	// 1. 得到页表的物理基地址
 	uint32_t offset = PDE_INDEX(laddr);
-	PDE *pde_entry = (PDE *)(pdirtable_base + offset);
+	PDE *pde_entry = (PDE *)((void *)hw_mem + pdirtable_base + offset);
+	// PDE *pde_entry = (PDE *)(pdirtable_base + offset);
 	printf("\tpde_entry=0x%x\n", (uint32_t)pde_entry);
 	assert(0);
 	if (0 == pde_entry->present) { // 地址转换出了问题 
