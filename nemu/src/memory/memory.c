@@ -40,16 +40,14 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data)
 #endif
 }
 
-#define PFN_MASK 0xFFFFFC00
+#define PFN_MASK 0xFFFFF000
 
 static inline uint32_t is_span(laddr_t laddr, size_t len)
 {
 	/* 在当前4kb页内写, 并没有溢出 */
 	if (((laddr + len - 1) & PFN_MASK) == (laddr & PFN_MASK))
 		return 0;
-	return 4096 - (laddr & 0x3FF);
-	uint32_t offset = laddr & 0x3FF;
-	return 4096 - offset; // 当前页写多长
+	return 4096 - (laddr & 0xFFF);
 }	
 
 // 将ia32分段mmu得到的线性地址, 根据页表(分页机制)翻译为物理地址
@@ -74,8 +72,8 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 		paddr_t phy_addr = page_translate(laddr);
 		return paddr_read(phy_addr, len);
 	} else {
-		{printf("[%s PE] cr0.paging=%d cr0.protect_enable=%d\n", __func__,
-		 		cpu.cr0.paging, cpu.cr0.protect_enable);}
+		// {printf("[%s PE] cr0.paging=%d cr0.protect_enable=%d\n", __func__,
+		//  		cpu.cr0.paging, cpu.cr0.protect_enable);}
 		return paddr_read(laddr, len);
 	}
 #endif
@@ -100,8 +98,8 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 		paddr_t phy_addr = page_translate(laddr);
 		paddr_write(phy_addr, len, data);
 	} else {
-		{printf("[%s PE] cr0.paging=%d cr0.protect_enable=%d\n", __func__,
-				cpu.cr0.paging, cpu.cr0.protect_enable);}
+		// {printf("[%s PE] cr0.paging=%d cr0.protect_enable=%d\n", __func__,
+		// 		cpu.cr0.paging, cpu.cr0.protect_enable);}
 		paddr_write(laddr, len, data);
 	}
 #endif
