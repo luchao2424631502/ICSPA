@@ -12,6 +12,24 @@ make_instr_impl_2op(cmp, i, rm, v)	// cmp_i2rm_v
 make_instr_impl_2op(cmp, rm, r, v)	// cmp_rm2r_v 	cmp $0x10(%ebp), %eax
 make_instr_impl_2op(cmp, rm, r, b)	// cmp_rm2r_b
 
+make_instr_func(cmp_eaxI_v)
+{
+	int len = 1;
+	OPERAND src;
+	src.data_size = data_size; // 32
+	src.type = OPR_IMM;
+	src.sreg = SREG_CS;
+	src.addr = eip + 1;
+	len += src.data_size / 8;
+
+	// 0. 读取imm
+	operand_read(&src);
+
+	alu_sub(src.val, cpu.eax, data_size);
+	printf("[CMP_eaxI] src.val=0x%x cpu.eax=0x%x\n", src.val, cpu.eax);
+	return len;
+}
+
 static void instr_execute_2op() // cmp逻辑
 {
 	// 0. 读取imm
@@ -20,7 +38,8 @@ static void instr_execute_2op() // cmp逻辑
 	// 1. 读入目标reg中的值
 	operand_read(&opr_dest);
 
-	{printf("\n[CMP_BV] eip=0x%X imm_val=0x%X reg_val=0x%X\n", cpu.eip, opr_src.val, opr_dest.val);}
+	{printf("\n[CMP_BV] eip=0x%X imm_val=0x%X reg_val=0x%X\n", 
+			cpu.eip, opr_src.val, opr_dest.val);}
 	{printf("\teflags before [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
 			cpu.eflags.SF?"SF":"",
 			cpu.eflags.CF?"CF":"",
