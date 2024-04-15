@@ -66,7 +66,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 			// uint32_t val2 = paddr_read(page_translate(laddr+tmp), len-tmp);
 			uint32_t val1 = laddr_read(laddr, tmp);
 			uint32_t val2 = laddr_read(laddr+tmp, len-tmp);
-			{printf("[%s PG PE] 越界read\n", __func__);}
+			{printf("[%s PG PE] overlap read\n", __func__);}
 			return val1 | (val2 << (8 * tmp));
 		}
 		{printf("[%s PG PE] _read laddr=0x%x\n", __func__, laddr);}
@@ -74,8 +74,8 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 		paddr_t phy_addr = page_translate(laddr);
 		return paddr_read(phy_addr, len);
 	} else {
-		// {printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
-		// 		cpu.cr0.paging, cpu.cr0.protect_enable);}
+		{printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
+		 		cpu.cr0.paging, cpu.cr0.protect_enable);}
 		return paddr_read(laddr, len);
 	}
 #endif
@@ -93,15 +93,15 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 			uint32_t val2 = (data & ~((1<<(8 * tmp)) - 1)) >> (8 * tmp);
 			laddr_write(laddr, tmp, val1);
 			laddr_write(laddr+tmp, len-tmp, val2);
-			{printf("[%s PG PE] 越界write\n", __func__);}
+			{printf("[%s PG PE] overlap write\n", __func__);}
 			return ;
 		}
 		{printf("[%s PG PE] _write laddr=0x%x\n", __func__, laddr);}
 		paddr_t phy_addr = page_translate(laddr);
 		paddr_write(phy_addr, len, data);
 	} else {
-		// {printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
-		// 		cpu.cr0.paging, cpu.cr0.protect_enable);}
+		{printf("[%s] 没有开启分页 cr0.paging=%d cr0.protect_enable=%d\n", __func__,
+				cpu.cr0.paging, cpu.cr0.protect_enable);}
 		paddr_write(laddr, len, data);
 	}
 #endif
