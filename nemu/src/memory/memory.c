@@ -69,7 +69,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 			{printf("[%s PG PE] 越界read\n", __func__);}
 			return val1 | (val2 << (8 * tmp));
 		}
-		{printf("[%s PG PE] _read\n", __func__);}
+		{printf("[%s PG PE] _read laddr=0x%x\n", __func__, laddr);}
 		// 没有越界
 		paddr_t phy_addr = page_translate(laddr);
 		return paddr_read(phy_addr, len);
@@ -96,7 +96,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 			{printf("[%s PG PE] 越界write\n", __func__);}
 			return ;
 		}
-		{printf("[%s PG PE] _write\n", __func__);}
+		{printf("[%s PG PE] _write laddr=0x%x\n", __func__, laddr);}
 		paddr_t phy_addr = page_translate(laddr);
 		paddr_write(phy_addr, len, data);
 	} else {
