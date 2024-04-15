@@ -4,7 +4,7 @@
 // 虚拟地址对应的页目录项索引值和页表项索引值
 #define PDE_INDEX(vaddr) (((vaddr & 0xFFC00000) >> 22) << 2)
 #define PTE_INDEX(vaddr) (((vaddr & 0x003FF000) >> 12) << 2)
-#define PAGE_OFFSET(vaddr) (vaddr & 0x000003FF)
+#define PAGE_OFFSET(vaddr) (vaddr & 0x00000FFF)
 
 // translate from linear address to physical address
 paddr_t page_translate(laddr_t laddr)
