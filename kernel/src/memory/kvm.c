@@ -42,6 +42,9 @@ void init_page(void)
 	cr3.page_directory_base = ((uint32_t)pdir) >> 12;
 	write_cr3(cr3.val);
 
+	printf("[%s] cr3_val=0x%x\n", __func__, cpu.cr3);
+	assert(0);
+
 	/* set PG bit in CR0 to enable paging */
 	cr0.val = read_cr0();
 	cr0.paging = 1;
