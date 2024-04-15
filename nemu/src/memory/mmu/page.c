@@ -28,7 +28,7 @@ paddr_t page_translate(laddr_t laddr)
 	}
 	uint32_t ptable_base = pde_entry->page_frame << 12;
 	printf("\tpresent=%d page_frame=0x%x\n", pde_entry->present, 
-			pde_entry->ptable_base);
+			pde_entry->page_frame);
 	assert(0);
 
 	// 2. 得到页的物理基础地址
