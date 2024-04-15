@@ -14,7 +14,7 @@ paddr_t page_translate(laddr_t laddr)
 	
 	// 0. 由CR3拿到页目录表基地址 (页帧号<<12转物理地址)
 	uint32_t pdirtable_base = cpu.cr3.page_directory_base << 12;
-	printf("\t[%s] cr3.base=0x%x pdirtable_base=0x%x\n", pdirtable_base >> 12, pdirtable_base);
+	printf("\tcr3.base=0x%x pdirtable_base=0x%x\n", pdirtable_base >> 12, pdirtable_base);
 
 	// 1. 得到页表的物理基地址
 	uint32_t offset = PDE_INDEX(laddr);
@@ -37,6 +37,7 @@ paddr_t page_translate(laddr_t laddr)
 	// 3. 拼接得到最终转换的物理地址
 	paddr_t phy_addr = PAGE_OFFSET(laddr) + page_base;
 
+	assert(0);
 	printf("[%s] laddr=0x%x -> phy_addr=0x%x ", __func__, laddr, phy_addr);
 	return phy_addr;
 #else
