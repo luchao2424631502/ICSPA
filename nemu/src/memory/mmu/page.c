@@ -46,8 +46,8 @@ paddr_t page_translate(laddr_t laddr)
 	// 3. 拼接得到最终转换的物理地址(去掉模拟器地址偏移)
 	paddr_t phy_addr = PAGE_OFFSET(laddr) + page_base;
 
-	// printf("[%s] laddr=0x%x -> phy_addr=0x%x\n", __func__, laddr, phy_addr);
-	// assert(0);
+	printf("[%s] laddr=0x%x -> phy_addr=0x%x\n", __func__, laddr, phy_addr);
+	assert(0);
 	return phy_addr;
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
