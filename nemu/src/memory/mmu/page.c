@@ -23,6 +23,7 @@ paddr_t page_translate(laddr_t laddr)
 		printf("[%s] 页目录表项不存在\n", __func__);
 		assert(0);
 	}
+	printf("\tpresent=%d pde_entry=0x%x\n", pde_entry->present, (uint32_t)pde_entry);
 	uint32_t ptable_base = pde_entry->page_frame << 12;
 	printf("\toffset=0x%x pde_entry=0x%x ptable_base=0x%x\n", offset,
 		       	(uint32_t)pde_entry, ptable_base);
