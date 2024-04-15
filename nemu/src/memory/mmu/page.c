@@ -18,8 +18,7 @@ paddr_t page_translate(laddr_t laddr)
 
 	// 1. 得到页表的物理基地址
 	uint32_t offset = PDE_INDEX(laddr);
-	PDE *pde_entry = (PDE *)((void *)hw_mem + pdirtable_base + offset);
-	// PDE *pde_entry = (PDE *)(pdirtable_base + offset);
+	PDE *pde_entry = (PDE *)((void *)hw_mem + pdirtable_base + offset); // 转换成模拟器地址
 	printf("\tpde_entry=0x%x\n", (uint32_t)pde_entry);
 	// assert(0);
 	if (0 == pde_entry->present) { // 地址转换出了问题 
@@ -27,8 +26,8 @@ paddr_t page_translate(laddr_t laddr)
 		assert(0);
 	}
 	uint32_t ptable_base = pde_entry->page_frame << 12;
-	printf("\tpresent=%d page_frame=0x%x\n", pde_entry->present, 
-			pde_entry->page_frame);
+	printf("\tpresent=%d page_frame=0x%x ptable_base=0x%x\n", pde_entry->present, 
+			pde_entry->page_frame, ptable_base);
 	assert(0);
 
 	// 2. 得到页的物理基础地址
