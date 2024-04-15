@@ -50,7 +50,12 @@ make_instr_func(mov_cr2rm_v)
 		cpu.gpr[rm.addr].val = cpu.cr0.val;
 		printf("[MOV_cr2rm] reg[%x] = cr0.val %0x\n", rm.addr, cpu.cr0.val);
 	}
-
+#ifdef IA32_PAGE
+	if (3 == cr.addr) {
+		cpu.gpr[rm.addr].val = cpu.cr3.val;
+		printf("[MOV_cr2rm] reg[%x] = cr3.val %0x\n", rm.addr, cpu.cr3.val);
+	}
+#endif
 	return len;
 }
 
@@ -66,6 +71,12 @@ make_instr_func(mov_rm2cr_v)
 		cpu.cr0.val = cpu.gpr[rm.addr].val;
 		printf("[MOV_rm2cr] cr0 = reg[%x] %x\n", rm.addr, cpu.gpr[rm.addr].val);
 	}
+#ifdef IA32_PAGE
+	if (3 == cr.addr) {
+		cpu.cr3.val = cpu.gpr[rm.addr].val;
+		printf("[MOV_rm2cr] cr3 = reg[%x] %x\n", rm.addr, cpu.gpr[rm.addr].val);
+	}
+#endif
 	return len;
 }
 
