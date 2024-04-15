@@ -26,13 +26,16 @@ paddr_t page_translate(laddr_t laddr)
 		assert(0);
 	}
 	uint32_t ptable_base = pde_entry->page_frame << 12;
-	printf("\tpresent=%d page_frame=0x%x ptable_base=0x%x\n", pde_entry->present, 
-			pde_entry->page_frame, ptable_base);
-	assert(0);
+	// printf("\tpresent=%d page_frame=0x%x ptable_base=0x%x\n", pde_entry->present, 
+	// 		pde_entry->page_frame, ptable_base);
+	// assert(0);
 
 	// 2. 得到页的物理基础地址
 	offset = PTE_INDEX(laddr);
-	PTE *pte_entry = (PTE *)(ptable_base + offset);
+	PTE *pte_entry = (PTE *)((void *)hw_mem + ptable_base + offset);
+	printf("\tpte_entry=0x%x\n", (uint32_t)pte_entry); 
+	assert(0);
+	// PTE *pte_entry = (PTE *)(ptable_base + offset);
 	if (0 == pte_entry->present) {
 		printf("[%s] 页表项不存在\n", __func__);
 		assert(0);
