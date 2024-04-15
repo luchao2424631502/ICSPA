@@ -34,13 +34,14 @@ paddr_t page_translate(laddr_t laddr)
 	offset = PTE_INDEX(laddr);
 	PTE *pte_entry = (PTE *)((void *)hw_mem + ptable_base + offset);
 	printf("\tpte_entry=0x%x\n", (uint32_t)pte_entry); 
-	assert(0);
-	// PTE *pte_entry = (PTE *)(ptable_base + offset);
 	if (0 == pte_entry->present) {
 		printf("[%s] 页表项不存在\n", __func__);
 		assert(0);
 	}
 	uint32_t page_base = pte_entry->page_frame << 12;
+	printf("\tpresent=%d page_frame=0x%x page_base=0x%x\n", pte_entry->present,
+			pte_entry->page_frame, page_base);
+	assert(0);
 	
 	// 3. 拼接得到最终转换的物理地址
 	paddr_t phy_addr = PAGE_OFFSET(laddr) + page_base;
