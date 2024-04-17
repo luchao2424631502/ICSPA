@@ -3,6 +3,13 @@
 
 #include "nemu.h"
 
+#ifdef IA32_INTR
+typedef struct {
+	uint16_t limit;
+	uint32_t base;
+}IDTR;
+#endif
+
 #ifdef IA32_SEG
 typedef struct {
 	uint16_t limit;
@@ -63,6 +70,7 @@ typedef union {
 	uint32_t val;
 }CR3;
 #endif
+
 
 // define the structure of registers
 typedef struct
