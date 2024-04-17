@@ -174,7 +174,7 @@ instr_func group_7_entry[8] =
 	inv, 
 	inv, 
 	lgdt, // /2 lgdt
-	inv, 
+	lidt, // /3 lidt
 	inv, 
 	inv, 
 	inv, 
