@@ -41,6 +41,7 @@ void raise_intr(uint8_t intr_no)
 	}
 		
 	uint32_t offset = (entry->offset_31_16 << 16) | entry->offset_15_0;
+	pd("\tentry_offset=0x%x selector=0x%x\n", offset, entry->selector);
 
 	printf("Please implement raise_intr()");
 	fflush(stdout);
