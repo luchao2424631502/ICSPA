@@ -2,6 +2,8 @@
 #include "cpu/instr.h"
 #include "memory/memory.h"
 
+#define KOFFSET 0xc0000000
+
 void raise_intr(uint8_t intr_no)
 {
 #ifdef IA32_INTR
@@ -21,7 +23,13 @@ void raise_intr(uint8_t intr_no)
 	printf("stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp+8, SREG_CS, 4), 
 			vaddr_read(cpu.esp+4, SREG_CS, 4),
 		       	vaddr_read(cpu.esp, SREG_CS, 4));
-	
+
+	// 1.是中断号则关闭中断
+	if (intr_no != 0x80)
+		cpu.eflags.IF = 0;
+
+	// 2.查询IDT, 获得中断处理程序的入口地址
+
 	
 	printf("Please implement raise_intr()");
 	fflush(stdout);
