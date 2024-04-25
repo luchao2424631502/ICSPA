@@ -21,13 +21,13 @@ make_instr_func(pusha)
 	int len = 1;
 
 	// 先检查一下当前栈上的值
-	printf("+0=0x%x +1=0x%x +2=0x%x +3=0x%x +4=0x%x +5=0x%x\n", vaddr_read(cpu.esp, SREG_CS, 4),
+	printf("[PUSHA] +0=0x%x +1=0x%x +2=0x%x +3=0x%x +4=0x%x +5=0x%x\n", vaddr_read(cpu.esp, SREG_CS, 4),
 	     	vaddr_read(cpu.esp+4, SREG_CS, 4),
 	     	vaddr_read(cpu.esp+8, SREG_CS, 4),
 	     	vaddr_read(cpu.esp+12, SREG_CS, 4),
 	     	vaddr_read(cpu.esp+16, SREG_CS, 4),
 		vaddr_read(cpu.esp+20, SREG_CS, 4));
-	assert(0);
+	// assert(0);
 	uint32_t temp = cpu.esp;
 
 	cpu.esp -= 4;
