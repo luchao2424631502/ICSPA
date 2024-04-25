@@ -6,6 +6,44 @@ static void instr_execute_1op();
 
 make_instr_impl_1op(pop, r, v) // pop_r_v v对应data_size l对应32
 
+make_instr_func(popa)
+{
+	int len = 1;
+
+	// edi
+	cpu.edi = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	// esi
+	cpu.esi = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	// ebp
+	cpu.ebp = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	// temp
+	cpu.esp += 4;
+
+	// ebx
+	cpu.ebx = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	// edx
+	cpu.edx = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	// ecx
+	cpu.ecx = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	// eax
+	cpu.eax = vaddr_read(cpu.esp, SREG_CS, data_size / 8);
+	cpu.esp += 4;
+
+	return len;
+}
+
 static void instr_execute_1op()
 {
 	printf("\n[POP]\n");
