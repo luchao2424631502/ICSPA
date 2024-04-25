@@ -4,7 +4,7 @@
 
 #define KOFFSET 0xc0000000
 
-#define pd(msg, val) printf("\t"msg"=0x%x\n", val)
+#define pd(msg, ...) printf(msg, ##__VA_ARGS__)
 
 void raise_intr(uint8_t intr_no)
 {
@@ -33,7 +33,7 @@ void raise_intr(uint8_t intr_no)
 	// 2.查询IDT, 获得中断处理程序的入口地址
 	char *nemu_idt_base = cpu.idtr.base - KOFFSET + (void *)hw_mem;
 	
-	pd("idt_base", (uint32_t)nemu_idt_base);
+	pd("\thw_mem=0x%x idt_base=0x%x", (uint32_t)hw_mem, (uint32_t)nemu_idt_base);
 	
 	printf("Please implement raise_intr()");
 	fflush(stdout);
