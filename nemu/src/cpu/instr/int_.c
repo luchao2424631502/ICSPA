@@ -21,7 +21,8 @@ make_instr_func(int_)
 	operand_read(&src);
 	{printf("[int 0x%x] src.val=0x%x\n", src.val, src.val);}
 
-	// 1. 什么都不做
-	assert(0);
+	// 1.
+		
+	// assert(0);
 	return len;
 }
