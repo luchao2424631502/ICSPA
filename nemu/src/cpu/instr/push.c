@@ -79,7 +79,7 @@ static void instr_execute_1op()
 		vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
 				sign_ext(opr_src.val, opr_src.data_size));
 	else
-		if (opr_src.addr = 0x4) // 处理push esp, 否则push esp的值是错误的
+		if (opr_src.addr == 0x4) // 处理push esp, 否则push esp的值是错误的
 			vaddr_write(cpu.esp, SREG_CS, (data_size / 8), old_esp);
 		else
 			vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
