@@ -18,8 +18,8 @@ void raise_intr(uint8_t intr_no)
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eip);
 	printf("eip=0x%x\n", cpu.eip);
 
-	printf("stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp-8, SREG_CS, 4), 
-			vaddr_read(cpu.esp-4, SREG_CS, 4),
+	printf("stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp+8, SREG_CS, 4), 
+			vaddr_read(cpu.esp+4, SREG_CS, 4),
 		       	vaddr_read(cpu.esp, SREG_CS, 4));
 	
 	
