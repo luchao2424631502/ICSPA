@@ -6,7 +6,8 @@ Put the implementations of `int' instructions here.
 
 Special note for `int': please use the instruction name `int_' instead of `int'.
 */
-make_func_name(int_)
+
+make_instr_func(int_)
 {
 	int len = 1;
 	OPERAND src;
