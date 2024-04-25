@@ -34,8 +34,6 @@ void irq_handle(TrapFrame *tf)
 {
 	int irq = tf->irq;
 
-	panic("[luchao] irq=0x%x\n", irq);
-
 	if (irq < 0)
 	{
 		panic("Unhandled exception!");
