@@ -27,6 +27,7 @@ make_instr_func(pusha)
 	     	vaddr_read(cpu.esp+12, SREG_CS, 4),
 	     	vaddr_read(cpu.esp+16, SREG_CS, 4),
 		vaddr_read(cpu.esp+20, SREG_CS, 4));
+	assert(0);
 	uint32_t temp = cpu.esp;
 
 	cpu.esp -= 4;
