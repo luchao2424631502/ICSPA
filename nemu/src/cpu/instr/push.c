@@ -52,7 +52,7 @@ make_instr_func(pusha)
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.edi); // edi
 
-	return 1;
+	return len;
 }
 
 /* 实现统一的instr_execute_1op */
