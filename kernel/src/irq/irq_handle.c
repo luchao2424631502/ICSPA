@@ -34,7 +34,7 @@ void irq_handle(TrapFrame *tf)
 {
 	int irq = tf->irq;
 
-	panic("[CURRENT_STATUS] irq=0x%x\n", irq);
+	panic("[luchao] irq=0x%x\n", irq);
 
 	if (irq < 0)
 	{
