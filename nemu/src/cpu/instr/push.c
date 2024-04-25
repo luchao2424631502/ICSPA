@@ -69,6 +69,8 @@ static void instr_execute_1op()
 			cpu.esp,
 			cpu.ebp);}
 
+	/* 24.4.25 永远不要觉得当前代码写的是对的, 果然在一个月后, 发现了一个BUG(代码处理的情况不对) */
+	uint32_t old_esp = cpu.esp;
 	// 0. esp -= 4;
 	cpu.esp -= data_size / 8;
 	// 1. 栈顶写入值
@@ -77,8 +79,11 @@ static void instr_execute_1op()
 		vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
 				sign_ext(opr_src.val, opr_src.data_size));
 	else
-		vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
-				opr_src.val);
+		if (opr_src.addr = 0x4) // 处理push esp, 否则push esp的值是错误的
+			vaddr_write(cpu.esp, SREG_CS, (data_size / 8), old_esp);
+		else
+			vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
+					opr_src.val);
 
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
