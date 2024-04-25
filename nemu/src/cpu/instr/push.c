@@ -33,7 +33,12 @@ static void instr_execute_1op()
 	cpu.esp -= data_size / 8;
 	// 1. 栈顶写入值
 	operand_read(&opr_src);
-	vaddr_write(cpu.esp, SREG_CS, (data_size / 8), opr_src.val);
+	if (opr_src.data_size < data_size)
+		vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
+				sign_ext(opr_src.val, opr_src.data_size));
+	else
+		vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
+				opr_src.val);
 
 	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
 			cpu.eax,
