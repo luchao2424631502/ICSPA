@@ -44,7 +44,7 @@ void irq_handle(TrapFrame *tf)
 	}
 	else if (irq < 1000)
 	{
-		panic("Unexpected exception #%d at eip = %x\n", irq, tf->eip);
+		panic("Unexpected exception #%d at eip = %x tf=0x%x esp=0x%x\n", irq, tf->eip, (uint32_t)tf, cpu.esp);
 	}
 	else if (irq >= 1000)
 	{
