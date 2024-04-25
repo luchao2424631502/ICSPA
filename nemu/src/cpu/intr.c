@@ -35,7 +35,7 @@ void raise_intr(uint8_t intr_no)
 	pd("\thw_mem=0x%x idt_base=0x%x\n", (uint32_t)hw_mem, (uint32_t)nemu_idt_base);
 	uint32_t entry_offset = intr_no << 3;
 	GateDesc *entry = (GateDesc *)(nemu_idt_base + entry_offset);
-	if (entry->present) {
+	if (entry->present == 0) {
 		pd("entry->present=0\n");
 		assert(0);
 	}
