@@ -5,7 +5,20 @@
 void raise_intr(uint8_t intr_no)
 {
 #ifdef IA32_INTR
-	// 
+	// 0.压栈
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eflags.val);
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.cs.val);
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eip);
+
+	printf("stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp-8, SREG_CS, 4), 
+			vaddr_read(cpu.esp-4, SREG_CS, 4),
+		       	vaddr_read(cpu.esp, SREG_CS, 4));
+	
 	
 	printf("Please implement raise_intr()");
 	fflush(stdout);
