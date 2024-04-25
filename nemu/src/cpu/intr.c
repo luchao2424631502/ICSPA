@@ -53,9 +53,9 @@ void raise_intr(uint8_t intr_no)
 	load_sreg(entry->selector >> 3);
 	cpu.gdtr.base += KOFFSET;
 
-	printf("Please implement raise_intr()");
-	fflush(stdout);
-	assert(0);
+	// printf("Please implement raise_intr()");
+	// fflush(stdout);
+	// assert(0);
 #endif
 }
 
