@@ -5,6 +5,8 @@
 void raise_intr(uint8_t intr_no)
 {
 #ifdef IA32_INTR
+	// 
+	
 	printf("Please implement raise_intr()");
 	fflush(stdout);
 	assert(0);

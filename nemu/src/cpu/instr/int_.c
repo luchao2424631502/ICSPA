@@ -21,8 +21,9 @@ make_instr_func(int_)
 	operand_read(&src);
 	{printf("[int 0x%x] src.val=0x%x\n", src.val, src.val);}
 
-	// 1.
-		
-	// assert(0);
+	// 1. 调用通用的中断/异常处理
+	raise_sw_intr(src.val);
+
+	return 0; // 返回0 才对
 	return len;
 }
