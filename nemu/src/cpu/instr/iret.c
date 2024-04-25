@@ -13,8 +13,6 @@ make_instr_func(iret) // 目前栈上有eip, cs, eflags
 	cpu.cs.val = vaddr_read(cpu.esp, SREG_CS, 4);
 	cpu.esp += 4;
 
-	// printf("\tgdtr.base=0x%x\n", cpu.gdtr.base);
-	// assert(0);
 	cpu.gdtr.base -= KOFFSET;
 	load_sreg(cpu.cs.val >> 3);// 刷新段寄存器的隐藏部分
 	cpu.gdtr.base += KOFFSET;
