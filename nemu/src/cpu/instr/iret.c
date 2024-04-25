@@ -16,7 +16,7 @@ make_instr_func(iret) // 目前栈上有eip, cs, eflags
 	printf("\tgdtr.base=0x%x\n", cpu.gdtr.base);
 	assert(0);
 	cpu.gdtr.base -= KOFFSET;
-	load_sreg();// 刷新段寄存器的隐藏部分
+	// load_sreg();// 刷新段寄存器的隐藏部分
 	cpu.gdtr.base += KOFFSET;
 
 	return 0;
