@@ -19,7 +19,7 @@ make_instr_func(int_)
 
 	// 0. 读取源操作数的值
 	operand_read(&src);
-	{printf("[int 0x%x] src.val=0x%x", src.val, src.val);}
+	{printf("[int 0x%x] src.val=0x%x\n", src.val, src.val);}
 
 	// 1. 什么都不做
 	assert(0);
