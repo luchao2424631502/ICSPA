@@ -48,7 +48,7 @@ void raise_intr(uint8_t intr_no)
 	cpu.cs.val = entry->selector;
 	cpu.eip = offset;
 
-	// 4. 加载段选择子的隐藏部分
+	// 4. [!!!-因为GDT表更换了位置] 加载段选择子的隐藏部分
 	cpu.gdtr.base -= KOFFSET;
 	load_sreg(entry->selector >> 3);
 	cpu.gdtr.base += KOFFSET;
