@@ -16,6 +16,44 @@ make_instr_impl_1op(push, i, v) // push_i_v kernel使用到
  * instr_execute_1op
  * return len;
  * */
+make_instr_func(pusha)
+{
+	int len = 1;
+
+	// 先检查一下当前栈上的值
+	printf("+0=0x%x +1=0x%x +2=0x%x +3=0x%x +4=0x%x +5=0x%x\n", vaddr_read(cpu.esp, SREG_CS, 4),
+	     	vaddr_read(cpu.esp+4, SREG_CS, 4),
+	     	vaddr_read(cpu.esp+8, SREG_CS, 4),
+	     	vaddr_read(cpu.esp+12, SREG_CS, 4),
+	     	vaddr_read(cpu.esp+16, SREG_CS, 4));
+	uint32_t temp = cpu.esp;
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eax); // eax
+	
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.ecx); // ecx
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.edx); // edx
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.ebx); // ebx
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, temp); // temp
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.ebp); // ebp
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.esi); // esi
+
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, SREG_CS, 4, cpu.edi); // edi
+
+	return 1;
+}
 
 /* 实现统一的instr_execute_1op */
 static void instr_execute_1op()
