@@ -32,9 +32,17 @@ void raise_intr(uint8_t intr_no)
 
 	// 2.查询IDT, 获得中断处理程序的入口地址
 	char *nemu_idt_base = cpu.idtr.base - KOFFSET + (void *)hw_mem;
-	
-	pd("\thw_mem=0x%x idt_base=0x%x", (uint32_t)hw_mem, (uint32_t)nemu_idt_base);
-	
+	pd("\thw_mem=0x%x idt_base=0x%x\n", (uint32_t)hw_mem, (uint32_t)nemu_idt_base);
+	uint32_t entry_offset = intr_no << 3;
+	GateDesc *entry = nemu_idt_base + entry_offset;
+	if (entry->present) {
+		pd("entry->present=0\n");
+		assert(0);
+	}
+		
+	uint32_t offset = (entry->offset_31_16 << 16) | entry->offset_15_0;
+	uint32_t 
+
 	printf("Please implement raise_intr()");
 	fflush(stdout);
 	assert(0);
