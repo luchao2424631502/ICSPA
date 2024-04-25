@@ -31,7 +31,8 @@ void raise_intr(uint8_t intr_no)
 		cpu.eflags.IF = 0;
 
 	// 2.查询IDT, 获得中断处理程序的入口地址
-	uint32_t idt_base = cpu.idtr.base;
+	uint32_t nemu_idt_base = cpu.idtr.base - KOFFSET + hw_mem;
+	
 	pd("idt_base", idt_base);
 	
 	printf("Please implement raise_intr()");
