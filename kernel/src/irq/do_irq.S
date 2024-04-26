@@ -21,10 +21,10 @@
 //.globl irq1;     irq1:  pushl $0;  pushl $1001; jmp asm_do_irq
 //.globl irq2;     irq2:  pushl $0;  pushl $1002; jmp asm_do_irq
 //.globl irq14;   irq14:  pushl $0;  pushl $1014; jmp asm_do_irq
-.globl irq0;     irq0:  pushl $0;  pushl $30; jmp asm_do_irq
-.globl irq1;     irq1:  pushl $0;  pushl $31; jmp asm_do_irq
-.globl irq2;     irq2:  pushl $0;  pushl $32; jmp asm_do_irq
-.globl irq14;   irq14:  pushl $0;  pushl $44; jmp asm_do_irq
+.globl irq0;     irq0:  pushl $0;  pushl $32; jmp asm_do_irq
+.globl irq1;     irq1:  pushl $0;  pushl $33; jmp asm_do_irq
+.globl irq2;     irq2:  pushl $0;  pushl $34; jmp asm_do_irq
+.globl irq14;   irq14:  pushl $0;  pushl $46; jmp asm_do_irq
 .globl irq_empty;
 			irq_empty:	pushl $0;  pushl   $-1; jmp asm_do_irq
 
