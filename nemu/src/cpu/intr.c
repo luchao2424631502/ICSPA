@@ -12,17 +12,17 @@ void raise_intr(uint8_t intr_no)
 	// 0.压栈
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eflags.val);
-	printf("eflags=0x%x\n", cpu.eflags.val);
+	printf("luchao eflags=0x%x\n", cpu.eflags.val);
 
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.cs.val);
-	printf("cs=0x%x\n", cpu.cs.val);
+	printf("luchao cs=0x%x\n", cpu.cs.val);
 
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eip);
-	printf("eip=0x%x\n", cpu.eip);
+	printf("luchao eip=0x%x\n", cpu.eip);
 
-	printf("stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp+8, SREG_CS, 4), 
+	printf("luchao stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp+8, SREG_CS, 4), 
 			vaddr_read(cpu.esp+4, SREG_CS, 4),
 		       	vaddr_read(cpu.esp, SREG_CS, 4));
 
@@ -32,7 +32,7 @@ void raise_intr(uint8_t intr_no)
 
 	// 2.查询IDT, 获得中断处理程序的入口地址
 	char *nemu_idt_base = cpu.idtr.base - KOFFSET + (void *)hw_mem;
-	pd("\thw_mem=0x%x idt_base=0x%x gdt_base=0x%x\n", (uint32_t)hw_mem, (uint32_t)nemu_idt_base,
+	pd("luchao hw_mem=0x%x idt_base=0x%x gdt_base=0x%x\n", (uint32_t)hw_mem, (uint32_t)nemu_idt_base,
 			cpu.gdtr.base);
 	uint32_t entry_offset = intr_no << 3;
 	GateDesc *entry = (GateDesc *)(nemu_idt_base + entry_offset);
@@ -42,7 +42,7 @@ void raise_intr(uint8_t intr_no)
 	}
 		
 	uint32_t offset = (entry->offset_31_16 << 16) | entry->offset_15_0;
-	pd("\tentry_offset=0x%x selector=0x%x\n", offset, entry->selector);
+	pd("luchao entry_offset=0x%x selector=0x%x\n", offset, entry->selector);
 
 	// 3. 设置cs:eip
 	cpu.cs.val = entry->selector;
