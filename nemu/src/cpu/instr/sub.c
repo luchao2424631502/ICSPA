@@ -11,6 +11,7 @@ make_instr_impl_2op(sub, rm, r, v) // sub_rm2r_v
 make_instr_impl_2op(sub, r, rm, v) // sub_r2rm_v
 make_instr_impl_2op(sub, i, rm, v) // sub_i2rm_v
 make_instr_impl_2op(sub, i,  a, b) // sub_i2a_b
+make_instr_impl_2op(sub, i,  a, v) // sub_i2a_v
 
 static void instr_execute_2op()
 {
