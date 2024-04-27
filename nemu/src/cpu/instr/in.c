@@ -12,7 +12,7 @@ make_instr_func(in_b)
 
 	{printf("[IN_B] AL=0x%x dx=0x%x,\n", cpu.gpr[0x0]._8[0], cpu.gpr[0x02]._16);}
 
-	assert(0);
+	// assert(0);
 
 	return len;
 }
