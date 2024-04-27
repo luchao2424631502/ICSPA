@@ -32,17 +32,17 @@ void raise_intr(uint8_t intr_no)
 
 	// 2.查询IDT, 获得中断处理程序的入口地址
 	char *nemu_idt_base = cpu.idtr.base - KOFFSET + (void *)hw_mem;
-	pd("luchao hw_mem=0x%x idt_base=0x%x gdt_base=0x%x\n", (uint32_t)hw_mem, (uint32_t)nemu_idt_base,
+	// pd("luchao hw_mem=0x%x idt_base=0x%x gdt_base=0x%x\n", (uint32_t)hw_mem, (uint32_t)nemu_idt_base,
 			cpu.gdtr.base);
 	uint32_t entry_offset = intr_no << 3;
 	GateDesc *entry = (GateDesc *)(nemu_idt_base + entry_offset);
 	if (entry->present == 0) {
-		pd("entry->present=0\n");
+		// pd("entry->present=0\n");
 		assert(0);
 	}
 		
 	uint32_t offset = (entry->offset_31_16 << 16) | entry->offset_15_0;
-	pd("luchao entry_offset=0x%x selector=0x%x\n", offset, entry->selector);
+	// pd("luchao entry_offset=0x%x selector=0x%x\n", offset, entry->selector);
 
 	// 3. 设置cs:eip
 	cpu.cs.val = entry->selector;
