@@ -10,7 +10,7 @@ make_instr_func(in_b)
 	// DX reg表示的端口中读取数据到AL reg
 	cpu.gpr[0x0]._8[0] = pio_read(cpu.gpr[0x2]._16, 1);
 
-	{printf("[IN_B] AL=0x%x dx=0x%x,\n", cpu.gpr[0x0]._8[0], cpu.gpr[0x02]._16);}
+	// {printf("[IN_B] AL=0x%x dx=0x%x,\n", cpu.gpr[0x0]._8[0], cpu.gpr[0x02]._16);}
 
 	// assert(0);
 
