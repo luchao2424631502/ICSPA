@@ -250,6 +250,7 @@ typedef struct {
 
 #define HEXADDR(val) ((uint32_t)(val))
 
+#ifndef HAS_DEVICE_IDE 
 static void *shstrtab_base(Elf32_Ehdr *elf)
 {
 	// Elf32_Shdr *entry = (void *)elf + elf->e_shoff;
@@ -295,7 +296,6 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 	return ret;
 }
 
-#ifndef HAS_DEVICE_IDE 
 static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
