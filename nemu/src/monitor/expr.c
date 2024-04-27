@@ -295,6 +295,7 @@ static tab_desc nametab_base(Elf32_Ehdr *elf, char *section_name)
 	return ret;
 }
 
+#ifndef HAS_DEVICE_IDE 
 static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 {
 	tab_desc symtab = nametab_base(elf, ".symtab");
@@ -312,6 +313,26 @@ static uint32_t varobject_addr(Elf32_Ehdr *elf, char *varname)
 	}
 	return 0;
 }
+#else
+static uint32_t varobject_offset(Elf32_Ehdr *elf, char *varname)
+{
+	tab_desc symtab = nametab_base(elf, ".symtab");
+	tab_desc strtab = nametab_base(elf, ".strtab");
+	printf("PPP symtab.base=%x strtab.base=0x%x\n", HEXADDR(symtab.base), HEXADDR(strtab.base));
+	char *strtab_base = strtab.base;
+	Elf32_Sym *entry = symtab.base;
+	for (int i = 0; i < symtab.num; i++) {
+		// if (0 == strcmp(strtab_base + (entry + i)->st_name, varname)) {
+		if (0 == strcmp((char *)hw_mem + HEXADDR(strtab_base) + vaddr_read(HEXADDR(&((entry + i)->st_name)) 
+						, SREG_CS, 4), varname)) {
+			// return (entry + i)->st_value;
+			return vaddr_read(HEXADDR(&((entry + i)->st_value)) , SREG_CS, 4);
+		}
+	}
+	return 0;
+	
+}
+#endif
 
 
 /* 递归求解表达式 */
@@ -342,6 +363,7 @@ static int eval(int left, int right)
 			// ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 			// elf = (void *)buf;
 			// Log("ELF loading from hard disk.");
+			assert(0);
 #else
 			elf = (void *)0x0;
 			int val = varobject_addr(elf, tokens[left].str);
