@@ -339,15 +339,15 @@ static int eval(int left, int right)
 		}
 		// 符号-变量,
 		if (tokens[left].type == SYMB) {
-			Elf32_Ehdr *elf;
-
 #ifdef HAS_DEVICE_IDE
+			Elf32_Ehdr *elf;
 			// uint8_t buf[4096];
 			// ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 			// elf = (void *)buf;
 			// Log("ELF loading from hard disk.");
 			assert(0);
 #else
+			Elf32_Ehdr *elf;
 			elf = (void *)0x0;
 			int val = varobject_addr(elf, tokens[left].str);
 			printf("var_val=0x%x\n", val);	
