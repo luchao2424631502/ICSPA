@@ -157,7 +157,7 @@ void do_intr()
 		is_nemu_hlt = false;
 		// get interrupt number
 		uint8_t intr_no = i8259_query_intr_no(); // get interrupt number
-		{printf("[luchao] intr_no=0x%x\n", intr_no);}
+		// {printf("[luchao] intr_no=0x%x\n", intr_no);}
 		assert(intr_no != I8259_NO_INTR);
 		i8259_ack_intr();	// tell the PIC interrupt info received
 		raise_intr(intr_no); // raise intrrupt to turn into kernel handler
