@@ -13,17 +13,8 @@ make_instr_func(ret)
 	// 1. 直接修改eip
 	cpu.eip = dest_addr;
 
-	{printf("\n[RET] current_eip=0x%X new_cpu_eip=0x%X\n", eip, cpu.eip);}
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
-	printf("\t curr_stack_top_value=0x%X\n", vaddr_read(cpu.esp , SREG_CS, 4));
+	
+	// printf("\t curr_stack_top_value=0x%X\n", vaddr_read(cpu.esp , SREG_CS, 4));
 
 	return 0;
 }
@@ -41,17 +32,8 @@ make_instr_func(ret_imm16)
 	uint16_t imm = vaddr_read(eip + 1, SREG_CS, 2);
 	cpu.esp += imm;
 
-	{printf("\n[RET_IMM16] old_cpu_eip=0x%X new_cpu_eip=0x%X\n", eip, cpu.eip);}
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
-	printf("\t curr_stack_top_value=0x%X\n", vaddr_read(cpu.esp , SREG_CS, 4));
+	
+	// printf("\t curr_stack_top_value=0x%X\n", vaddr_read(cpu.esp , SREG_CS, 4));
 	
 	return 0;
 }

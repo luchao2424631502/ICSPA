@@ -14,7 +14,7 @@ make_instr_func(jmp_near)
         int offset = sign_ext(rel.val, data_size);
         // thank Ting Xu from CS'17 for finding this bug
         print_asm_1("jmp", "", 1 + data_size / 8, &rel);
-	{printf("\n[JMP_NEAR] now_eip=0x%X new_eip=0x%X\n", eip, eip + 1 + data_size / 8 + offset);}
+	
 
         cpu.eip += offset;
 
@@ -35,7 +35,7 @@ make_instr_func(jmp_byte)
 	int offset = sign_ext(rel.val, 8); // signed-相对偏移
 	cpu.eip += offset;
 	
-	{printf("\n[JMP_BYTE] old_eip=0x%X new_eip=0x%X \n", eip, eip + 2 + offset);}
+	
 	return 1 + 1;
 }
 
@@ -60,8 +60,6 @@ make_instr_func(ljmp)
 
 	// 修改了段寄存器就要更新段寄存器缓冲
 	load_sreg(rel.val >> 3);
-	{printf("\n[LJMP] cs=0x%x eip=0x%x rel.val=0x%x sreg=%d\n", cpu.cs.val, cpu.eip,
-			rel.val, rel.val >> 3);}
 	return 0;
 }
 
@@ -82,7 +80,6 @@ make_instr_func(jmp_near_aindirect)
 	// 2. 直接跳转过去
 	cpu.eip = src.val;
 
-	{printf("\n[JMP_NEAR_AINDIRECT]\n src.addr=0x%X src.val=0x%X\n", src.addr, src.val);};
 
 	return 0; 
 }
