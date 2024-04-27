@@ -21,12 +21,6 @@ make_instr_func(pusha)
 	int len = 1;
 
 	// 先检查一下当前栈上的值
-	printf("[PUSHA] +0=0x%x +1=0x%x +2=0x%x +3=0x%x +4=0x%x +5=0x%x\n", vaddr_read(cpu.esp, SREG_CS, 4),
-	     	vaddr_read(cpu.esp+4, SREG_CS, 4),
-	     	vaddr_read(cpu.esp+8, SREG_CS, 4),
-	     	vaddr_read(cpu.esp+12, SREG_CS, 4),
-	     	vaddr_read(cpu.esp+16, SREG_CS, 4),
-		vaddr_read(cpu.esp+20, SREG_CS, 4));
 	// assert(0);
 	uint32_t temp = cpu.esp;
 
@@ -60,14 +54,7 @@ make_instr_func(pusha)
 /* 实现统一的instr_execute_1op */
 static void instr_execute_1op()
 {
-	printf("\n[PUSH]_before eip=0x%X info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.eip, cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp);}
+	// printf("\n[PUSH]_before eip=0x%X info reg $ebp=0x%X $esp=0x%X [$esp]=0x%X\n", cpu.eip, cpu.ebp, cpu.esp, vaddr_read(cpu.esp, SREG_CS, 4));
 
 	/* 24.4.25 永远不要觉得当前代码写的是对的, 果然在一个月后, 发现了一个BUG(代码处理的情况不对) */
 	uint32_t old_esp = cpu.esp;
@@ -85,14 +72,5 @@ static void instr_execute_1op()
 			vaddr_write(cpu.esp, SREG_CS, (data_size / 8),
 					opr_src.val);
 
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n",
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
-	printf("[PUSH]_after info reg $ebp=0x%X $esp=0x%X [$old_esp]=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp + 4, SREG_CS, 4), vaddr_read(cpu.esp, SREG_CS, 4));
+	// printf("[PUSH]_after info reg $ebp=0x%X $esp=0x%X [$old_esp]=0x%X [$esp]=0x%X\n", cpu.ebp, cpu.esp, vaddr_read(cpu.esp + 4, SREG_CS, 4), vaddr_read(cpu.esp, SREG_CS, 4));
 }

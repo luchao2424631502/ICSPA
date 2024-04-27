@@ -17,7 +17,7 @@ static void instr_execute_1op()
 	opr_src.val = alu_sub(0x1, opr_src.val, data_size);
 	cpu.eflags.CF = old_cf;
 
-	{printf("\n[DEC] old_val=0x%X new_val=0x%X\n", opr_src.val + 1, opr_src.val);}
+	
 
 	// 2. 写回操作数
 	operand_write(&opr_src);

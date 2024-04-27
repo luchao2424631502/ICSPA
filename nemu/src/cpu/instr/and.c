@@ -22,13 +22,13 @@ make_instr_func(and_eaxI_v) // and eAX, Iv
 	// 0. 读取立即数
 	operand_read(&src);
 
-	printf("[AND_i] imm=0x%x eax=0x%x\n", src.val, cpu.eax);
+	// printf("[AND_i] imm=0x%x eax=0x%x\n", src.val, cpu.eax);
 
 	// 1. AND 运算
 	len += src.data_size / 8;
 	cpu.eax = alu_and(src.val, cpu.eax, src.data_size); // 一定是32bit运算, 不需要符号扩展
 
-	printf("[AND_i] imm=0x%x eax=0x%x\n", src.val, cpu.eax);
+	// printf("[AND_i] imm=0x%x eax=0x%x\n", src.val, cpu.eax);
 
 	return len;
 }
@@ -41,26 +41,12 @@ static void instr_execute_2op()
 	// 1. 读取立即数的值
 	operand_read(&opr_src);
 
-	printf("\n[AND]\n");
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp);}
-	printf("\tsrc.val=0x%X dest.val=0x%X\n", opr_src.val, opr_dest.val);
+	// printf("\n[AND]\n");
+	// printf("\tsrc.val=0x%X dest.val=0x%X\n", opr_src.val, opr_dest.val);
 	// 2. and运算
 	opr_dest.val = alu_and(sign_ext(opr_src.val, opr_src.data_size), opr_dest.val, opr_dest.data_size);
 	printf("\tsrc.val=0x%X dest.val=0x%X\n", opr_src.val, opr_dest.val);
 	// 3. 写回
 	operand_write(&opr_dest);
 
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X\n", 
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp);}
 }

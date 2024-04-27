@@ -16,7 +16,7 @@ static void instr_execute_1op()
 	uint8_t old_cf = cpu.eflags.CF;
 	opr_src.val = alu_add(0x1, opr_src.val, data_size);
 	cpu.eflags.CF = old_cf;
-	{printf("\n[INC] old_val=0x%X new_val=0x%X\n", opr_src.val-1, opr_src.val);}
+	
 
 	// 2. 将值写回
 	operand_write(&opr_src);

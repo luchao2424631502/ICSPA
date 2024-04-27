@@ -33,7 +33,7 @@ make_instr_func(mov_rm2sr_v)
 
 	// 加载段寄存器的不可见部分
 	load_sreg(seg.addr);
-	printf("[MOV] seg_reg=0x%x <- src_reg=0x%x src_reg_val=0x%x\n", seg.addr , src.addr, cpu.gpr[src.addr].val);
+	// printf("[MOV] seg_reg=0x%x <- src_reg=0x%x src_reg_val=0x%x\n", seg.addr , src.addr, cpu.gpr[src.addr].val);
 	return len;
 	assert(0);
 }
@@ -45,15 +45,15 @@ make_instr_func(mov_cr2rm_v)
 	OPERAND cr, rm;
 	len += modrm_r_rm(eip + 1, &cr, &rm);
 
-	printf("[MOV_cr2rm] reg[%x] = cr%x\n", rm.addr, cr.addr);
+	// printf("[MOV_cr2rm] reg[%x] = cr%x\n", rm.addr, cr.addr);
 	// 将控制寄存器复制到通用寄存器
 	if (0 == cr.addr) {
 		cpu.gpr[rm.addr].val = cpu.cr0.val;
-		printf("\t[MOV_cr2rm] reg[%x] = cr0.val = %x\n", rm.addr, cpu.cr0.val);
+		// printf("\t[MOV_cr2rm] reg[%x] = cr0.val = %x\n", rm.addr, cpu.cr0.val);
 	}
 	if (3 == cr.addr) {
 		cpu.gpr[rm.addr].val = cpu.cr3.val;
-		printf("\t[MOV_cr2rm] reg[%x] = cr3.val = %x\n", rm.addr, cpu.cr3.val);
+		// printf("\t[MOV_cr2rm] reg[%x] = cr3.val = %x\n", rm.addr, cpu.cr3.val);
 	}
 
 	return len;
@@ -66,16 +66,16 @@ make_instr_func(mov_rm2cr_v)
 	OPERAND cr, rm;
 	len += modrm_r_rm(eip + 1, &cr, &rm);
 
-	printf("[MOV_rm2cr] cr%d = reg[%x] = %x\n", cr.addr, rm.addr, cpu.gpr[rm.addr].val);
+	// printf("[MOV_rm2cr] cr%d = reg[%x] = %x\n", cr.addr, rm.addr, cpu.gpr[rm.addr].val);
 	// 将通用寄存器赋值到控制寄存器
 	if (0 == cr.addr) {
 		cpu.cr0.val = cpu.gpr[rm.addr].val;
-		printf("\t[MOV_rm2cr] cr0 = reg[%x] = %x\n", rm.addr, cpu.gpr[rm.addr].val);
+		// printf("\t[MOV_rm2cr] cr0 = reg[%x] = %x\n", rm.addr, cpu.gpr[rm.addr].val);
 	}
 
 	if (3 == cr.addr) {
 		cpu.cr3.val = cpu.gpr[rm.addr].val;
-		printf("\t[MOV_rm2cr] cr3 = reg[%x] = %x\n", rm.addr, cpu.gpr[rm.addr].val);
+		//printf("\t[MOV_rm2cr] cr3 = reg[%x] = %x\n", rm.addr, cpu.gpr[rm.addr].val);
 	}
 	return len;
 }

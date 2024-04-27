@@ -26,7 +26,7 @@ make_instr_func(cmp_eaxI_v)
 	operand_read(&src);
 
 	alu_sub(src.val, cpu.eax, data_size);
-	printf("[CMP_eaxI] src.val=0x%x cpu.eax=0x%x\n", src.val, cpu.eax);
+	// printf("[CMP_eaxI] src.val=0x%x cpu.eax=0x%x\n", src.val, cpu.eax);
 	return len;
 }
 
@@ -38,21 +38,6 @@ static void instr_execute_2op() // cmp逻辑
 	// 1. 读入目标reg中的值
 	operand_read(&opr_dest);
 
-	{printf("\n[CMP_BV] eip=0x%X imm_val=0x%X reg_val=0x%X\n", 
-			cpu.eip, opr_src.val, opr_dest.val);}
-	{printf("\teflags before [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
-			cpu.eflags.SF?"SF":"",
-			cpu.eflags.CF?"CF":"",
-			cpu.eflags.OF?"OF":"");}
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n", 
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
 	/* 2. 执行cmp (手册说将立即数符号扩展到第一个操作数相同, 以sub指令的方法实现)
 	      debug发现这里出错原因:
 	      - 没有按照i386指令手册要求的操作数运算大小来进行sub运算
@@ -62,8 +47,4 @@ static void instr_execute_2op() // cmp逻辑
 
 	alu_sub(sign_ext(opr_src.val, opr_src.data_size), opr_dest.val, opr_dest.data_size);
 
-	{printf("\teflags after [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
-			cpu.eflags.SF?"SF":"",
-			cpu.eflags.CF?"CF":"",
-			cpu.eflags.OF?"OF":"");}
 }

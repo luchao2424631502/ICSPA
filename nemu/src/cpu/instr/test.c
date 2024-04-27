@@ -20,19 +20,6 @@ static void instr_execute_2op()
 	// 2. 执行and操作, 结果丢弃, 只影响标志位即可
 	alu_and(opr_src.val, opr_dest.val, opr_dest.data_size);
 
-	{printf("\n[TEST]\n");}
-	{printf("\teax=0x%X ecx=0x%X edx=0x%X ebx=0x%X esp=0x%X ebp=0x%X esi=0x%X edi=0x%X\n", 
-			cpu.eax,
-			cpu.ecx,
-			cpu.edx,
-			cpu.ebx,
-			cpu.esp,
-			cpu.ebp,
-			cpu.esi,
-			cpu.edi);}
-	printf("\talu_and size=%d\n", opr_dest.data_size);
-	{printf("\teflags before [%s %s %s %s]\n", cpu.eflags.ZF?"ZF":"",
-			cpu.eflags.SF?"SF":"",
-			cpu.eflags.CF?"CF":"",
-			cpu.eflags.OF?"OF":"");}
+	
+	// printf("\talu_and size=%d\n", opr_dest.data_size);
 }
