@@ -16,3 +16,17 @@ make_instr_func(in_b)
 
 	return len;
 }
+
+make_instr_func(in_v)
+{
+	int len = 1;
+
+	// Dx reg表示的端口中读取数据到EAX reg
+	cpu.gpr[0x0]._32 = pio_read(cpu.gpr[0x2]._16, 4);
+
+	{printf("[IN_V] eax=0x%x dx=0x%x,\n", cpu.gpr[0x0]._32, cpu.gpr[0x02]._16);}
+
+	assert(0);
+
+	return len;
+}
