@@ -340,7 +340,7 @@ static int eval(int left, int right)
 		// 符号-变量,
 		if (tokens[left].type == SYMB) {
 #ifdef HAS_DEVICE_IDE
-			Elf32_Ehdr *elf;
+			// Elf32_Ehdr *elf;
 			// uint8_t buf[4096];
 			// ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 			// elf = (void *)buf;
