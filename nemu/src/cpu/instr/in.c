@@ -26,7 +26,7 @@ make_instr_func(in_v)
 
 	{printf("[IN_V] eax=0x%x dx=0x%x,\n", cpu.gpr[0x0]._32, cpu.gpr[0x02]._16);}
 
-	assert(0);
+	// assert(0);
 
 	return len;
 }
