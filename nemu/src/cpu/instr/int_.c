@@ -19,7 +19,7 @@ make_instr_func(int_)
 
 	// 0. 读取源操作数的值
 	operand_read(&src);
-	{printf("[int 0x%x] src.val=0x%x\n", src.val, src.val);}
+	// {printf("[int 0x%x] src.val=0x%x\n", src.val, src.val);}
 
 	// 1. 调用通用的中断/异常处理
 	raise_sw_intr(src.val);
