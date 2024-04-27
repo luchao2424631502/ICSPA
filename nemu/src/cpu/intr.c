@@ -12,19 +12,19 @@ void raise_intr(uint8_t intr_no)
 	// 0.压栈
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eflags.val);
-	printf("luchao eflags=0x%x\n", cpu.eflags.val);
+	// printf("luchao eflags=0x%x\n", cpu.eflags.val);
 
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.cs.val);
-	printf("luchao cs=0x%x\n", cpu.cs.val);
+	// printf("luchao cs=0x%x\n", cpu.cs.val);
 
 	cpu.esp -= 4;
 	vaddr_write(cpu.esp, SREG_CS, 4, cpu.eip);
-	printf("luchao eip=0x%x\n", cpu.eip);
+	// printf("luchao eip=0x%x\n", cpu.eip);
 
-	printf("luchao stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp+8, SREG_CS, 4), 
-			vaddr_read(cpu.esp+4, SREG_CS, 4),
-		       	vaddr_read(cpu.esp, SREG_CS, 4));
+	// printf("luchao stack_info 2=%x 1=%x 0=%x\n", vaddr_read(cpu.esp+8, SREG_CS, 4), 
+	// 		vaddr_read(cpu.esp+4, SREG_CS, 4),
+	// 	       	vaddr_read(cpu.esp, SREG_CS, 4));
 
 	// 1.是中断号则关闭中断
 	if (intr_no != 0x80)
